@@ -1,0 +1,26 @@
+.App {
+  text-align: center;
+}
+
+
+
+.header {
+  background-color: #e05e22;
+  /* min-height: 100vh; */
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white; */
+}
+
+/* .img{
+  background-image: url(.//pics/Main-bg.png);
+} */
+.AboutBg{
+  background-image: url(.//pics/About1.png);
+  /* opacity: 0.5; */
+  font-weight: bold;
+}
+
