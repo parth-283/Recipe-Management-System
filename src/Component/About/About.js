@@ -23,7 +23,7 @@ function About() {
             >
               About Us
             </h5>
-            <p className="card-title fs-3  fw-normal">
+            <p className="card-title fs-3  fw-bold ">
               About our recipes and cooks.
             </p>
           </div>
