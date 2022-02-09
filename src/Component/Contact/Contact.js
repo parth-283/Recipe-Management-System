@@ -29,20 +29,28 @@ function Contact() {
         </div>
       </div>
 
-      <div >
-        <div class="card text-center mt-2   "   style={{ backgroundColor: "#4ab1ff" }} >
+      <div>
+        <div
+          class="card text-center mt-2   "
+          style={{ backgroundColor: "#4ab1ff" }}
+        >
           <h5 class="card-header  fw-bold fs-3">Follow us!</h5>
-          <div class="card-body">
+          <div class="card-body  m-3">
             <div class="card-title fs-3">
               <Link to="/" className="m-1  ">
-                <i className="bi bi-facebook " style={{    backgroundColor:" white",
-    borderRadius: "32px"}}></i>
+                <i className="bi bi-facebook " style={{ color: " white" }}></i>
+              </Link>
+              <Link to="/" className="m-1 ">
+                <i className="bi bi-youtube  " style={{ color: "red" }}></i>
               </Link>
               <Link to="/" className="m-1">
-                <i className="bi bi-youtube"></i>
+                <i className="bi bi-twitter text-light"></i>
               </Link>
-              <Link to="/" className="m-1">
-                <i className="bi bi-twitter"></i>
+              <Link to="/" className="m-1" style={{ color: "#bc2a8d" }}>
+                <i class="bi bi-instagram"></i>
+              </Link>
+              <Link to="/" className="m-1" style={{ color: "red" }}>
+                <i class="bi bi-pinterest"></i>
               </Link>
             </div>
             <p class="card-text fs-4 fw-ligh">
