@@ -1,7 +1,6 @@
 import React from "react";
 import { Form, Col, Row, Button } from "react-bootstrap";
 import About1 from "../../pics/About1.jpg";
-import { Link } from "react-router-dom";
 
 function Contact() {
   return (
@@ -30,39 +29,12 @@ function Contact() {
       </div>
 
       <div>
-        <div
-          class="card text-center mt-2   "
-          style={{ backgroundColor: "#4ab1ff" }}
-        >
-          <h5 class="card-header  fw-bold fs-3">Follow us!</h5>
-          <div class="card-body  m-3">
-            <div class="card-title fs-3">
-              <Link to="/" className="m-1  ">
-                <i className="bi bi-facebook " style={{ color: " white" }}></i>
-              </Link>
-              <Link to="/" className="m-1 ">
-                <i className="bi bi-youtube  " style={{ color: "red" }}></i>
-              </Link>
-              <Link to="/" className="m-1">
-                <i className="bi bi-twitter text-light"></i>
-              </Link>
-              <Link to="/" className="m-1" style={{ color: "#bc2a8d" }}>
-                <i class="bi bi-instagram"></i>
-              </Link>
-              <Link to="/" className="m-1" style={{ color: "red" }}>
-                <i class="bi bi-pinterest"></i>
-              </Link>
-            </div>
-            <p class="card-text fs-4 fw-ligh">
-              Be sure not to miss us on social media. We hope to see you there!
-            </p>
-          </div>
-        </div>
-      </div>
+       
 
       <div className="d-flex  justify-content-center">
         <div className="container m-2 p-2  border-bottom border-top  border-primary border-3 rounded-3  ">
           <Form>
+          <h5 class="  fw-bold fs-1 text-center">Contact us!</h5>
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridname">
                 <Form.Label>Name</Form.Label>
@@ -166,6 +138,9 @@ function Contact() {
             </div>
           </Form>
         </div>
+      </div>
+
+
       </div>
     </div>
   );

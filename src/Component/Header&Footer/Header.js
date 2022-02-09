@@ -1,13 +1,13 @@
 import React from "react";
 import NavigationBar from "../NavigationBar/NavigationBar";
 import {Outlet} from "react-router-dom"
-import HeaderBottom from './HeaderBottom';
+// import HeaderBottom from './HeaderBottom';
 
 function Header() {
   return (
     <div className=" ">
       <NavigationBar/>
-      <HeaderBottom/>
+      
       <Outlet />
 
     </div>
