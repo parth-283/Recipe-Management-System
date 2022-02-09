@@ -31,6 +31,8 @@ function App() {
           <Route path="/admin/home" element={<Home />} />
         </Route>
 
+                         
+
         <Route path="*" element={<Error404 />} />
       </Routes>
 
