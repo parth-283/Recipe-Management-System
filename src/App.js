@@ -9,6 +9,7 @@ import Error404 from "./Component/Error404/Error404";
 import Admin from "./admin/Component/Admin";
 import SignIn from './Component/SignUp&SignIn/SignIn';
 import SignUp from './Component/SignUp&SignIn/SignUp';
+import Recipe from './Recipes/Recipe.js';
 import PizzaMuffins from './Recipes/PizzaMuffins';
 
 function App() {
@@ -22,7 +23,8 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/SignIn" element={<SignIn />} />
           <Route path="/SignUp" element={<SignUp />} />
-          <Route path="/recipe" element={<PizzaMuffins />} />
+          <Route path="/recipe" element={<Recipe />} />
+          <Route path="/pizzaMuffins" element={<PizzaMuffins />} />
         </Route>
 
         <Route path="/admin" element={<Admin />}>
