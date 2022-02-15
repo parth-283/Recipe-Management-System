@@ -107,7 +107,7 @@ function HeaderBottom() {
                           </Grid>
                         </div>
                       </div>
-                      );
+                    
                     </div>
                   </div>
                 </div>
