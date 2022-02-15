@@ -52,7 +52,7 @@ function Recipe() {
               </p>
               <div className="text-center ">
                 <Link to="/pizzaMuffins" className="btn btn-primary ">
-                  Go somewhere
+                  Read More
                 </Link>
               </div>
             </div>
@@ -83,7 +83,7 @@ function Recipe() {
               </p>
               <div className="text-center ">
                 <Link to="/pizzaMuffins" className="btn btn-primary ">
-                  Go somewhere
+                Read More
                 </Link>
               </div>
             </div>
