@@ -7,7 +7,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import SearchIcon from "@material-ui/icons/Search";
 import Recipe from "./../../Recipes/Recipe";
-import Category from "./../Home/category";
+import Category from "../Home/Category";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,7 +64,7 @@ function HeaderBottom() {
       <div className="card text-center">
         <div style={{ backgroundColor: "#4ab1ff" }}>
           <div className="container">
-            <div className="col my-3 text-dark">
+            <div className="col mt-4 text-dark">
               <Category />
             </div>
 

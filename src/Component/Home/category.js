@@ -94,13 +94,10 @@ const ImageMarked = styled('span')(({ theme }) => ({
   transition: theme.transitions.create('opacity'),
 }));
 
-export default function category() {
+export default function Category(props) {
 
-    const CategoryPage = () =>{
-        let navigate = useNavigate();
-        console.log("click to recipe");
-        navigate("/about");
-    }
+    const navigate = useNavigate();
+    
 
   return (
       <div>  
@@ -131,7 +128,7 @@ export default function category() {
                 pt: 2,
                 pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
               }}
-              onClick={CategoryPage}
+              onClick={()=>navigate(`/${image.title}`)}
             >
               {image.title}
               <ImageMarked className="MuiImageMarked-root" />
