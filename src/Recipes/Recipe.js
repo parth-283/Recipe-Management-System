@@ -54,12 +54,17 @@ function Recipe({ title, calories, image, ingredients }) {
             <IconButton aria-label="share">
               <ShareIcon />
             </IconButton>
-
+            <CardContent>
+            <Typography variant="body2" color="text.secondary">
+              Ingredients
+            </Typography>
+          </CardContent>
             <ExpandMore
               expand={expanded}
               onClick={handleExpandClick}
               aria-expanded={expanded}
               aria-label="show more"
+              
             >
               <ExpandMoreIcon />
             </ExpandMore>

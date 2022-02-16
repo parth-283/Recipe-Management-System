@@ -3,22 +3,28 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
+import { useNavigate } from 'react-router';
 
 const images = [
   {
-    url: '/static/images/buttons/breakfast.jpg',
+    url: 'https://www.edamam.com/web-img/b24/b240799c96852042a317293299963392.jpg',
     title: 'Breakfast',
-    width: '40%',
+    width: '25%',
   },
   {
-    url: '/static/images/buttons/burgers.jpg',
-    title: 'Burgers',
-    width: '30%',
+    url: 'https://www.edamam.com/web-img/be9/be98aafdbc8aa7e3901405890eb46316',
+    title: 'Lunch',
+    width: '25%',
   },
   {
-    url: '/static/images/buttons/camera.jpg',
-    title: 'Camera',
-    width: '30%',
+    url: 'https://www.edamam.com/web-img/fb3/fb3cd151d676a71fa19d0e18a931bfc4',
+    title: 'Dinner',
+    width: '25%',
+  },
+  {
+    url: 'https://www.edamam.com/web-img/2de/2defa523fbf3b13a4598faf087191549.jpg',
+    title: 'dessert',
+    width: '25%',
   },
 ];
 
@@ -28,6 +34,8 @@ const ImageButton = styled(ButtonBase)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     width: '100% !important', // Overrides inline-style
     height: 100,
+
+
   },
   '&:hover, &.Mui-focusVisible': {
     zIndex: 1,
@@ -86,9 +94,20 @@ const ImageMarked = styled('span')(({ theme }) => ({
   transition: theme.transitions.create('opacity'),
 }));
 
-export default function ButtonBases() {
+export default function category() {
+
+    const CategoryPage = () =>{
+        let navigate = useNavigate();
+        console.log("click to recipe");
+        navigate("/about");
+    }
+
   return (
+      <div>  
+       
     <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }}>
+        
+
       {images.map((image) => (
         <ImageButton
           focusRipple
@@ -96,8 +115,10 @@ export default function ButtonBases() {
           style={{
             width: image.width,
           }}
+          
         >
-          <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
+           <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
+         
           <ImageBackdrop className="MuiImageBackdrop-root" />
           <Image>
             <Typography
@@ -110,6 +131,7 @@ export default function ButtonBases() {
                 pt: 2,
                 pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
               }}
+              onClick={CategoryPage}
             >
               {image.title}
               <ImageMarked className="MuiImageMarked-root" />
@@ -117,6 +139,8 @@ export default function ButtonBases() {
           </Image>
         </ImageButton>
       ))}
-    </Box>
+    </Box></div>
   );
 }
+
+
