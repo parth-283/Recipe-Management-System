@@ -1,95 +1,91 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import About1 from "../pics/About1.jpg";
-import PizzaMuffins1 from "../pics/PizzaMuffins1.png";
+// import { Link } from "react-router-dom";
+// import About1 from "../pics/About1.jpg";
+// import PizzaMuffins1 from "../pics/PizzaMuffins1.png";
 
-function Recipe() {
+import { styled } from "@mui/material/styles";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import Collapse from "@mui/material/Collapse";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ShareIcon from "@mui/icons-material/Share";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
+const ExpandMore = styled((props) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+  marginLeft: "auto",
+  transition: theme.transitions.create("transform", {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
+
+function Recipe({ title, calories, image, ingredients }) {
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
   return (
     <div>
-      <div className="text-center   ">
-        <div className=" d-flex" style={{ justifyContent: "center" }}>
-          <div className="card  ">
-            <img
-              src={About1}
-              className="img-fluid "
-              width={2000}
-              height={450}
-              alt="..."
-            ></img>
-            <div className="card-img-overlay text-center ">
-              <h5
-                className="card-title fw-bolder fw-bold"
-                style={{ paddingTop: "185px", fontSize: "74px" }}
-              >
-                Recipes
-              </h5>
-              
-            </div>
-          </div>
-        </div>
-      </div>
+     
+        <Card sx={{ maxWidth: "500", margin: "15px 15px" }}>
+          <CardHeader title={title}  />
+          <CardMedia
+            component="img"
+            height="194"
+            image={image}
+            title={title}
+            alt={title}
+          />
+          
+          <CardActions disableSpacing>
+            <IconButton aria-label="add to favorites">
+              <FavoriteIcon />
+            </IconButton>
+            <IconButton aria-label="share">
+              <ShareIcon />
+            </IconButton>
 
-      <div
-        className="container card my-3"
-        style={{ backgroundColor: "#4ab1ff" }}
-      >
-        <div className="row ">
-          <div className="col border-dark border-top border-bottom border-3 rounded">
-            {" "}
-            <img src={PizzaMuffins1} className="card-img-top my-5" alt="..." />
-          </div>
-          <div className="col border-start border-dark border-top border-bottom border-3 rounded">
-            {" "}
-            <div className="card-body my-5">
-              <h5 className="card-title text-center ">Pizza Muffins</h5>
-              <p className="card-text">
-                Put down the fork and knife… here's a Chicago deep-dish pizza
-                that you can actually eat by holding it in your hands! A
-                beautiful golden crust contains a meaty, cheesy, saucy filling
-                with Italian sausage, sweet peppers, and 3 types of cheese. The
-                sauce and cheese char slightly on the outside as they bake,
-                resulting in a super savory taste.
-              </p>
-              <div className="text-center ">
-                <Link to="/pizzaMuffins" className="btn btn-primary ">
-                  Read More
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+            <ExpandMore
+              expand={expanded}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="show more"
+            >
+              <ExpandMoreIcon />
+            </ExpandMore>
+          </CardActions>
+          <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <CardContent>
+              <Typography paragraph>Ingredients:</Typography>
+              {ingredients.map((ingredient) => (
+                <Typography paragraph>{ingredient.text}</Typography>
+              ))}
+            </CardContent>
+          </Collapse>
+        </Card>
 
-      <div
-        className="container card my-2"
-        style={{ backgroundColor: "#4ab1ff" }}
-      >
-        <div className="row ">
-          <div className="col border-dark border-top border-bottom border-3 rounded ">
-            {" "}
-            <img src={PizzaMuffins1} className="card-img-top my-5" alt="..." />
-          </div>
-          <div className="col border-start border-dark border-top border-bottom border-3 rounded">
-            {" "}
-            <div className="card-body my-5">
-              <h5 className="card-title text-center">Pizza Muffins</h5>
-              <p className="card-text">
-                Put down the fork and knife… here's a Chicago deep-dish pizza
-                that you can actually eat by holding it in your hands! A
-                beautiful golden crust contains a meaty, cheesy, saucy filling
-                with Italian sausage, sweet peppers, and 3 types of cheese. The
-                sauce and cheese char slightly on the outside as they bake,
-                resulting in a super savory taste.
-              </p>
-              <div className="text-center ">
-                <Link to="/pizzaMuffins" className="btn btn-primary ">
-                Read More
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
+                          {/* 
+                <p>Title: {title}</p>
+            <p>Calories: {calories}</p>
+            <img src={image} alt="..." />
+            <ol>
+              {ingredients.map((ingredient) => (
+                <li>{ingredient.text}</li>
+              ))}
+            </ol> */}
+
+     
     </div>
   );
 }

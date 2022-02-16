@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-// import Recipes from "./Recipes";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import SearchIcon from "@material-ui/icons/Search";
+import Recipe from './../../Recipes/Recipe';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,12 +44,12 @@ function HeaderBottom() {
       `https://api.edamam.com/search?q=${query}&app_id=${App_ID}&app_key=${App_KEY}`
     );
     setRecipe(response.data.hits);
-    // console.log("RESPONSE", response);
+    console.log("RESPONSE", response);
   };
 
   const updatesearch = (e) => {
     setSearch(e.target.value);
-    // console.log("search", e.target.value);
+    console.log("search", e.target.value);
   };
 
   const updatequery = (e) => {
@@ -63,8 +63,35 @@ function HeaderBottom() {
       <div className="card text-center">
         <div style={{ backgroundColor: "#4ab1ff" }}>
           <div className="container">
-            <div className="row">
-              <div className="col">
+
+ <div className="col my-3 text-dark">
+                <button
+                  className="btn btn-outline-secondary  mx-3"
+                  type="button"
+                >
+                  <b>🥣</b> Breakfast
+                </button>
+                <button
+                  className="btn btn-outline-secondary  mx-3"
+                  type="button"
+                >
+                  <b>🍲</b> Lunch
+                </button>
+                <button
+                  className="btn btn-outline-secondary  mx-3"
+                  type="button"
+                >
+                  <b>🍽️</b> Dinner
+                </button>
+                <button
+                  className="btn btn-outline-secondary mx-3  "
+                  type="button"
+                >
+                  🍨Dessert
+                </button>
+              </div>
+
+
                 <div className="card-body">
                   {/* <h5 className="card-title">Search Food Recipe</h5> */}
                   <div className="card-text">
@@ -95,13 +122,13 @@ function HeaderBottom() {
                           <Grid container>
                             {recipe.map((recipe) => (
                               <Grid item xs={4}>
-                                {/* <Recipes
+                                <Recipe
                                   key={recipe.recipe.label}
                                   title={recipe.recipe.label}
                                   calories={recipe.recipe.calories}
                                   image={recipe.recipe.image}
                                   ingredients={recipe.recipe.ingredients}
-                                /> */}
+                                />
                               </Grid>
                             ))}
                           </Grid>
@@ -112,37 +139,10 @@ function HeaderBottom() {
                   </div>
                 </div>
               </div>
-              <div className="col my-3 text-dark">
-                <button
-                  className="btn btn-outline-secondary  mx-3"
-                  type="button"
-                >
-                  <b>🥣</b> Breakfast
-                </button>
-                <button
-                  className="btn btn-outline-secondary  mx-3"
-                  type="button"
-                >
-                  <b>🍲</b> Lunch
-                </button>
-                <button
-                  className="btn btn-outline-secondary  mx-3"
-                  type="button"
-                >
-                  <b>🍽️</b> Dinner
-                </button>
-                <button
-                  className="btn btn-outline-secondary mx-3  "
-                  type="button"
-                >
-                  🍨Dessert
-                </button>
-              </div>
+              
             </div>
           </div>
         </div>
-      </div>
-    </div>
   );
 }
 

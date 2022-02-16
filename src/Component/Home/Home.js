@@ -6,8 +6,8 @@ import HeaderBottom from './../Header&Footer/HeaderBottom';
 function Home() {
   return (
     <div>
-      <HeaderBottom/>
       <HomeSlide/>
+      <HeaderBottom/>
       <HomeCard/>
       
     </div>
