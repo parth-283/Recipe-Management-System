@@ -38,6 +38,7 @@ function HeaderBottom() {
 
   useEffect(() => {
     getRecipe();
+
   }, [query]);
 
   const getRecipe = async () => {
@@ -58,16 +59,25 @@ function HeaderBottom() {
     setQuery(search);
     setSearch("");
   };
-
   return (
     <div>
       <div className="card text-center">
         <div style={{ backgroundColor: "#4ab1ff" }}>
           <div className="container">
             <div className="col mt-4 text-dark">
-              <Category />
+            <div>
+                     
+                            <Category
+                              key={recipe.map((recipe) => (recipe.recipe.label))}
+                              title={recipe.map((recipe) => (recipe.recipe.label))}
+                              calories={recipe.map((recipe) => (recipe.recipe.calories))}
+                              recipeimage={recipe.map((recipe) => recipe.recipe.image)}
+                              ingredients={recipe.map((recipe) => (recipe.recipe.ingredients))}
+                            />
+                            
+                    </div>
             </div>
-
+            
             <div className="card-body">
               {/* <h5 className="card-title">Search Food Recipe</h5> */}
               <div className="card-text">
@@ -94,6 +104,7 @@ function HeaderBottom() {
                         <SearchIcon />
                       </IconButton>
                     </Paper>
+                    
                     <div>
                       <Grid container>
                         {recipe.map((recipe) => (

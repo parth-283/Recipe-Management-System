@@ -12,8 +12,6 @@ import CardActions from "@mui/material/CardActions";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const ExpandMore = styled((props) => {
@@ -48,12 +46,7 @@ function Recipe({ title, calories, image, ingredients }) {
           />
           
           <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
-            </IconButton>
-            <IconButton aria-label="share">
-              <ShareIcon />
-            </IconButton>
+            
             <CardContent>
             <Typography variant="body2" color="text.secondary">
               Ingredients
