@@ -17,9 +17,9 @@ function Navcomponent() {
         <Link className="nav-link fs-5" as={Link} to="/contact">
           <b>Contact</b>
         </Link>
-        <Link className="nav-link fs-5" as={Link} to="/recipe">
+        {/* <Link className="nav-link fs-5" as={Link} to="/recipe">
           <b>Recipes</b>
-        </Link>
+        </Link> */}
       </Nav>
     </div>
   );

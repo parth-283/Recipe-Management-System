@@ -4,7 +4,7 @@ import Navcomponent from "./../NavigationBar/Navcomponent";
 
 function Footer() {
   return (
-    <div>
+    <div >
       <Card className="text-center" style={{ backgroundColor: "#88cafc" }}>
         <Card.Header>Featured</Card.Header>
         <Card.Body>

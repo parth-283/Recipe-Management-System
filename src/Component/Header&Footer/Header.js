@@ -5,7 +5,7 @@ import {Outlet} from "react-router-dom"
 
 function Header() {
   return (
-    <div className=" ">
+    <div className="" >
       <NavigationBar/>
       
       <Outlet />

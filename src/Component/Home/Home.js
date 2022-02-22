@@ -5,7 +5,7 @@ import HeaderBottom from './../Header&Footer/HeaderBottom';
 
 function Home() {
   return (
-    <div>
+    <div >
       <HomeSlide/>
       <HeaderBottom/>
       {/* <HomeCard/> */}

@@ -17,8 +17,8 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="http://localhost:3001/home">
+        Recipe Management Syatem
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -40,10 +40,11 @@ export default function SignUp() {
   };
 
   return (
+    <div style={{marginBottom:"60px"}}>
     <ThemeProvider theme={theme} >
       
       <Container component="main" maxWidth="xs"  sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random)',
+            backgroundImage: 'url(https://i.pinimg.com/originals/e7/07/6e/e7076e1dda8f38d9494e4f11d6409408.jpg)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -127,7 +128,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link as={Link} to="/SignIn" variant="body2">
+                <Link   href="/SignIn"  variant="body2">
                   Already have an account? Sign in
                 </Link>
                 
@@ -138,5 +139,6 @@ export default function SignUp() {
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
+    </div>
   );
 }
