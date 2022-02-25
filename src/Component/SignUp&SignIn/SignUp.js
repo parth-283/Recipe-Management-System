@@ -100,6 +100,16 @@ export default function SignUp() {
                   autoComplete="email"
                 />
               </Grid>
+               <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="mobile"
+                  label="Mobile Number"
+                  name="mobile"
+                  autoComplete="mobile"
+                />
+              </Grid>
               <Grid item xs={12}>
                 <TextField
                   required

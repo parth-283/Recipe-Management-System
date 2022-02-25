@@ -5,7 +5,8 @@ import { Nav } from "react-bootstrap";
 function Navcomponent() {
   return (
     <div
-      style={{ alignContent: "center", fontFamily: "serif", fontSize: "16px" }}
+    className=""
+      style={{ alignContent: "center" ,     textTransform: "uppercase" }}
     >
       <Nav>
         <Link className="nav-link fs-5" as={Link} to="/home">
@@ -17,9 +18,12 @@ function Navcomponent() {
         <Link className="nav-link fs-5" as={Link} to="/contact">
           <b>Contact</b>
         </Link>
-        {/* <Link className="nav-link fs-5" as={Link} to="/recipe">
-          <b>Recipes</b>
-        </Link> */}
+        <Link className="nav-link fs-5" as={Link} to="/feedback">
+          <b>FeedBack</b>
+        </Link>
+        <Link className="nav-link fs-5" as={Link} to="/recipe">
+          <b>Recipe</b>
+        </Link>
       </Nav>
     </div>
   );
