@@ -13,6 +13,10 @@ import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+// import ShareIcon from '@mui/icons-material/Share';
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -34,46 +38,55 @@ function Recipe({ title, calories, image, ingredients }) {
 
   return (
     <div>
-     
-        <Card sx={{ maxWidth: "500", margin: "15px 15px" }}>
-          <CardHeader title={title}  />
-          <CardMedia
-            component="img"
-            height="194"
-            image={image}
-            title={title}
-            alt={title}
-          />
-          
-          <CardActions disableSpacing>
-            
-            <CardContent>
-            <Typography variant="body2" color="text.secondary">
-              Ingredients
-            </Typography>
-          </CardContent>
-            <ExpandMore
-              expand={expanded}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
-              aria-label="show more"
-              
-            >
-              <ExpandMoreIcon />
-            </ExpandMore>
-          </CardActions>
-          <Collapse in={expanded} timeout="auto" unmountOnExit>
-            <CardContent>
-              <Typography paragraph>Ingredients:</Typography>
+      <Card sx={{ maxWidth: "500", margin: "15px 15px" }}>
+        <CardHeader title={title} />
+        <CardMedia
+          component="img"
+          height="194"
+          image={image}
+          title={title}
+          alt={title}
+        />
+
+        <CardActions disableSpacing>
+          <IconButton aria-label="add to favorites">
+            <FavoriteIcon />
+          </IconButton>
+          {/* <IconButton aria-label="share">
+          <ShareIcon />
+        </IconButton> */}
+          <IconButton aria-label="share">
+            <ThumbUpIcon />
+          </IconButton>
+          <IconButton aria-label="share">
+            <ThumbDownIcon />
+          </IconButton>
+          <ExpandMore
+            expand={expanded}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </ExpandMore>
+        </CardActions>
+
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent>
+            <Typography paragraph>Ingredients:</Typography>
+
+            <ol>
               {ingredients.map((ingredient) => (
-                <Typography paragraph>{ingredient.text}</Typography>
+                <li>
+                  <Typography paragraph>{ingredient.text}</Typography>
+                </li>
               ))}
-            </CardContent>
-          </Collapse>
-        </Card>
+            </ol>
+          </CardContent>
+        </Collapse>
+      </Card>
 
-
-                          {/* 
+      {/* 
                 <p>Title: {title}</p>
             <p>Calories: {calories}</p>
             <img src={image} alt="..." />
@@ -82,8 +95,6 @@ function Recipe({ title, calories, image, ingredients }) {
                 <li>{ingredient.text}</li>
               ))}
             </ol> */}
-
-     
     </div>
   );
 }

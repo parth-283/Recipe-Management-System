@@ -1,8 +1,11 @@
 import React from 'react'
+import FeedBackForm from './FeedBackForm'
 
 const FeedBack = () => {
   return (
-    <div>FeedBack</div>
+    <div>
+      <FeedBackForm/>
+    </div>
   )
 }
 
