@@ -38,11 +38,11 @@ function Recipe({ title, calories, image, ingredients }) {
 
   return (
     <div>
-      <Card sx={{ maxWidth: "500", margin: "15px 15px" }}>
-        <CardHeader title={title} />
-        <CardMedia
+      <Card sx={{  margin: "15px 15px" }}>
+        <CardHeader style={{    height:" 153px"}} title={title} />
+        <CardMedia 
+        style={{height: "195px"}}
           component="img"
-          height="194"
           image={image}
           title={title}
           alt={title}
@@ -66,22 +66,24 @@ function Recipe({ title, calories, image, ingredients }) {
             onClick={handleExpandClick}
             aria-expanded={expanded}
             aria-label="show more"
+            
           >
             <ExpandMoreIcon />
           </ExpandMore>
         </CardActions>
 
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <Collapse responsive in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography paragraph>Ingredients:</Typography>
-
+        <div style={{    height: "348px", overflowY: "scroll"}}>
             <ol>
               {ingredients.map((ingredient) => (
-                <li>
+                <li >
                   <Typography paragraph>{ingredient.text}</Typography>
                 </li>
               ))}
             </ol>
+            </div>
           </CardContent>
         </Collapse>
       </Card>
