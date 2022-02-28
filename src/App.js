@@ -16,6 +16,7 @@ import Lunch from './Recipes/Category/Lunch';
 import Dinner from './Recipes/Category/Dinner';
 import Dessert from './Recipes/Category/Dessert';
 import FeedBack from './Component/FeedBack/FeedBack';
+import RecipeForm from './Recipes/RecipeForm';
 
 function App() {
   return (
@@ -29,7 +30,7 @@ function App() {
           <Route path="/SignIn" element={<SignIn />} />
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/feedback" element={<FeedBack />} />
-          <Route path="/recipe" element={<Recipe />}/>
+          <Route path="/recipeform" element={<RecipeForm />}/>
           <Route path="/Breakfast" element={<Breakfast />} />
           <Route path="/Lunch" element={<Lunch />} />
           <Route path="/Dinner" element={<Dinner />} />

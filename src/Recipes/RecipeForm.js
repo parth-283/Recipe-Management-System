@@ -72,9 +72,9 @@ function RecipeForm() {
       });
     }
   };
-  const data = JSON.stringify(localStorage.getItem('recipe'))
+  const data = JSON.stringify(localStorage.getItem("recipe"));
   const handleSubmit = () => {
-    localStorage.setItem('recipe')
+    localStorage.setItem("recipe");
     setSubmit(data);
   };
 
@@ -108,8 +108,8 @@ function RecipeForm() {
         </div>
 
         <div className="mb-3 ">
-          {" "}
-          <h1>upload Pic</h1>
+        <label className="form-label">Image</label><br/>
+          <input type="file" id="file-input" name="ImageStyle" />{" "}
         </div>
 
         <div className="mb-3 ">

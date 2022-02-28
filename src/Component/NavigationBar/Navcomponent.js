@@ -21,7 +21,7 @@ function Navcomponent() {
         <Link className="nav-link fs-5" as={Link} to="/feedback">
           <b>FeedBack</b>
         </Link>
-        <Link className="nav-link fs-5" as={Link} to="/recipe">
+        <Link className="nav-link fs-5" as={Link} to="/recipeform">
           <b>Recipe</b>
         </Link>
       </Nav>

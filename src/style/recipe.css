@@ -1,0 +1,13 @@
+/* .cardPattern {
+    overflow: scroll;
+    z-index: 15px !important;
+} */
+.scroll {
+    overflow: scroll;
+    height: 400px;
+}
+
+/* .cardMain{
+    height: 500px !important;
+    z-index: -1;
+} */

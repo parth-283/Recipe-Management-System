@@ -2,6 +2,7 @@ import React from "react";
 // import { Link } from "react-router-dom";
 // import About1 from "../pics/About1.jpg";
 // import PizzaMuffins1 from "../pics/PizzaMuffins1.png";
+// import ShareIcon from '@mui/icons-material/Share';
 
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
@@ -14,9 +15,11 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-// import ShareIcon from '@mui/icons-material/Share';
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+
+import "../style/recipe.css"
+
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -37,8 +40,8 @@ function Recipe({ title, calories, image, ingredients }) {
   };
 
   return (
-    <div>
-      <Card sx={{  margin: "15px 15px" }}>
+    <div style={{height:"400px !important"}} className="cardMain">
+      <Card sx={{  margin: "15px 15px"}}>
         <CardHeader style={{    height:" 153px"}} title={title} />
         <CardMedia 
         style={{height: "195px"}}
@@ -50,7 +53,7 @@ function Recipe({ title, calories, image, ingredients }) {
 
         <CardActions disableSpacing>
           <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
+            <FavoriteIcon /> 
           </IconButton>
           {/* <IconButton aria-label="share">
           <ShareIcon />
@@ -66,7 +69,7 @@ function Recipe({ title, calories, image, ingredients }) {
             onClick={handleExpandClick}
             aria-expanded={expanded}
             aria-label="show more"
-            
+            className="cardPattern"
           >
             <ExpandMoreIcon />
           </ExpandMore>
@@ -75,8 +78,8 @@ function Recipe({ title, calories, image, ingredients }) {
         <Collapse responsive in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography paragraph>Ingredients:</Typography>
-        <div style={{    height: "348px", overflowY: "scroll"}}>
-            <ol>
+        <div>
+            <ol className="scroll">
               {ingredients.map((ingredient) => (
                 <li >
                   <Typography paragraph>{ingredient.text}</Typography>
