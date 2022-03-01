@@ -13,33 +13,30 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 // import signIn from "../../pics/SignIn1.png"
+import { useNavigate } from 'react-router';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function SignIn({auth}) {
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
     console.log({
       email: data.get('email'),
       password: data.get('password'),
     });
   };
 
+
+  const navigate = useNavigate()
+  const login = () => {
+    auth()
+    navigate('/recipeform')
+    console.log("SignIn");
+  }
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
@@ -94,6 +91,7 @@ export default function SignIn() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+              
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
@@ -104,6 +102,7 @@ export default function SignIn() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                onClick={login}
               >
                 Sign In
               </Button>
@@ -119,7 +118,6 @@ export default function SignIn() {
                   </Link>
                 </Grid>
               </Grid>
-              <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>
         </Grid>

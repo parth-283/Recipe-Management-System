@@ -1,14 +1,24 @@
 import React from "react";
 import { Card } from "react-bootstrap";
-import NavsocialIcon from "../NavigationBar/NavsocialIcon";
+import NavsocialIcon from "../Home/NavigationBar/NavsocialIcon";
 import footer from "../../pics/footer.png";
+import Navcomponent from '../Home/NavigationBar/Navcomponent';
 
 function Footer() {
   return (
     <div>
-      <Card className=" text-white text-center" style={{ backgroundColor: "#bddaf2" }}>
+      <Card
+        className=" text-white text-center"
+        style={{ backgroundColor: "#bddaf2" }}
+      >
         <Card className=" bg-dark ">
-          <Card.Img src={footer} alt="Card image" width="auto" height="355x" style={{ opacity: "0.3" }} />
+          <Card.Img
+            src={footer}
+            alt="Card image"
+            width="auto"
+            height="355x"
+            style={{ opacity: "0.3" }}
+          />
           <Card.ImgOverlay>
             <Card.Header>Featured</Card.Header>
             <Card.Body className="">
@@ -29,20 +39,27 @@ function Footer() {
                       distasteful or disgusting.
                     </Card.Text>
                   </div>
-                  <div className="col">colummn</div>
-                  <div className="col" style={{margin: "90px 0px 0px 0px"}}>
-                    <NavsocialIcon />
+                  <div className="col" >
+                    +
+                    <div className="row d-grid">
+                      <div className="col">
+                        <Navcomponent/>
+                      </div>
+                      <div className="col">
+                        <NavsocialIcon />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </Card.Body>
-        <Card.Footer
-          className="text-muted  "
-          style={{ fontFamily: "cursive" }}
-        >
-          Copiright@2022 Devloped By:Parth
-        </Card.Footer>
           </Card.ImgOverlay>
+            <Card.Footer
+              className="text-muted  "
+              style={{ fontFamily: "cursive" }}
+            >
+              Copiright@2022 Devloped By:Parth
+            </Card.Footer>
         </Card>
       </Card>
     </div>

@@ -4,6 +4,9 @@ var users = function (users) {
   this.UID = users.UID
   this.FName = users.FName;
   this.LName = users.LName;
+  this.Gender = users.Gender;
+  this.State = users.State;
+  this.City = users.City;
   this.Email = users.Email;
   this.Mobile = users.Mobile;
   this.Password = users.Password;
@@ -16,9 +19,10 @@ users.create = (data, cb) => {
     [data],
     function (error, result, field) {
       if (error) {
-        cb(null.error);
+        cb(error);
       }
-      cb(null, { message: "added", lastid: result.lastid });
+      cb(null, { message: "added" });
+      console.log("Data Added ");
     }
   );
 };
@@ -49,10 +53,13 @@ users.findByID = (id, cb) => {
 
 users.update = (data,id,cb) => {
   connection.query(
-    "Update userregister set FName =? , LName =? , Email =? , Mobile =? , Password =?  where UID=?",
+    "Update userregister set FName =? , LName =? , Gender =? , State =? , City =? , Email =? , Mobile =? , Password =?  where UID=?",
     [
       data.FName,
       data.LName,
+      data.Gender,
+      data.State,
+      data.City,
       data.Email,
       data.Mobile,
       data.Password,

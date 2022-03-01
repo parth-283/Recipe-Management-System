@@ -1,6 +1,7 @@
 import React from "react";
+import { useNavigate } from 'react-router';
 
-function RecipeForm() {
+function RecipeForm({logoutx}) {
   const [input, setInput] = React.useState({
     id: Math.random(),
     nameofrecipe: "",
@@ -74,13 +75,16 @@ function RecipeForm() {
   };
   const data = JSON.stringify(localStorage.getItem("recipe"));
   const handleSubmit = () => {
-    localStorage.setItem("recipe");
+    localStorage.setItem("recipe",dummy);
     setSubmit(data);
+
   };
 
+  
   return (
     <div className="container">
       <h1 className="text-center">Add Recipe Form</h1>
+     
       <div className=" border-top  border-bottom  border-primary  border-3 rounded m-3">
         <div className="mb-3 ">
           <label className="form-label">Name Of Recipe</label>

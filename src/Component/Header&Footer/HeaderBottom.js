@@ -66,14 +66,7 @@ function HeaderBottom() {
           <div className="container">
             <div className="col mt-4 text-dark">
             <div>
-                     
-                            <Category
-                              key={recipe.map((recipe) => (recipe.recipe.label))}
-                              title={recipe.map((recipe) => (recipe.recipe.label))}
-                              calories={recipe.map((recipe) => (recipe.recipe.calories))}
-                              recipeimage={recipe.map((recipe) => recipe.recipe.image)}
-                              ingredients={recipe.map((recipe) => (recipe.recipe.ingredients))}
-                            />
+                      <Category />
                             
                     </div>
             </div>
