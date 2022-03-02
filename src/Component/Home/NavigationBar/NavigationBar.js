@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+// import { useEffect, useState } from "react";
 import logo from "../../../pics/RecipeLogo.png";
 import { Navbar } from "react-bootstrap";
 import { Nav } from "react-bootstrap";
@@ -6,34 +7,34 @@ import { Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Navcomponent from "./Navcomponent";
 import NavsocialIcon from "./NavsocialIcon";
-import { useNavigate } from 'react-router';
+// import { useNavigate } from 'react-router';
 
 
-function NavigationBar(logoutx) {
+function NavigationBar() {
+  // logoutx
+//   const [user, setUser] = useState();
 
-  const [user, setUser] = useState();
+//   const navigate = useNavigate()
 
-  const navigate = useNavigate()
-
-const logout = () => {
-  logoutx()
-  navigate('/')
-  console.log("logout");
-}
+// const logout = () => {
+//   logoutx()
+//   navigate('/')
+//   console.log("logout");
+// }
 
 
 
-  useEffect(() => {
-    setTimeout(() => {
-      let userdata = localStorage.getItem("login");
-      if (userdata == "true") {
-        setUser(false);
-      } else {
-        setUser(true);
-      }
-      //  console.log("useruseru+++++++++++++++++++++++",user);
-    }, 100);
-  });
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     let userdata = localStorage.getItem("login");
+  //     if (userdata == "true") {
+  //       setUser(false);
+  //     } else {
+  //       setUser(true);
+  //     }
+  //     //  console.log("useruseru+++++++++++++++++++++++",user);
+  //   }, 100);
+  // });
   return (
     <div style={{ backgroundColor: "#88cafc" }}>
       <div
@@ -80,7 +81,7 @@ const logout = () => {
                 <div className="container  ">
                   <div className="col">
                     {/* {console.log("+++++++++++user-------------",user)} */}
-                    {user && (
+                    {/* {user && ( */}
                       <div className="col d-flex justify-content-center pb-4">
                         <Link
                           type="button"
@@ -99,8 +100,8 @@ const logout = () => {
                           SignUp
                         </Link>
                       </div>
-                    )}
-                    {!user && (
+                    {/* )}
+                     {!user && (
                       <div className="col d-flex justify-content-center pb-4">
                         <button
                           className="btn btn-outline-primary fs-5"
@@ -109,7 +110,7 @@ const logout = () => {
                           logout 
                         </button>
                       </div>
-                    )}
+                    )} */}
                     <div>
                       <NavsocialIcon />
                     </div>

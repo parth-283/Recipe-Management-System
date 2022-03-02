@@ -7,7 +7,7 @@ import About from "./Component/About/About";
 import Contact from "./Component/Contact/Contact";
 import Header from "./Component/Header&Footer/Header";
 import Footer from "./Component/Header&Footer/Footer";
-// import Error404 from "./Component/Error404/Error404";
+import Error404 from "./Component/Error404/Error404";
 import SignIn from "./Component/SignUp&SignIn/SignIn";
 import SignUp from "./Component/SignUp&SignIn/SignUp";
 
@@ -22,14 +22,14 @@ import RecipeForm from "./Recipes/RecipeForm";
 import NavigationBar from "./Component/Home/NavigationBar/NavigationBar";
 
 function App() {
-  const [user, setUser] = useState(false);
-  useEffect(() => {
-    const user1 = localStorage.setItem("login", user);
-    user1 ? setUser(true) : setUser(false);
-  }, []);
-  useEffect(() => {
-    localStorage.setItem("login", user);
-  }, [user]);
+  // const [user, setUser] = useState(false);
+  // useEffect(() => {
+  //   const user1 = localStorage.setItem("login", user);
+  //   user1 ? setUser(true) : setUser(false);
+  // }, []);
+  // useEffect(() => {
+  //   localStorage.setItem("login", user);
+  // }, [user]);
 
   return (
     <div style={{ backgroundColor: "#bddaf2" }}>
@@ -46,19 +46,19 @@ function App() {
           <Route path="/contact" element={<Contact />} />
 
           <Route path="/SignUp" element={<SignUp />} />
-          {console.log("+++++++++++++++++useruseruser", user)}
-          {!user && (
+          {/* {console.log("+++++++++++++++++useruseruser", user)}
+          {!user && ( */}
             <Route
               path="/SignIn"
-              element={<SignIn auth={() => setUser(true)} />}
+              element={<SignIn /* auth={() => setUser(true)} */ />}
             />
-          )}
-          {user && (
+          {/* )}
+          {user && ( */}
             <Route
               path="/SignIn"
-              element={<RecipeForm logoutx={() => setUser(false)} />}
+              element={<RecipeForm /* logoutx={() => setUser(false)} */ />}
             />
-          )}
+          {/* )} */}
           
         </Route>
          
@@ -69,7 +69,8 @@ function App() {
 
         <Route
           path="*"
-          element={<Navigate to={user ? "/SignIn/recipeform" : "/"} />}
+          element={<Error404 />}
+          /* <Navigate to={user ? "/SignIn/recipeform" : "/"} />  */
         />
       </Routes>
       <Footer />

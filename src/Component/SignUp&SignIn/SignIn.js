@@ -1,45 +1,60 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 // import signIn from "../../pics/SignIn1.png"
-import { useNavigate } from 'react-router';
-
-
+// import { useNavigate } from 'react-router';
+import { useState } from "react";
 
 const theme = createTheme();
 
-export default function SignIn({auth}) {
-
+export default function SignIn() {
+  const [login, setLogin] = useState();
+  // {auth}
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+    console.log("login",login);
+    setLogin({
+      ...login,
+      UID: Math.random().toString().substr(2, 3),
+      email: data.get("email"),
+      password: data.get("password"),
     });
-  };
+    let user = localStorage.getItem("user-info")
+    let userdata = JSON.parse(user)
+    let emailreg = userdata[0].input.email
+    let passwordreg = userdata[0].input.password
+    console.log("emailreg",emailreg);
+    console.log("passwordreg",passwordreg);
 
+    if(emailreg === login.email && passwordreg === login.password ){
+      console.log("yes","yes");
+    }else{
+      console.log("no","no");
+    }
 
-  const navigate = useNavigate()
-  const login = () => {
-    auth()
-    navigate('/recipeform')
-    console.log("SignIn");
-  }
+  }; 
+
+  // const navigate = useNavigate()
+  // const login = () => {
+  //   auth()
+  //   navigate('/recipeform')
+  //   console.log("SignIn");
+  // }
   return (
     <ThemeProvider theme={theme}>
-      <Grid container component="main" sx={{ height: '100vh' }}>
+      <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid
           item
@@ -47,12 +62,15 @@ export default function SignIn({auth}) {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://i.pinimg.com/originals/e7/07/6e/e7076e1dda8f38d9494e4f11d6409408.jpg)',
-            backgroundRepeat: 'no-repeat',
+            backgroundImage:
+              "url(https://i.pinimg.com/originals/e7/07/6e/e7076e1dda8f38d9494e4f11d6409408.jpg)",
+            backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
-              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
+              t.palette.mode === "light"
+                ? t.palette.grey[50]
+                : t.palette.grey[900],
+            backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
         />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
@@ -60,18 +78,23 @@ export default function SignIn({auth}) {
             sx={{
               my: 8,
               mx: 4,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Box
+              component="form"
+              noValidate
+              onSubmit={handleSubmit}
+              sx={{ mt: 1 }}
+            >
               <TextField
                 margin="normal"
                 required
@@ -91,7 +114,6 @@ export default function SignIn({auth}) {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-              
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
@@ -102,7 +124,7 @@ export default function SignIn({auth}) {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                onClick={login}
+                // onClick={login}
               >
                 Sign In
               </Button>

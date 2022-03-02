@@ -20,15 +20,15 @@ const theme = createTheme();
 
 function SignUp() {
   const [input, setInput] = useState({});
+  // const [inputlog, setInputlog] = useState(input);
   const navigate = useNavigate()
-
   async function handleSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log("input................", input);
     setInput({
       ...input,
-      UID: Math.random().toString().substr(2, 3),
+      UID: Math.random().toString().substr(2,3),
       firstName: data.get("firstName"),
       lastName: data.get("lastName"),
       mobile: data.get("mobile"),
@@ -38,7 +38,6 @@ function SignUp() {
       gender: data.get("gender"),
       password: data.get("password"),
     });
-
     let requestOptions = {
       method: "POST",
       headers: {
@@ -53,10 +52,9 @@ function SignUp() {
     );
     let result = await resultdata.json();
     console.log("resultyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy", result);
-    console.log("resultdata", resultdata);
-
+    // console.log("resultdata", resultdata);
       localStorage.setItem("user-info",JSON.stringify([{input}]))
-      navigate('/SignIn')
+      // navigate('/SignIn')
   }
 
   return (
