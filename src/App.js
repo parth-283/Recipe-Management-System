@@ -10,6 +10,7 @@ import Footer from "./Component/Header&Footer/Footer";
 // import Error404 from "./Component/Error404/Error404";
 import SignIn from "./Component/SignUp&SignIn/SignIn";
 import SignUp from "./Component/SignUp&SignIn/SignUp";
+
 import Breakfast from "./Recipes/Category/Breakfast";
 import Lunch from "./Recipes/Category/Lunch";
 import Dinner from "./Recipes/Category/Dinner";
@@ -18,18 +19,18 @@ import FeedBack from "./Component/FeedBack/FeedBack";
 
 import Admin from "./admin/Component/Admin";
 import RecipeForm from "./Recipes/RecipeForm";
-import NavigationBar from './Component/Home/NavigationBar/NavigationBar';
+import NavigationBar from "./Component/Home/NavigationBar/NavigationBar";
 
 function App() {
   const [user, setUser] = useState(false);
   useEffect(() => {
-   const user1 = localStorage.setItem('login',user)
-   user1?setUser(true):setUser(false)
-  }, [])
+    const user1 = localStorage.setItem("login", user);
+    user1 ? setUser(true) : setUser(false);
+  }, []);
   useEffect(() => {
-    localStorage.setItem('login',user)
-   }, [user])
-  
+    localStorage.setItem("login", user);
+  }, [user]);
+
   return (
     <div style={{ backgroundColor: "#bddaf2" }}>
       <Routes>
@@ -45,7 +46,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
 
           <Route path="/SignUp" element={<SignUp />} />
-          {console.log("+++++++++++++++++useruseruser",user)}
+          {console.log("+++++++++++++++++useruseruser", user)}
           {!user && (
             <Route
               path="/SignIn"
@@ -53,20 +54,24 @@ function App() {
             />
           )}
           {user && (
-           <Route
-           path="/SignIn"
-           element={<NavigationBar logoutx={() => setUser(false)} />}
-         />
+            <Route
+              path="/SignIn"
+              element={<RecipeForm logoutx={() => setUser(false)} />}
+            />
           )}
+          
         </Route>
+         
 
         <Route path="/admin" element={<Admin />}>
           <Route path="/admin/home" element={<Home />} />
         </Route>
 
-        <Route path="*" element={<Navigate to={user?'/SignIn/recipeform':'/'}/>} />
+        <Route
+          path="*"
+          element={<Navigate to={user ? "/SignIn/recipeform" : "/"} />}
+        />
       </Routes>
-
       <Footer />
     </div>
   );

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,34 +13,51 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import {
-  FormLabel,
-  Radio,
-  RadioGroup,
-} from "@mui/material";
-
-
+import { FormLabel, Radio, RadioGroup } from "@mui/material";
+import { useNavigate } from 'react-router';
 
 const theme = createTheme();
 
-export default function SignUp() {
+function SignUp() {
+  const [input, setInput] = useState({});
+  const navigate = useNavigate()
 
-  const handleSubmit =  (event) => {
+  async function handleSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    
-    // eslint-disable-next-line no-console
-    console.log({
+    console.log("input................", input);
+    setInput({
+      ...input,
+      UID: Math.random().toString().substr(2, 3),
       firstName: data.get("firstName"),
       lastName: data.get("lastName"),
       mobile: data.get("mobile"),
       email: data.get("email"),
-      state:data.get("state"),
-      city: data.get("city "),
-      gender: data.get('gender'),
+      state: data.get("state"),
+      city: data.get("city"),
+      gender: data.get("gender"),
       password: data.get("password"),
     });
-  };
+
+    let requestOptions = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(input),
+    };
+    let resultdata = await fetch(
+      `http://localhost:4500/add?UID=${input.UID}&FName=${input.firstName}&LName=${input.lastName}&Gender=${input.gender}&State=${input.state}&City=${input.city}&Email=${input.email}&Mobile=${input.mobile}&Password=${input.password}`,
+      requestOptions
+    );
+    let result = await resultdata.json();
+    console.log("resultyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy", result);
+    console.log("resultdata", resultdata);
+
+      localStorage.setItem("user-info",JSON.stringify([{input}]))
+      navigate('/SignIn')
+  }
 
   return (
     <div style={{ marginBottom: "60px" }}>
@@ -123,7 +141,7 @@ export default function SignUp() {
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                <TextField
+                  <TextField
                     required
                     fullWidth
                     id="state"
@@ -134,7 +152,7 @@ export default function SignUp() {
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
-                <TextField
+                  <TextField
                     required
                     fullWidth
                     id="city"
@@ -153,7 +171,7 @@ export default function SignUp() {
                       Gender
                     </FormLabel>
                     <FormControlLabel
-                    name="gender"
+                      name="gender"
                       value="female"
                       control={<Radio value="female" />}
                       label="female"
@@ -209,9 +227,10 @@ export default function SignUp() {
               </Grid>
             </Box>
           </Box>
-         
         </Container>
       </ThemeProvider>
     </div>
   );
 }
+
+export default SignUp;
