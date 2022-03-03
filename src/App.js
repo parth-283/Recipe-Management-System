@@ -7,7 +7,7 @@ import About from "./Component/About/About";
 import Contact from "./Component/Contact/Contact";
 import Header from "./Component/Header&Footer/Header";
 import Footer from "./Component/Header&Footer/Footer";
-// import Error404 from "./Component/Error404/Error404";
+import Error404 from "./Component/Error404/Error404";
 import SignIn from "./Component/SignUp&SignIn/SignIn";
 import SignUp from "./Component/SignUp&SignIn/SignUp";
 import Breakfast from "./Recipes/Category/Breakfast";
@@ -17,19 +17,14 @@ import Dessert from "./Recipes/Category/Dessert";
 import FeedBack from "./Component/FeedBack/FeedBack";
 
 import Admin from "./admin/Component/Admin";
-import RecipeForm from "./Recipes/RecipeForm";
+// import RecipeForm from "./Recipes/RecipeForm";
 import NavigationBar from './Component/Home/NavigationBar/NavigationBar';
+import AllRecipe from './admin/AdminPages/AllRecipe';
+import UserList from './admin/AdminPages/UserList';
+import UserFeedback from './admin/AdminPages/UserFeedback';
 
 function App() {
-  const [user, setUser] = useState(false);
-  useEffect(() => {
-   const user1 = localStorage.setItem('login',user)
-   user1?setUser(true):setUser(false)
-  }, [])
-  useEffect(() => {
-    localStorage.setItem('login',user)
-   }, [user])
-  
+ 
   return (
     <div style={{ backgroundColor: "#bddaf2" }}>
       <Routes>
@@ -45,29 +40,30 @@ function App() {
           <Route path="/contact" element={<Contact />} />
 
           <Route path="/SignUp" element={<SignUp />} />
-          {console.log("+++++++++++++++++useruseruser",user)}
-          {!user && (
+         
             <Route
               path="/SignIn"
-              element={<SignIn auth={() => setUser(true)} />}
+              element={<SignIn />}
             />
-          )}
-          {user && (
+         
            <Route
            path="/SignIn"
-           element={<NavigationBar logoutx={() => setUser(false)} />}
+           element={<NavigationBar   />}
          />
-          )}
+          
         </Route>
 
         <Route path="/admin" element={<Admin />}>
           <Route path="/admin/home" element={<Home />} />
+          <Route path="/admin/allrecipe" element={<AllRecipe />} />
+          <Route path="/admin/userlist" element={<UserList />} />
+          <Route path="/admin/userfeedback" element={<UserFeedback />} />
         </Route>
 
-        <Route path="*" element={<Navigate to={user?'/SignIn/recipeform':'/'}/>} />
+        <Route path="*" element={<Error404/>}  /> 
       </Routes>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

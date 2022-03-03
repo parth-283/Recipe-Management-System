@@ -1,12 +1,21 @@
 import React from "react";
+import AllRecipe from "../AdminPages/AllRecipe";
+import UserFeedback from "../AdminPages/UserFeedback";
+import UserList from "../AdminPages/UserList";
+import AdminHeader from './AdminHeader';
+import AdminSidebar from "./AdminSidebar";
 
 function Admin() {
   return (
-    <div>
-      <div className="container m-2 p-2 ">
-        <h1>Admin</h1>
-      </div>
-    </div>
+    <>
+ <AdminHeader />
+ <AdminSidebar />
+ <AllRecipe />
+ <UserList/>
+ <UserFeedback />
+   
+  </>
+
   );
 }
 
