@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React  from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,46 +12,79 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-// import signIn from "../../pics/SignIn1.png"
-// import { useNavigate } from 'react-router';
-import { useState } from "react";
+import { useNavigate } from "react-router";
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const theme = createTheme();
 
+
 export default function SignIn() {
-  const [login, setLogin] = useState();
-  // {auth}
+
+  const [users, setUsers] = useState([])
+
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log("login",login);
-    setLogin({
-      ...login,
+
+    let logindata = {
       UID: Math.random().toString().substr(2, 3),
       email: data.get("email"),
       password: data.get("password"),
-    });
+    }
+
+    localStorage.setItem("login-info", JSON.stringify([{ logindata }]));
+
     let user = localStorage.getItem("user-info")
     let userdata = JSON.parse(user)
-    let emailreg = userdata[0].input.email
-    let passwordreg = userdata[0].input.password
-    console.log("emailreg",emailreg);
-    console.log("passwordreg",passwordreg);
+    let emailreg = userdata[0].regdata.email
+    let passwordreg = userdata[0].regdata.password
+let usercheck = false
 
-    if(emailreg === login.email && passwordreg === login.password ){
-      console.log("yes","yes");
-    }else{
-      console.log("no","no");
+for (let i = 0; i < users.length; i++) {
+  const element = users[i];
+  if(element.Email == logindata.email && element.Password == logindata.password){
+    usercheck = true
+  break
+  }
+  usercheck = false
+}
+    if(usercheck){
+      navigate("/home")
+    }else if(emailreg !== logindata.email ){
+      alert("Your Email Is Incorrect")
+    }else if(passwordreg !== logindata.password ){
+      alert("Your Password Is Incorrect")
     }
 
   }; 
 
-  // const navigate = useNavigate()
-  // const login = () => {
-  //   auth()
-  //   navigate('/recipeform')
-  //   console.log("SignIn");
-  // }
+  
+
+  const fetchData = () => {
+    fetch(" http://localhost:4500/list")
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        setUsers(data)
+      })
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  // let emailreg = SignIn(param.emailreg)
+  // let passwordreg = SignIn(param.passwordreg)
+//  if(emailreg === logindata.email && passwordreg === logindata.password ){
+//       navigate("/home")
+//     }
+  // console.log("userssssssssssssssss",emailreg);
+
+
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
@@ -124,7 +157,6 @@ export default function SignIn() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                // onClick={login}
               >
                 Sign In
               </Button>

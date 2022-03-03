@@ -14,21 +14,17 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { FormLabel, Radio, RadioGroup } from "@mui/material";
-import { useNavigate } from 'react-router';
+import { useNavigate } from "react-router";
 
 const theme = createTheme();
 
 function SignUp() {
-  const [input, setInput] = useState({});
-  // const [inputlog, setInputlog] = useState(input);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   async function handleSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log("input................", input);
-    setInput({
-      ...input,
-      UID: Math.random().toString().substr(2,3),
+    let regdata = {
+      UID: Math.random().toString().substr(2, 3),
       firstName: data.get("firstName"),
       lastName: data.get("lastName"),
       mobile: data.get("mobile"),
@@ -37,24 +33,23 @@ function SignUp() {
       city: data.get("city"),
       gender: data.get("gender"),
       password: data.get("password"),
-    });
+    };
     let requestOptions = {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(input),
+      body: JSON.stringify(regdata),
     };
     let resultdata = await fetch(
-      `http://localhost:4500/add?UID=${input.UID}&FName=${input.firstName}&LName=${input.lastName}&Gender=${input.gender}&State=${input.state}&City=${input.city}&Email=${input.email}&Mobile=${input.mobile}&Password=${input.password}`,
+      `http://localhost:4500/add?UID=${regdata.UID}&FName=${regdata.firstName}&LName=${regdata.lastName}&Gender=${regdata.gender}&State=${regdata.state}&City=${regdata.city}&Email=${regdata.email}&Mobile=${regdata.mobile}&Password=${regdata.password}`,
       requestOptions
     );
     let result = await resultdata.json();
     console.log("resultyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy", result);
-    // console.log("resultdata", resultdata);
-      localStorage.setItem("user-info",JSON.stringify([{input}]))
-      // navigate('/SignIn')
+    localStorage.setItem("user-info", JSON.stringify([{ regdata }]));
+    navigate("/SignIn");
   }
 
   return (

@@ -8,33 +8,42 @@ import { Link } from "react-router-dom";
 import Navcomponent from "./Navcomponent";
 import NavsocialIcon from "./NavsocialIcon";
 // import { useNavigate } from 'react-router';
-
+import { useNavigate } from 'react-router';
 
 function NavigationBar() {
-  // logoutx
-//   const [user, setUser] = useState();
+  let reg = localStorage.getItem("user-info");
+  let regdata = JSON.parse(reg);
+  let emailreg = regdata[0].regdata.email;
+  let passwordreg = regdata[0].regdata.password;
 
-//   const navigate = useNavigate()
+  let login = localStorage.getItem("login-info");
+  let logindata = JSON.parse(login);
+  let emaillogin = logindata[0].logindata.email;
+  let passwordlogin = logindata[0].logindata.password;
 
-// const logout = () => {
-//   logoutx()
-//   navigate('/')
-//   console.log("logout");
-// }
+  console.log("emailreg", emailreg);
+  console.log("passwordreg", passwordreg);
+  console.log("emaillogin", emaillogin);
+  console.log("passwordlogin", passwordlogin);
 
+  let isloggedin;
+  if (emailreg === emaillogin && passwordreg === passwordlogin) {
+    isloggedin = true;
+  } else {
+    isloggedin = false;
+  }
+  
+  const navigate = useNavigate();
+  const logout = () => {
+    let logindata = {
+      
+      email: "$@.com",
+      password: "********",
+    }
+    localStorage.setItem("login-info", JSON.stringify([{ logindata }]));
+    navigate("/home")
+  };
 
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     let userdata = localStorage.getItem("login");
-  //     if (userdata == "true") {
-  //       setUser(false);
-  //     } else {
-  //       setUser(true);
-  //     }
-  //     //  console.log("useruseru+++++++++++++++++++++++",user);
-  //   }, 100);
-  // });
   return (
     <div style={{ backgroundColor: "#88cafc" }}>
       <div
@@ -73,44 +82,44 @@ function NavigationBar() {
               </Navbar.Collapse>
             </Col>
             <Col xs={5} md={3}>
-              <Navbar
+              <Navbar 
                 style={{
                   padding: "0px 0px 0px 114px",
                 }}
               >
                 <div className="container  ">
                   <div className="col">
-                    {/* {console.log("+++++++++++user-------------",user)} */}
-                    {/* {user && ( */}
-                      <div className="col d-flex justify-content-center pb-4">
-                        <Link
-                          type="button"
-                          className="btn btn-outline-primary me-2 fs-5"
-                          as={Link}
-                          to="/SignIn"
-                        >
-                          SignIn
-                        </Link>
-                        <Link
-                          type="button"
-                          className="btn btn-outline-primary fs-5"
-                          as={Link}
-                          to="/SignUp"
-                        >
-                          SignUp
-                        </Link>
-                      </div>
-                    {/* )}
-                     {!user && (
-                      <div className="col d-flex justify-content-center pb-4">
-                        <button
-                          className="btn btn-outline-primary fs-5"
-                          onClick={logout}
-                        >
-                          logout 
-                        </button>
-                      </div>
-                    )} */}
+                    {
+                      (!isloggedin  ? (
+                        <div className="col d-flex justify-content-center pb-4">
+                          <Link
+                            type="button"
+                            className="btn btn-outline-primary me-2 fs-5"
+                            as={Link}
+                            to="/SignIn"
+                          >
+                            SignIn
+                          </Link>
+                          <Link
+                            type="button"
+                            className="btn btn-outline-primary fs-5"
+                            as={Link}
+                            to="/SignUp"
+                          >
+                            SignUp
+                          </Link>
+                        </div>
+                      ) : (
+                        <div className="col d-flex justify-content-center pb-4">
+                          <button
+                            className="btn btn-outline-primary fs-5"
+                            onClick={logout}
+                          >
+                            logout
+                          </button>
+                        </div>
+                      ))
+                    }
                     <div>
                       <NavsocialIcon />
                     </div>
