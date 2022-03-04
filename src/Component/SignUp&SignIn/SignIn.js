@@ -1,4 +1,4 @@
-import * as React  from "react";
+import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -13,15 +13,13 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router";
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState } from "react";
+import { useEffect } from "react";
 
 const theme = createTheme();
 
-
 export default function SignIn() {
-
-  const [users, setUsers] = useState([])
+  const [users, setUsers] = useState([]);
 
   const navigate = useNavigate();
 
@@ -33,57 +31,56 @@ export default function SignIn() {
       UID: Math.random().toString().substr(2, 3),
       email: data.get("email"),
       password: data.get("password"),
-    }
+    };
 
     localStorage.setItem("login-info", JSON.stringify([{ logindata }]));
 
-    let user = localStorage.getItem("user-info")
-    let userdata = JSON.parse(user)
-    let emailreg = userdata[0].regdata.email
-    let passwordreg = userdata[0].regdata.password
-let usercheck = false
+    let user = localStorage.getItem("user-info");
+    let userdata = JSON.parse(user);
+    let emailreg = userdata[0].regdata.email;
+    let passwordreg = userdata[0].regdata.password;
+    let usercheck = false;
 
-for (let i = 0; i < users.length; i++) {
-  const element = users[i];
-  if(element.Email == logindata.email && element.Password == logindata.password){
-    usercheck = true
-  break
-  }
-  usercheck = false
-}
-    if(usercheck){
-      navigate("/home")
-    }else if(emailreg !== logindata.email ){
-      alert("Your Email Is Incorrect")
-    }else if(passwordreg !== logindata.password ){
-      alert("Your Password Is Incorrect")
+    for (let i = 0; i < users.length; i++) {
+      const element = users[i];
+      if (
+        element.Email == logindata.email &&
+        element.Password == logindata.password
+      ) {
+        usercheck = true;
+        break;
+      }
+      usercheck = false;
     }
-
-  }; 
-
-  
+    if (usercheck) {
+      navigate("/home");
+    } else if (emailreg !== logindata.email) {
+      alert("Your Email Is Incorrect");
+    } else if (passwordreg !== logindata.password) {
+      alert("Your Password Is Incorrect");
+    }
+  };
 
   const fetchData = () => {
     fetch(" http://localhost:4500/list")
-      .then(response => {
-        return response.json()
+      .then((response) => {
+        return response.json();
       })
-      .then(data => {
-        setUsers(data)
-      })
-  }
+      .then((data) => {
+        setUsers(data);
+      });
+  };
 
   useEffect(() => {
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
   // let emailreg = SignIn(param.emailreg)
   // let passwordreg = SignIn(param.passwordreg)
-//  if(emailreg === logindata.email && passwordreg === logindata.password ){
-//       navigate("/home")
-//     }
+  //  if(emailreg === logindata.email && passwordreg === logindata.password ){
+  //       navigate("/home")
+  //     }
   // console.log("userssssssssssssssss",emailreg);
-
 
   return (
     <ThemeProvider theme={theme}>
