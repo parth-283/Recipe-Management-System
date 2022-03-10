@@ -3,34 +3,29 @@ import { Link } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 
 function Navcomponent() {
-  let reg = localStorage.getItem("user-info");
-  let regdata = JSON.parse(reg);
-  let emailreg = regdata[0].regdata.email;
-  let passwordreg = regdata[0].regdata.password;
+  let reg = localStorage.getItem("login-user-info");
+  let element = JSON.parse(reg);
+  let emailuser = element[0].element.Email;
+  let passworduser = element[0].element.Password;
 
   let login = localStorage.getItem("login-info");
   let logindata = JSON.parse(login);
   let emaillogin = logindata[0].logindata.email;
   let passwordlogin = logindata[0].logindata.password;
 
-  console.log("emailreg", emailreg);
-  console.log("passwordreg", passwordreg);
-  console.log("emaillogin", emaillogin);
-  console.log("passwordlogin", passwordlogin);
 
   var isloggedin;
-  if (emailreg === emaillogin && passwordreg === passwordlogin) {
+  if (emailuser === emaillogin && passworduser === passwordlogin) {
     isloggedin = true;
   } else {
     isloggedin = false;
   }
-
   return (
     <div
-      className=""
+      className="navbar-nav "
       style={{ alignContent: "center", textTransform: "uppercase" }}
     >
-      <Nav>
+      <Nav className="me-auto">
         <Link className="nav-link fs-5" as={Link} to="/home">
           <b>Home</b>
         </Link>

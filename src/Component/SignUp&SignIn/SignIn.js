@@ -19,7 +19,6 @@ import { useEffect } from "react";
 const theme = createTheme();
 
 export default function SignIn() {
-  const [users, setUsers] = useState([]);
 
   const navigate = useNavigate();
 
@@ -28,7 +27,7 @@ export default function SignIn() {
     const data = new FormData(event.currentTarget);
 
     let logindata = {
-      UID: Math.random().toString().substr(2, 3),
+      UID: users.length,
       email: data.get("email"),
       password: data.get("password"),
     };
@@ -48,43 +47,57 @@ export default function SignIn() {
         element.Password == logindata.password
       ) {
         usercheck = true;
+        localStorage.setItem("login-user-info", JSON.stringify([{ element }]));
         break;
       }
       usercheck = false;
-    }
+}
+
+console.log("userchek",usercheck);
     if (usercheck) {
       navigate("/home");
+      console.log("user is authenticate");
+    }else if (logindata.email == "admin" && logindata.password == "admin") {
+      navigate("/admin")
     } else if (emailreg !== logindata.email) {
       alert("Your Email Is Incorrect");
     } else if (passwordreg !== logindata.password) {
       alert("Your Password Is Incorrect");
     }
+
+    
+
   };
 
+  const [users, setUsers] = useState([]);
+
+
   const fetchData = () => {
-    fetch(" http://localhost:4500/list")
+    fetch("http://localhost:4500/list")
       .then((response) => {
         return response.json();
       })
-      .then((data) => {
-        setUsers(data);
+      .then((getdata) => {
+        setUsers(getdata);
       });
   };
 
   useEffect(() => {
     fetchData();
   }, []);
+console.log("userssssssssssssssss",users);
+  
 
   // let emailreg = SignIn(param.emailreg)
   // let passwordreg = SignIn(param.passwordreg)
   //  if(emailreg === logindata.email && passwordreg === logindata.password ){
   //       navigate("/home")
   //     }
-  // console.log("userssssssssssssssss",emailreg);
+  
 
   return (
     <ThemeProvider theme={theme}>
-      <Grid container component="main" sx={{ height: "100vh" }}>
+      <Grid container component="main" sx={{ height: "100vh" ,padding:"25px" }}>
         <CssBaseline />
         <Grid
           item
@@ -93,7 +106,7 @@ export default function SignIn() {
           md={7}
           sx={{
             backgroundImage:
-              "url(https://i.pinimg.com/originals/e7/07/6e/e7076e1dda8f38d9494e4f11d6409408.jpg)",
+              "url(https://s3.amazonaws.com/prod.tctmd.com/public/2021-03/Eating%20More%20Ultraprocessed%20%E2%80%98Junk%E2%80%99%20Food%20Linked%20to%20Higher%20CVD%20Risk.jpeg)",
             backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
               t.palette.mode === "light"
@@ -158,11 +171,11 @@ export default function SignIn() {
                 Sign In
               </Button>
               <Grid container>
-                <Grid item xs>
+                {/* <Grid item xs>
                   <Link href="#" variant="body2">
                     Forgot password?
                   </Link>
-                </Grid>
+                </Grid> */}
                 <Grid item>
                   <Link href="/SignUp" variant="body2">
                     {"Don't have an account? Sign Up"}

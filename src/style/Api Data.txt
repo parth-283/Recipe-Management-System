@@ -1,0 +1,22 @@
+
+digest: (26) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+
+healthLabels: (18) ['Pescatarian', 'Egg-Free', 'Peanut-Free', 'Tree-Nut-Free', 'Soy-Free', 'Shellfish-Free', 'Pork-Free', 'Red-Meat-Free', 'Crustacean-Free', 'Celery-Free', 'Mustard-Free', 'Sesame-Free', 'Lupine-Free', 'Mollusk-Free', 'Alcohol-Free', 'Sulfite-Free', 'Kosher', 'Immuno-Supportive']
+
+
+totalDaily: {ENERC_KCAL: {…}, FAT: {…}, FASAT: {…}, CHOCDF: {…}, FIBTG: {…}, …}
+
+totalNutrients: {ENERC_KCAL: {…}, FAT: {…}, FASAT: {…}, FATRN: {…}, FAMS: {…}, …}
+
+uri: "http://www.edamam.com/ontologies/edamam.owl#recipe_6a8cee8f1cbf5edb783d7888ed718080"
+
+
+shareAs: "http://www.edamam.com/recipe/saut%C3%A9ed-haddock-with-summer-veg-6a8cee8f1cbf5edb783d7888ed718080/veg"
+url: "http://www.bbcgoodfood.com/recipes/2757/"
+
+
+
+
+
+
+yield: 6

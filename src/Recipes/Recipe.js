@@ -18,8 +18,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 
-import "../style/recipe.css"
-
+import "../style/recipe.css";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -32,7 +31,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-function Recipe({ title, calories, image, ingredients }) {
+function Recipe({key, title, calories, image, ingredients }) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -40,20 +39,20 @@ function Recipe({ title, calories, image, ingredients }) {
   };
 
   return (
-    <div style={{height:"400px !important"}} className="cardMain">
-      <Card sx={{  margin: "15px 15px"}}>
-        <CardHeader style={{    height:" 153px"}} title={title} />
-        <CardMedia 
-        style={{height: "195px"}}
+    <div style={{ height: "400px !important" }} className="cardMain">
+      <Card sx={{ margin: "15px 15px" }}>
+        <CardHeader style={{ height: " 153px" }} title={title} />
+        <CardMedia
+          style={{ height: "195px" }}
           component="img"
           image={image}
           title={title}
-          alt={title}
+          alt={key}
         />
 
         <CardActions disableSpacing>
           <IconButton aria-label="add to favorites">
-            <FavoriteIcon /> 
+            <FavoriteIcon />
           </IconButton>
           {/* <IconButton aria-label="share">
           <ShareIcon />
@@ -78,14 +77,14 @@ function Recipe({ title, calories, image, ingredients }) {
         <Collapse responsive in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography paragraph>Ingredients:</Typography>
-        <div>
-            <ol className="scroll">
-              {ingredients.map((ingredient) => (
-                <li >
-                  <Typography paragraph>{ingredient.text}</Typography>
-                </li>
-              ))}
-            </ol>
+            <div>
+              <ol className="scroll">
+                {ingredients.map((ingredient) => (
+                  <li>
+                    <Typography key={ingredient} paragraph>{ingredient.text}</Typography>
+                  </li>
+                ))}
+              </ol>
             </div>
           </CardContent>
         </Collapse>
