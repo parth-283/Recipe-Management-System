@@ -25,12 +25,12 @@ function RecipeForm({logoutx}) {
   const [submit, setSubmit] = React.useState([input]);
   const [dummy, setDummy] = React.useState([]);
 
-  console.log("inputtttttttttttttttttttttt", input);
-  console.log("submitttttttttttttttttttttttt", submit);
+  console.log("inputtttttttttt", input);
+  console.log("description", description);
   console.log("ingredients", ingredients);
-  console.log("dummydummy", dummy);
-  // console.log("ingredientssssssssssssssssssssssssss", ingredients);
-  // console.log("descriptionnnnnnnnnnnnnnnnnnnnnn", description);
+  console.log("nutrition", nutrition);
+  console.log("submit", submit);
+  console.log("dummy", dummy);
 
   const handleChange = (props) => {
     setInput({
@@ -76,7 +76,7 @@ function RecipeForm({logoutx}) {
   const data = JSON.stringify(localStorage.getItem("recipe"));
   const handleSubmit = () => {
     localStorage.setItem("recipe",dummy);
-    setSubmit(data);
+    setSubmit(input);
 
   };
 
@@ -113,7 +113,33 @@ function RecipeForm({logoutx}) {
 
         <div className="mb-3 ">
         <label className="form-label">Image</label><br/>
-          <input type="file" id="file-input" name="ImageStyle" />{" "}
+          <input type="file" id="file-input" name="Image"  onChange={handleChange} />{" "}
+        </div>
+
+        <div className="mb-3 ">
+          <label className="form-label"> add your reacipe video Link</label>
+          <input
+            type="text"
+            className="form-control"
+            id="exampleFormControlInput1"
+            placeholder="videolink"
+            name="videolink"
+            // value={input.nameofrecipe}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="mb-3 ">
+          <label className="form-label">add your reacipe Social Meadia Link</label>
+          <input
+            type="text"
+            className="form-control"
+            id="exampleFormControlInput1"
+            placeholder="socialmedialink"
+            name="socialmedialink"
+            // value={input.videolink}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="mb-3 ">
@@ -208,18 +234,19 @@ function RecipeForm({logoutx}) {
             </button>
           </div>
           <div>
+            <ul>
             {ingredients.map((item) => {
-              // console.log(item.ingredients, "ingredients....item.....I");
               return (
                 <div key={item.id}>
                   <div>
-                    <input type="checkbox" />{" "}
-                    <label className="fs-5">{item.ingredients}</label>
+                   
+                    <li className="fs-5">{item.ingredients}</li>
                   </div>
                   <br />
                 </div>
               );
             })}
+            </ul>
           </div>
         </div>
 
@@ -246,7 +273,6 @@ function RecipeForm({logoutx}) {
             </div>
             <div>
               {description.map((item, index) => {
-                // console.log(item.description, "description........item.....");
                 return (
                   <div key={item.id}>
                     <div>
@@ -298,7 +324,6 @@ function RecipeForm({logoutx}) {
           </div>
           <div>
             {nutrition.map((item) => {
-              console.log(item.nutritionfacts, "nutritionfacts....item.....I");
               return (
                 <div key={item.id}>
                   <div>

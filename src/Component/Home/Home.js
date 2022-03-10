@@ -9,7 +9,6 @@ function Home() {
       <HomeSlide/>
       <HeaderBottom/>
       {/* <HomeCard/> */}
-
       
     </div>
   );
