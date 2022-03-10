@@ -4,7 +4,7 @@ const BlockList = () => {
  const [block, setBlock] = useState(false)
 
   const blockHandler = () => {
-    setBlock(true)
+    setBlock(true) 
   };
   console.log("status", block);
 
