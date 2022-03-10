@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router";
+import { Navigate, Route, Routes, useLocation } from "react-router";
 import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -18,53 +18,53 @@ import FeedBack from "./Component/FeedBack/FeedBack";
 
 import Admin from "./admin/Component/Admin";
 // import RecipeForm from "./Recipes/RecipeForm";
-import NavigationBar from './Component/Home/NavigationBar/NavigationBar';
-import AllRecipe from './admin/AdminPages/AllRecipe';
-import UserList from './admin/AdminPages/UserList';
-import UserFeedback from './admin/AdminPages/UserFeedback';
+import NavigationBar from "./Component/Home/NavigationBar/NavigationBar";
+import AllRecipe from "./admin/AdminPages/AllRecipe";
+import UserList from "./admin/AdminPages/UserList";
+import UserFeedback from "./admin/AdminPages/UserFeedback";
+import BlockList from './admin/AdminPages/BlockList';
 
 function App() {
- 
+  const location = useLocation();
   return (
-    <div style={{ backgroundColor: "#bddaf2" }}>
-      <Routes>
-        <Route element={<Header />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/feedback" element={<FeedBack />} />
-          <Route path="/Breakfast" element={<Breakfast />} />
-          <Route path="/Lunch" element={<Lunch />} />
-          <Route path="/Dinner" element={<Dinner />} />
-          <Route path="/Dessert" element={<Dessert />} />
-          <Route path="/contact" element={<Contact />} />
+    <>
+      <div>
+        <Routes>
+          <Route element={<Header />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/feedback" element={<FeedBack />} />
+            <Route path="/Breakfast" element={<Breakfast />} />
+            <Route path="/Lunch" element={<Lunch />} />
+            <Route path="/Dinner" element={<Dinner />} />
+            <Route path="/Dessert" element={<Dessert />} />
+            <Route path="/contact" element={<Contact />} />
 
-          <Route path="/SignUp" element={<SignUp />} />
-         
-            <Route
-              path="/SignIn"
-              element={<SignIn />}
-            />
-         
-           <Route
-           path="/SignIn"
-           element={<NavigationBar   />}
-         />
-          
-        </Route>
+            <Route path="/SignUp" element={<SignUp />} />
 
-        <Route path="/admin" element={<Admin />}>
-          <Route path="/admin/home" element={<Home />} />
-          <Route path="/admin/allrecipe" element={<AllRecipe />} />
-          <Route path="/admin/userlist" element={<UserList />} />
-          <Route path="/admin/userfeedback" element={<UserFeedback />} />
-        </Route>
+            <Route path="/SignIn" element={<SignIn />} />
 
-        <Route path="*" element={<Error404/>}  /> 
-      </Routes>
+            <Route path="/SignIn" element={<NavigationBar />} />
+          </Route>
 
-      {/* <Footer /> */}
-    </div>
+          <Route path="/admin" element={<Admin />}>
+            <Route path="/admin/home" element={<Home />} />
+            <Route path="/admin/allrecipe" element={<AllRecipe />} />
+            <Route path="/admin/userlist" element={<UserList />} />
+            <Route path="/admin/userfeedback" element={<UserFeedback />} />
+            <Route path="/admin/blocklist" element={<BlockList />} />
+          </Route>
+          <Route path="*" element={<Error404 />} />
+        </Routes>
+
+        {/* <Footer /> */}
+      </div>
+      {/* {location.pathname !== "/admin" &&
+        location.pathname !== "/admin/allrecipe" &&
+        location.pathname !== "/admin/userlist" &&
+        location.pathname !== "/admin/userfeedback" && location.pathname !== "*" && <Footer />} */}
+    </>
   );
 }
 

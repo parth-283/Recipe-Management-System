@@ -6,7 +6,9 @@ import Navcomponent from '../Home/NavigationBar/Navcomponent';
 
 function Footer() {
   return (
-    <div>
+    <div style={{ position: "fixed", left: 0,
+    bottom: 0,
+    width: "100%"}}>
       <Card
         className=" text-white text-center"
         style={{ backgroundColor: "#bddaf2" }}

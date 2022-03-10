@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var userctrl = require("./controllers/UserRegister");
+var feedbackctrl = require("./controllers/UserFeedBack")
 var bodyparser = require("body-parser");
 
 var multer = require("multer");
@@ -28,6 +29,7 @@ router.use(bodyparser.json());
 //   res.send("Home Page is called");
 // });
 
+//register route
 router.post("/add", urlencoderparser, userctrl.adduser);
 router.get("/list", userctrl.userlist);
 router.get("/info/:id", userctrl.userinfo);
@@ -35,5 +37,12 @@ router.put("/update/:id", urlencoderparser, userctrl.userupdate);
 router.delete("/delete/:id", userctrl.userDelete);
 // router.post('/profile',upload.array('profile_pic'),userctrl.userprofile)
 router.post("/profile", upload.single("profile_pic"), userctrl.userprofile);
+
+
+router.get("/feedback/list",feedbackctrl.feedbacklist);
+router.post("/feedback/add", urlencoderparser, feedbackctrl.addfeedback);
+router.get("/feedback/:id", feedbackctrl.feedbackinfo);
+router.put("/feedback/update/:id", urlencoderparser,feedbackctrl.feedbackupdate);
+router.delete("/feedback/delete/:id", feedbackctrl.feedbackDelete);
 
 module.exports = router;
