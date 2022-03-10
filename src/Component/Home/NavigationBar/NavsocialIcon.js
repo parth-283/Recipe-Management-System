@@ -28,14 +28,14 @@ function NavsocialIcon() {
                 className="m-1"
                 style={{ color: "#8a3ab9" }}
               >
-                <i class="bi bi-instagram"></i>
+                <i className="bi bi-instagram"></i>
               </Link>
               <Link
                 to="https://in.pinterest.com/login/"
                 className="m-1"
                 style={{ color: "red" }}
               >
-                <i class="bi bi-pinterest"></i>
+                <i className="bi bi-pinterest"></i>
               </Link>
             </div>
           </div>

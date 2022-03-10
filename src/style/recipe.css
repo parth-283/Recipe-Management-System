@@ -6,6 +6,10 @@
     overflow: scroll;
     height: 400px;
 }
+.showscroll {
+    overflow: scroll;
+    height: 317px;
+}
 
 /* .cardMain{
     height: 500px !important;

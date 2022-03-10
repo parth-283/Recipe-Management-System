@@ -47,7 +47,7 @@ function Footer() {
                       <div className="col">
                         <Navcomponent/>
                       </div>
-                      <div className="col">
+                      <div className="col ">
                         <NavsocialIcon />
                       </div>
                     </div>

@@ -27,8 +27,12 @@
     "react-router": "^6.2.1",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
+<<<<<<< HEAD
     "react-toastify": "^8.2.0",
     "reactstrap": "^9.0.1",
+=======
+    "recharts": "^2.1.9",
+>>>>>>> 961f6a8c293d4b923ca634f0ec6e383b1b889b1c
     "styled-components": "^5.3.3",
     "web-vitals": "^2.1.3"
   },
