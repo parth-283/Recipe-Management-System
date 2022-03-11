@@ -1,6 +1,4 @@
-import { Navigate, Route, Routes, useLocation } from "react-router";
-import { useEffect, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router";
+import { Route, Routes, useLocation } from "react-router";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Home from "./Component/Home/Home";
@@ -8,7 +6,6 @@ import About from "./Component/About/About";
 import Contact from "./Component/Contact/Contact";
 import Header from "./Component/Header&Footer/Header";
 
-import Footer from "./Component/Header&Footer/Footer";
 import Error404 from "./Component/Error404/Error404";
 import SignIn from "./Component/SignUp&SignIn/SignIn";
 import SignUp from "./Component/SignUp&SignIn/SignUp";

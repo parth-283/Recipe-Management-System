@@ -19,7 +19,7 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 
-import { Link } from "react-router-dom";
+import { Link,Outlet } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import ListIcon from "@mui/icons-material/List";
@@ -311,6 +311,7 @@ const AdminSidebar = () => {
           <DrawerHeader /> */}
         </Box>
       {/* </Box> */}
+      <Outlet/>
     </>
   );
 };

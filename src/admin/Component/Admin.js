@@ -10,9 +10,9 @@ function Admin() {
     <>
  <AdminHeader />
  <AdminSidebar />
- <AllRecipe />
+ {/* <AllRecipe />
  <UserList/>
- <UserFeedback />
+ <UserFeedback /> */}
    
   </>
 
