@@ -6,7 +6,7 @@ import Navcomponent from '../Home/NavigationBar/Navcomponent';
 
 function Footer() {
   return (
-    <div style={{ position: "fixed", left: 0,
+    <div style={{ position: "", left: 0,
     bottom: 0,
     width: "100%"}}>
       <Card
