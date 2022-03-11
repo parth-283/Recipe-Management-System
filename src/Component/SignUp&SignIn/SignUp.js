@@ -70,7 +70,7 @@ function SignUp() {
         ...vali,
         errormobile: "Mobile is required*",
       });
-    }else if(vali.email.match(/^[a-zA-Z]+$/)){
+    }else if(vali.email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i)){
       setVali({
         ...vali,
         erroremail: "Email isincorrect*",
