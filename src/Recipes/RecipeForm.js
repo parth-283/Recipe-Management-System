@@ -1,6 +1,4 @@
 import React from "react";
-import { useNavigate } from 'react-router';
-import { TextField } from '@mui/material';
 
 function RecipeForm({logoutx}) {
   const [input, setInput] = React.useState({
@@ -67,7 +65,7 @@ function RecipeForm({logoutx}) {
     if( directions !== ""){
       if( input.directions.length > 0 ){
         const dummyDirections = [...input.directions ]
-        dummyDirections.push(ingredients)
+        dummyDirections.push(directions)
         setInput({
           ...input,
           directions: dummyDirections,
@@ -103,8 +101,9 @@ function RecipeForm({logoutx}) {
     }
   };
   const data = JSON.stringify(localStorage.getItem("recipe"));
+  console.log("data",data.input);
   const handleSubmit = () => {
-    localStorage.setItem("recipe",dummy);
+    localStorage.setItem("recipe",{input});
     setSubmit(input);
     console.log("input submit",input);
   };
@@ -118,7 +117,7 @@ function RecipeForm({logoutx}) {
       <div className="row">
         <div className="col-12">
           <div className="title">
-            <label className="form-label">Name Of Recipe</label>
+            <label className="form-label">Name Of Recipe*</label>
           </div>
           <input
             type="text"
@@ -132,7 +131,7 @@ function RecipeForm({logoutx}) {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Short Descrip</label>
+          <label className="form-label">Short Descrip*</label>
           <textarea
             className="form-control"
             id="exampleFormControlTextarea1"
@@ -144,13 +143,13 @@ function RecipeForm({logoutx}) {
         </div>
 
         <div className="mb-3 ">
-        <label className="form-label">Image</label><br/>
+        <label className="form-label">Image*</label><br/>
           <input type="file" id="file-input" name="Image"  onChange={handleChange} />{" "}
-          <img src={input.Image}></img>
+          <img src={input.Image} alt={input.Image}></img>
         </div>
 
         <div className="mb-3 ">
-          <label className="form-label"> add your reacipe video Link</label>
+          <label className="form-label"> Add your reacipe video Link</label>
           <input
             type="text"
             className="form-control"
@@ -163,7 +162,7 @@ function RecipeForm({logoutx}) {
         </div>
 
         <div className="mb-3 ">
-          <label className="form-label">add your reacipe Social Meadia Link</label>
+          <label className="form-label">Add your reacipe Social Meadia Link</label>
           <input
             type="text"
             className="form-control"
@@ -176,7 +175,7 @@ function RecipeForm({logoutx}) {
         </div>
 
         <div className="mb-3 ">
-          <span className="input-group-text ">Timing</span>
+          <span className="input-group-text ">Timing*</span>
           <div className="input-group">
             <span className="input-group-text">Prep:</span>
             <input
@@ -236,7 +235,7 @@ function RecipeForm({logoutx}) {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">description</label>
+          <label className="form-label">description*</label>
           <textarea
             className="form-control"
             id="exampleFormControlTextarea1"
@@ -249,7 +248,7 @@ function RecipeForm({logoutx}) {
 
         <div className="mb-3">
           <div className="input-group mb-3">
-            <span className="input-group-text">Ingredients</span>
+            <span className="input-group-text">Ingredients*</span>
             <input
               type="text"
               className="form-control"
@@ -284,7 +283,7 @@ function RecipeForm({logoutx}) {
 
         <div className="mb-3">
           <div className="mb-3">
-            <span className="input-group-text">Add Step for recipe</span>
+            <span className="input-group-text">Add Step for recipe*</span>
             <div className="input-group mb-3">
               <span className="input-group-text">Directions</span>
               <input
@@ -322,7 +321,7 @@ function RecipeForm({logoutx}) {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Chef's Notes:</label>
+          <label className="form-label">Chef's Notes*</label>
           <textarea
             className="form-control"
             id="exampleFormControlTextarea1"
@@ -334,7 +333,7 @@ function RecipeForm({logoutx}) {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Nutrition Facts</label>
+          <label className="form-label">Nutrition Facts* </label>
           <div className="input-group">
             <span className="input-group-text">Per Serving:</span>
             <input

@@ -1,11 +1,10 @@
-import { Route, Routes, useLocation } from "react-router";
+import { Route, Routes} from "react-router";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Home from "./Component/Home/Home";
 import About from "./Component/About/About";
 import Contact from "./Component/Contact/Contact";
 import Header from "./Component/Header&Footer/Header";
-// import Error404 from "./Component/Error404/Error404";
 import SignIn from "./Component/SignUp&SignIn/SignIn";
 import SignUp from "./Component/SignUp&SignIn/SignUp";
 
@@ -17,17 +16,14 @@ import FeedBack from "./Component/FeedBack/FeedBack";
 
 import RecipeForm from "./Recipes/RecipeForm";
 import ShowRecipe from "./Recipes/ShowRecipe";
-import RecipeFormMUI from "./Recipes/RecipeFormMUI";
 
 import Admin from "./admin/Component/Admin";
 import AllRecipe from './admin/AdminPages/AllRecipe';
 import UserList from './admin/AdminPages/UserList';
 import UserFeedback from './admin/AdminPages/UserFeedback';
 import BlockList from './admin/AdminPages/BlockList';
-import Footer from './Component/Header&Footer/Footer';
 
 function App() {
-  const location = useLocation();
 
 
   let reg = localStorage.getItem("user-info");
@@ -40,8 +36,6 @@ function App() {
   let emaillogin = logindata[0].logindata.email;
   let passwordlogin = logindata[0].logindata.password;
 
-  // console.log("emailreg", emailreg);
-  // console.log("passwordreg", passwordreg);
   console.log("emaillogin", emaillogin);
   console.log("passwordlogin", passwordlogin);
 
@@ -53,7 +47,6 @@ function App() {
   }
  
 
-  // console.log("isloggedin===============",isloggedin);
 
   return (
     <div style={{ backgroundColor: "#bddaf2" }}>
@@ -69,7 +62,6 @@ function App() {
           <Route path="/Dinner" element={<Dinner />} />
           <Route path="/Dessert" element={<Dessert />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/recipeformmui" element={<RecipeFormMUI />} />
 
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/SignIn" element={<SignIn />} />
