@@ -1,24 +1,36 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 
-const BlockList = () => {
- const [block, setBlock] = useState(false)
+const BlockList = (UID) => {
+  const [users, setUsers] = useState([])
+ const [block, setBlock] = useState("")
 
-  const blockHandler = () => {
-    setBlock(true)        
-  };
-  console.log("status", block);
-
-  const unblockHandler = () => {
-   setBlock(false)
-  };
-
+//  const fetchData = () => {
+//   fetch(`http://localhost:4500/feedback/list `)
+//     .then((response) => {
+//       return response.json();
+//     })
+//     .then((data) => {
+//       console.log("dataa", data);
+//       setUsers(data);
+//       console.log("dataaa", data);
+//     });
+// };
+console.log("blockList DATA",users);
+ 
+// useEffect(() => {
+//   fetchData();
+// }, []);
+// const mulData = users.filter((item) => item.Status === "true")
+//   console.log("mul dataaa",mulData)
+//   setBlock(mulData)
+//   console.log("blockkkkk",block);
   return (
-    <>
-      <div style={{ width: "100%", marginLeft: "250px", marginTop: "20px" }}>
-        BlockListtttttttttttttttt
-        <button onClick={() => blockHandler()}>Block</button>
-        <button onClick={() => unblockHandler()}>unblock</button>
-      </div>
+    <> <div style={{marginLeft:"400px"}}>
+
+
+         <h1>hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii</h1>
+      
+    </div>
     </>
   );
 };

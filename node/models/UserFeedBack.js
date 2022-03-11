@@ -6,6 +6,7 @@ var feedbacks = function (feedbacks) {
   this.Phone = feedbacks.Phone;
   this.Email = feedbacks.Email;
   this.Message = feedbacks.Message;
+  this.Status = feedbacks.Status;
   // this.created_at = new Data();
 };
 
@@ -52,12 +53,13 @@ feedbacks.findall = (cb) => {
 
   feedbacks.update = (data,id,cb) => {
     connection.query(
-      "Update feedback set Name =?, Phone =? , Email =? ,  Message =?  where UID=?",
+      "Update feedback set Name =?, Phone =? , Email =? ,  Message =?,  Status =?  where UID=?",
       [
         data.Name,
         data.Phone,
         data.Email,
         data.Message,
+        data.Status,
         id,
       ],
       function (error, result, field) {

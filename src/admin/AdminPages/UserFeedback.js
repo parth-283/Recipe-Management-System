@@ -273,6 +273,15 @@ const UserFeedback = () => {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
+  const [status, setStatus] = useState(false)
+  const [dataID, setDataId] = useState("")
+  const [name, setName] = useState("")
+  const [phone, setPhone] = useState("")
+  const [email, setEmail] = useState("")
+  const [message, setMessage] = useState("")
+
+
+
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
@@ -333,9 +342,8 @@ const UserFeedback = () => {
         return response.json();
       })
       .then((data) => {
-        console.log("dataa", data);
         setUsers(data);
-        console.log("dataaa", data);
+        // console.log("dataaa", data);
       });
   };
 
@@ -358,21 +366,85 @@ const UserFeedback = () => {
     });
   };
 
-  const handleBlockDetails = (UID) => {
-    console.log("block user");
-    console.log("IDDD", UID);
-    const blockData = users.filter((item) => item.UID === UID);
+const [dummy, setDummy] = useState([])
 
-    console.log("blockData", blockData);
-    setUsers(blockData);
-  };
+  const handleBlockDetails = (UID) => {
+    console.log("IDD",UID);
+    setDummy(users)
+
+    const recordData =dummy.filter((item) => item.UID === UID)
+    console.log("dummydataaa status",recordData[0].Status);
+     
+    
+    setStatus(true)
+    let update=recordData[0].Status ="true"
+    setDummy(...dummy,update)
+    console.log("update",update);
+    console.log("dummy",dummy);
+
+
+    
+  const mulData = dummy.filter((item) => item.Status !=="false")
+  console.log("mul dataaa",mulData);
+  
+  setName(mulData[0].Name)
+  setEmail(mulData[0].Email)
+  setPhone(mulData[0].Phone)
+  setMessage(mulData[0].Message)
+  setStatus(mulData[0].Status)
+
+ let item2 ={name,email,phone,message,status}
+
+ console.log("itemmmm",{item2});
+
+//     const updatedData =update.filter((item) => item.Status === true)
+// console.log("updatedData",updatedData);
+
+    // console.log("Status",status);
+    // const recordData =dummy.filter((item) => item.Status === true)
+
+    // console.log("recordData",recordData);
+
+
+
+    // console.log("Statussssssss", status);
+    // console.log("Usersssssss", users);
+
+    // const blockData = users.filter((item) => item.Status ===true);
+    // console.log("blockData", blockData);
+
+
+    // console.log("blockData", blockData[0].Name);
+    // console.log("blockData Phone", blockData[0].Phone);
+    // setUsers(blockData); 
+ 
+
+    fetch(`http://localhost:4500/feedback/update/${UID}?Name=${item2.name}&Phone=${item2.phone}&Email=${item2.email}&Message=${item2.message}&Status=${item2.status}`,{
+      // http://localhost:4500/feedback/update/1?Name=ff&Phone=7777&Email=1111k@sdgmail.com&Message=nnnnijsd sdddddd&Status=false
+      method:"PUT",
+      header:{
+        "Accept":"application/json",
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify(item2)
+    }).then((result) => {
+      result.json().then((resp) => {
+        console.warn(resp)
+        setStatus(true)
+        console.log("respppp",resp);
+        fetchData()
+      })
+    })
+    }
+
+
+
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  console.log("Users", users);
-
+  
   return (
     <>
       <div className="App">
