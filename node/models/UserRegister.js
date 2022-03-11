@@ -10,6 +10,7 @@ var users = function (users) {
   this.Email = users.Email;
   this.Mobile = users.Mobile;
   this.Password = users.Password;
+  this.Status = users.Status;
   // this.created_at = new Data();
 };
 
@@ -53,7 +54,7 @@ users.findByID = (id, cb) => {
 
 users.update = (data,id,cb) => {
   connection.query(
-    "Update userregister set FName =? , LName =? , Gender =? , State =? , City =? , Email =? , Mobile =? , Password =?  where UID=?",
+    "Update userregister set FName =? , LName =? , Gender =? , State =? , City =? , Email =? , Mobile =? , Password =? , Status=?  where UID=?",
     [
       data.FName,
       data.LName,
@@ -63,6 +64,7 @@ users.update = (data,id,cb) => {
       data.Email,
       data.Mobile,
       data.Password,
+      data.Status,
       id,
     ],
     function (error, result, field) {
