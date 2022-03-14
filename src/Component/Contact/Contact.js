@@ -20,9 +20,9 @@ function Contact() {
             >
               Contact Us
             </h5>
-            <p className="card-title fs-3  fw-normal fw-bold">
+            {/* <p className="card-title fs-3  fw-normal fw-bold">
               Suggestions? Questions? Contact us below.
-            </p>
+            </p> */}
           </div>
         </div>
       </div>

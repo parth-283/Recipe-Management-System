@@ -1,22 +1,29 @@
 var connection = require("../config/DB");
 
-var users = function (users) {
-  this.UID = users.UID
-  this.FName = users.FName;
-  this.LName = users.LName;
-  this.Gender = users.Gender;
-  this.State = users.State;
-  this.City = users.City;
-  this.Email = users.Email;
-  this.Mobile = users.Mobile;
-  this.Password = users.Password;
-  // this.Status = users.Status;s
+var recipe = function (recipe) {
+  this.UID = recipe.UID
+  this.Name = recipe.Name;
+  this.ShortDes = recipe.ShortDes;
+  this.Image = recipe.Image;
+  this.Video = recipe.Video;
+  this.SocialMedia = recipe.SocialMedia;
+  this.Prep = recipe.Prep;
+  this.CookMins = recipe.CookMins;
+  this.AdditionalMins = recipe.AdditionalMins;
+  this.TotalTime = recipe.TotalTime;
+  this.Servings = recipe.Servings;
+  this.Yield = recipe.Yield;
+  this.description = recipe.description;
+  this.ingredients = recipe.ingredients;
+  this.Directions = recipe.Directions;
+  this.ChefNote = recipe.ChefNote;
+  this.Nutrition = recipe.Nutrition;
   // this.created_at = new Data();
 };
 
-users.create = (data, cb) => {
+recipe.create = (data, cb) => {
   connection.query(
-    "Insert Into userregister set ?",
+    "Insert Into userrecipe set ?",
     [data],
     function (error, result, field) {
       if (error) {
@@ -27,8 +34,10 @@ users.create = (data, cb) => {
     }
   );
 };
-users.findall = (cb) => {
-  let queryselect = "select * from userregister";
+
+
+recipe.findall = (cb) => {
+  let queryselect = "select * from userrecipe";
   connection.query(queryselect, function (err, result, field) {
     if (err) {
       cb(null.err);
@@ -38,9 +47,9 @@ users.findall = (cb) => {
   console.log("data show");
 };
 
-users.findByID = (id, cb) => {
+recipe.findByID = (id, cb) => {
   connection.query(
-    "select * from userregister where UID =?",
+    "select * from userrecipe where UID =?",
     [id],
     function (error, result, field) {
       if (error) {
@@ -52,9 +61,9 @@ users.findByID = (id, cb) => {
   );
 };
 
-users.update = (data,id,cb) => {
+recipe.update = (data,id,cb) => {
   connection.query(
-    "Update userregister set FName =? , LName =? , Gender =? , State =? , City =? , Email =? , Mobile =? , Password =? , Status=?  where UID=?",
+    "Update userrecipe set FName =? , LName =? , Gender =? , State =? , City =? , Email =? , Mobile =? , Password =? , Status=?  where UID=?",
     [
       data.FName,
       data.LName,
@@ -77,9 +86,9 @@ users.update = (data,id,cb) => {
   );
 };
 
-users.delete = (id, cb) => {
+recipe.delete = (id, cb) => {
   connection.query(
-    "delete from userregister where UID =?",
+    "delete from userrecipe where UID =?",
     [id],
     function (error, result, field) {
       if (error) {
@@ -91,4 +100,8 @@ users.delete = (id, cb) => {
   );
 };
 
-module.exports = users;
+
+
+
+
+module.exports = recipe;

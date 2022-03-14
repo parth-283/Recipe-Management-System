@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from 'react-router';
 
 function RecipeForm({logoutx}) {
   const [input, setInput] = React.useState({
@@ -12,72 +11,101 @@ function RecipeForm({logoutx}) {
     totaltime: "",
     servings: "",
     yield: "",
+    ingredients:[],
     description: "",
-    ingredients: "",
-    directions: "",
+    directions: [],
     chefnote: "",
     nutritionfacts: "",
+    Image:"",
+    videolink:"",
+    socialmedialink:"",
   });
 
-  const [ingredients, setIngredients] = React.useState([]);
-  const [description, setDescription] = React.useState([]);
-  const [nutrition, setNutrition] = React.useState([]);
-  const [submit, setSubmit] = React.useState([input]);
+  const [ingredients, setIngredients] = React.useState("");
+  const [directions, setDirections] = React.useState("");
+  const [nutrition, setNutrition] = React.useState("");
+  const [submit, setSubmit] = React.useState([]);
   const [dummy, setDummy] = React.useState([]);
 
   console.log("inputtttttttttt", input);
-  console.log("description", description);
-  console.log("ingredients", ingredients);
-  console.log("nutrition", nutrition);
-  console.log("submit", submit);
-  console.log("dummy", dummy);
+  // console.log("description", description);
+  // console.log("ingredients", ingredients);
+  // console.log("nutrition", nutrition);
+  // console.log("submit", submit);
+  // console.log("dummy", dummy);
 
-  const handleChange = (props) => {
-    setInput({
-      ...input,
-      [props.target.name]: props.target.value,
-    });
+  const handleChange = (e) => {
+      setInput({
+        ...input,
+        [e.target.name]: e.target.value,
+      });
   };
 
   const addingredients = (props) => {
-    if (input !== "") {
-      setIngredients([...ingredients, input]);
-      setDummy([...dummy, input.ingredients]);
-      setInput({
-        ...input,
-        id: Math.random(),
-        ingredients: "",
-      });
+    if(ingredients !== ""){
+      if( input.ingredients.length > 0 ){
+        const dummyIngredients = [...input.ingredients ]
+        dummyIngredients.push(ingredients)
+        setInput({
+          ...input,
+          ingredients: dummyIngredients,
+        });
+        setIngredients("")
+      }else{
+        setInput({
+          ...input,
+          ingredients: [ingredients],
+        });
+        setIngredients("")
+      }
     }
   };
-  const addDirections = (props) => {
-    if (input !== "") {
-      setDescription([...description, input]);
-      setDummy([...dummy, input.description]);
 
-      setInput({
-        id: Math.random(),
-        description: "",
-      });
+  const addDirections = (props) => {
+    if( directions !== ""){
+      if( input.directions.length > 0 ){
+        const dummyDirections = [...input.directions ]
+        dummyDirections.push(directions)
+        setInput({
+          ...input,
+          directions: dummyDirections,
+        });
+        setDirections("")
+      }else{
+        setInput({
+          ...input,
+          directions: [directions],
+        });
+        setDirections("")
+      }
     }
   };
 
   const addNutrition = (props) => {
-    if (input !== "") {
-      setNutrition([...nutrition, input]);
-      setDummy([...dummy, input.nutritionfacts]);
-
-      setInput({
-        id: Math.random(),
-        nutritionfacts: "",
-      });
+    if( nutrition !== ""){
+      if( input.nutritionfacts.length > 0 ){
+        const dummyNutrition = [...input.nutritionfacts ]
+        dummyNutrition.push(nutrition)
+        setInput({
+          ...input,
+          nutritionfacts: dummyNutrition,
+        });
+        setNutrition("")
+      }else{
+        setInput({
+          ...input,
+          nutritionfacts: [nutrition],
+        });
+        setNutrition("")
+      }
     }
   };
   const data = JSON.stringify(localStorage.getItem("recipe"));
+  console.log("data",data.input);
   const handleSubmit = () => {
-    localStorage.setItem("recipe",dummy);
+    localStorage.setItem("recipe",{input});
     setSubmit(input);
-
+    console.log("input submit",input);
   };
 
   
@@ -86,8 +114,11 @@ function RecipeForm({logoutx}) {
       <h1 className="text-center">Add Recipe Form</h1>
      
       <div className=" border-top  border-bottom  border-primary  border-3 rounded m-3">
-        <div className="mb-3 ">
-          <label className="form-label">Name Of Recipe</label>
+      <div className="row">
+        <div className="col-12">
+          <div className="title">
+            <label className="form-label">Name Of Recipe*</label>
+          </div>
           <input
             type="text"
             className="form-control"
@@ -100,7 +131,7 @@ function RecipeForm({logoutx}) {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Short Descrip</label>
+          <label className="form-label">Short Descrip*</label>
           <textarea
             className="form-control"
             id="exampleFormControlTextarea1"
@@ -112,38 +143,39 @@ function RecipeForm({logoutx}) {
         </div>
 
         <div className="mb-3 ">
-        <label className="form-label">Image</label><br/>
+        <label className="form-label">Image*</label><br/>
           <input type="file" id="file-input" name="Image"  onChange={handleChange} />{" "}
+          <img src={input.Image} alt={input.Image}></img>
         </div>
 
         <div className="mb-3 ">
-          <label className="form-label"> add your reacipe video Link</label>
+          <label className="form-label"> Add your reacipe video Link</label>
           <input
             type="text"
             className="form-control"
             id="exampleFormControlInput1"
             placeholder="videolink"
             name="videolink"
-            // value={input.nameofrecipe}
+            value={input.videolink}
             onChange={handleChange}
           />
         </div>
 
         <div className="mb-3 ">
-          <label className="form-label">add your reacipe Social Meadia Link</label>
+          <label className="form-label">Add your reacipe Social Meadia Link</label>
           <input
             type="text"
             className="form-control"
             id="exampleFormControlInput1"
             placeholder="socialmedialink"
             name="socialmedialink"
-            // value={input.videolink}
+            value={input.socialmedialink}
             onChange={handleChange}
           />
         </div>
 
         <div className="mb-3 ">
-          <span className="input-group-text ">Timing</span>
+          <span className="input-group-text ">Timing*</span>
           <div className="input-group">
             <span className="input-group-text">Prep:</span>
             <input
@@ -203,7 +235,7 @@ function RecipeForm({logoutx}) {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">description</label>
+          <label className="form-label">description*</label>
           <textarea
             className="form-control"
             id="exampleFormControlTextarea1"
@@ -216,31 +248,30 @@ function RecipeForm({logoutx}) {
 
         <div className="mb-3">
           <div className="input-group mb-3">
-            <span className="input-group-text">Ingredients</span>
+            <span className="input-group-text">Ingredients*</span>
             <input
               type="text"
               className="form-control"
               name="ingredients"
-              value={input.ingredients}
-              onChange={handleChange}
+              value={ingredients}
+              onChange={(e)=>setIngredients(e.target.value)}
             />
             <button
               className="btn btn-outline-secondary"
               type="button"
               id="button-addon1"
-              onClick={(props) => addingredients(props)}
+              onClick={addingredients}
             >
               Add
             </button>
           </div>
           <div>
             <ul>
-            {ingredients.map((item) => {
+            {input?.ingredients?.length > 0 && input?.ingredients.map((item, index) => {
               return (
-                <div key={item.id}>
+                <div key={index}>
                   <div>
-                   
-                    <li className="fs-5">{item.ingredients}</li>
+                    <li className="fs-5">{item}</li>
                   </div>
                   <br />
                 </div>
@@ -252,34 +283,34 @@ function RecipeForm({logoutx}) {
 
         <div className="mb-3">
           <div className="mb-3">
-            <span className="input-group-text">Add Step for recipe</span>
+            <span className="input-group-text">Add Step for recipe*</span>
             <div className="input-group mb-3">
               <span className="input-group-text">Directions</span>
               <input
                 type="text"
                 className="form-control"
                 name="directions"
-                value={input.directions}
-                onChange={handleChange}
+                value={directions}
+                onChange={(e)=> setDirections(e.target.value)}
               />
               <button
                 className="btn btn-outline-secondary"
                 type="button"
                 id="button-addon1"
-                onClick={(props) => addDirections(props)}
+                onClick={addDirections}
               >
                 Add Step
               </button>
             </div>
             <div>
-              {description.map((item, index) => {
+              {input?.directions?.length > 0 && input.directions.map((item, index) => {
                 return (
-                  <div key={item.id}>
+                  <div key={index}>
                     <div>
                       <input type="checkbox" className="rounded " />
                       &nbsp;
                       <label className="fs-5 fw-bold">Step {++index} </label>
-                      <p>{item.directions}</p>
+                      <p>{item}</p>
                     </div>
                     <br />
                   </div>
@@ -290,7 +321,7 @@ function RecipeForm({logoutx}) {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Chef's Notes:</label>
+          <label className="form-label">Chef's Notes*</label>
           <textarea
             className="form-control"
             id="exampleFormControlTextarea1"
@@ -302,7 +333,7 @@ function RecipeForm({logoutx}) {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Nutrition Facts</label>
+          <label className="form-label">Nutrition Facts* </label>
           <div className="input-group">
             <span className="input-group-text">Per Serving:</span>
             <input
@@ -310,24 +341,24 @@ function RecipeForm({logoutx}) {
               aria-label="First name"
               className="form-control"
               name="nutritionfacts"
-              value={input.nutritionfacts}
-              onChange={handleChange}
+              value={nutrition}
+              onChange={(e)=> setNutrition(e.target.value)}
             />
             <button
               className="btn btn-outline-secondary"
               type="button"
               id="button-addon1"
-              onClick={(props) => addNutrition(props)}
+              onClick={addNutrition}
             >
               Add Nutrition Facts
             </button>
           </div>
           <div>
-            {nutrition.map((item) => {
+            {input?.nutritionfacts?.length > 0 &&  input.nutritionfacts.map((item, index) => {
               return (
-                <div key={item.id}>
+                <div key={index}>
                   <div>
-                    <label className="fs-5">{item.nutritionfacts}</label>
+                    <label className="fs-5">{item}</label>
                   </div>
                   <br />
                 </div>
@@ -343,6 +374,7 @@ function RecipeForm({logoutx}) {
           >
             Submit your recipe
           </button>
+        </div>
         </div>
       </div>
     </div>

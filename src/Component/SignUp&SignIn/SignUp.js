@@ -69,13 +69,13 @@ function SignUp() {
       setVali({
         ...vali,
         errormobile: "Mobile is required*",
-      });
-    }else if(vali.email.match(/^[a-zA-Z]+$/)){
-      setVali({
-        ...vali,
-        erroremail: "Email isincorrect*",
-      });
-    } 
+      });}
+    // }else if(vali.email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i)){
+    //   setVali({
+    //     ...vali,
+    //     erroremail: "Email isincorrect*",
+    //   });
+    // } 
     else if (vali.state === "") {
       setVali({
         ...vali,

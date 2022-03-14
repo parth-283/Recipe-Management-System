@@ -6,7 +6,7 @@ import Navcomponent from '../Home/NavigationBar/Navcomponent';
 
 function Footer() {
   return (
-    <div style={{ position: "fixed", left: 0,
+    <div style={{ position: "", left: 0,
     bottom: 0,
     width: "100%"}}>
       <Card
@@ -42,12 +42,12 @@ function Footer() {
                     </Card.Text>
                   </div>
                   <div className="col" >
-                    +
-                    <div className="row d-grid">
+                    
+                    <div className="row ">
                       <div className="col">
                         <Navcomponent/>
                       </div>
-                      <div className="col ">
+                      <div className="col " style={{maxInlineSize:" min-content"}}>
                         <NavsocialIcon />
                       </div>
                     </div>

@@ -23,9 +23,9 @@ function Navcomponent() {
   return (
     <div
       className="navbar-nav "
-      style={{ alignContent: "center", textTransform: "uppercase" }}
+      style={{/*  alignContent: "center", */ textTransform: "uppercase"}}
     >
-      <Nav className="me-auto">
+      <Nav className="me-auto" style={{display:"contents" }}>
         <Link className="nav-link fs-5" as={Link} to="/home">
           <b>Home</b>
         </Link>
