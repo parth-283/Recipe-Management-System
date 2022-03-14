@@ -42,12 +42,12 @@ function Footer() {
                     </Card.Text>
                   </div>
                   <div className="col" >
-                    +
-                    <div className="row d-grid">
+                    
+                    <div className="row ">
                       <div className="col">
                         <Navcomponent/>
                       </div>
-                      <div className="col ">
+                      <div className="col " style={{maxInlineSize:" min-content"}}>
                         <NavsocialIcon />
                       </div>
                     </div>
