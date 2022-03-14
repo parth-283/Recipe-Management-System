@@ -214,6 +214,7 @@ const AdminSidebar = () => {
         </Toolbar>
       </AppBar>
       <Drawer
+      
         sx={{
           width: drawerWidth,
           flexShrink: 0,
@@ -233,6 +234,7 @@ const AdminSidebar = () => {
             sx={{ backgroundColor: "#075E54", height: "100vh", spacing: 0 }}
           >
             <Nav>
+            {/* style={({ isActive}) => {return {backgroundColor:isActive ? '#6d1b7b' :'none'}}} */}
               <ListItemIcon sx={{marginLeft: "35px",marginTop:"10px", color: "black"}}>
                 <MenuBookIcon sx={{marginTop:"10px"}} />
                 <Link
