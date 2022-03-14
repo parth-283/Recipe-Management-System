@@ -10,7 +10,7 @@ var users = function (users) {
   this.Email = users.Email;
   this.Mobile = users.Mobile;
   this.Password = users.Password;
-  this.Status = users.Status;
+  // this.Status = users.Status;s
   // this.created_at = new Data();
 };
 
