@@ -273,12 +273,14 @@ const UserFeedback = () => {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  const [status, setStatus] = useState(false)
+  const [status, setStatus] = useState("")
   const [dataID, setDataId] = useState("")
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
   const [email, setEmail] = useState("")
   const [message, setMessage] = useState("")
+  const [dummy, setDummy] = useState([])
+
 
 
 
@@ -366,34 +368,38 @@ const UserFeedback = () => {
     });
   };
 
-const [dummy, setDummy] = useState([])
 
   const handleBlockDetails = (UID) => {
     console.log("IDD",UID);
     setDummy(users)
 
+    console.log("dummy before",dummy);
+
+
     const recordData =dummy.filter((item) => item.UID === UID)
+    console.log("recordDtaa",recordData);
     console.log("dummydataaa status",recordData[0].Status);
      
     
-    setStatus(true)
-    let update=recordData[0].Status ="true"
-    setDummy(...dummy,update)
-    console.log("update",update);
-    console.log("dummy",dummy);
+    // setStatus(true)
+     let update=recordData[0].Status ="true"
+     setDummy(...dummy,update)
+     console.log("update status",update);
+     console.log("dummy after",dummy);
 
 
     
-  const mulData = dummy.filter((item) => item.Status !=="false")
-  console.log("mul dataaa",mulData);
-  
+   const mulData = dummy.filter((item) => item.Status ==="true")
+    console.log("mul dataaa",mulData);
+    
+    let item2 ={name,email,phone,message,status}
+
   setName(mulData[0].Name)
   setEmail(mulData[0].Email)
   setPhone(mulData[0].Phone)
   setMessage(mulData[0].Message)
   setStatus(mulData[0].Status)
 
- let item2 ={name,email,phone,message,status}
 
  console.log("itemmmm",{item2});
 
@@ -419,14 +425,13 @@ const [dummy, setDummy] = useState([])
     // setUsers(blockData); 
  
 
-    fetch(`http://localhost:4500/feedback/update/${UID}?Name=${item2.name}&Phone=${item2.phone}&Email=${item2.email}&Message=${item2.message}&Status=${item2.status}`,{
-      // http://localhost:4500/feedback/update/1?Name=ff&Phone=7777&Email=1111k@sdgmail.com&Message=nnnnijsd sdddddd&Status=false
+    fetch(`http://localhost:4500/feedback/update/${UID}?Name=${name}&Phone=${phone}&Email=${email}&Message=${message}&Status=${status}`,{
       method:"PUT",
-      header:{
+      headers:{
         "Accept":"application/json",
         "Content-Type":"application/json"
       },
-      body:JSON.stringify(item2)
+      body:JSON.stringify({item2})
     }).then((result) => {
       result.json().then((resp) => {
         console.warn(resp)
@@ -436,7 +441,6 @@ const [dummy, setDummy] = useState([])
       })
     })
     }
-
 
 
 
