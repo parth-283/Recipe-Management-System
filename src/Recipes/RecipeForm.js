@@ -1,8 +1,14 @@
 import React from "react";
 
-function RecipeForm({logoutx}) {
+function RecipeForm({}) {
+  const [recipe, setRecipe] = React.useState([]);
+  const [ingredients, setIngredients] = React.useState("");
+  const [directions, setDirections] = React.useState("");
+  const [nutrition, setNutrition] = React.useState("");
+
+
   const [input, setInput] = React.useState({
-    id: Math.random(),
+    UID: recipe.length + 1,
     nameofrecipe: "",
     shortdescrip: "",
     prep: "",
@@ -20,12 +26,7 @@ function RecipeForm({logoutx}) {
     videolink:"",
     socialmedialink:"",
   });
-
-  const [ingredients, setIngredients] = React.useState("");
-  const [directions, setDirections] = React.useState("");
-  const [nutrition, setNutrition] = React.useState("");
-  const [submit, setSubmit] = React.useState([]);
-  const [dummy, setDummy] = React.useState([]);
+ 
 
   console.log("inputtttttttttt", input);
   // console.log("description", description);
@@ -102,11 +103,47 @@ function RecipeForm({logoutx}) {
   };
   const data = JSON.stringify(localStorage.getItem("recipe"));
   console.log("data",data.input);
-  const handleSubmit = () => {
+
+  async function handleSubmit(event) {
     localStorage.setItem("recipe",{input});
-    setSubmit(input);
-    console.log("input submit",input);
+    // setSubmit(input);
+    // console.log("input submit",input);
+
+    let requestOptions = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(input),
+    };
+    let resultdata = await fetch(
+      `http://localhost:4500/recipe/add?UID=${input.UID}&Name=${input.nameofrecipe}&ShortDes=${input.shortdescrip}&Prep=${input.prep}&CookMins=${input.cookmins}&AdditionalMins=${input.additionalmins}&TotalTime=${input.totaltime}&Servings=${input.servings}&Yield=${input.yield}&ingredients=${input.ingredients}&description=${input.description}&Directions=${input.directions}&ChefNote=${input.chefnote}&Nutrition=${input.nutritionfacts}&Image=${input.Image}&Video=${input.videolink}&SocialMedia=${input.socialmedialink}`,
+      requestOptions
+    );
+    let result = await resultdata.json();
+    console.log("resultyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy", result);
   };
+
+
+
+  const fetchData = () => {
+    fetch("http://localhost:4500/recipe/list")
+      .then((response) => {
+        return response.json();
+      })
+      .then((getdata) => {
+        setRecipe(getdata);
+      });
+  };
+
+  React.useEffect(() => {
+    fetchData();
+  }, []);
+  console.log("recipe UID",recipe.length + 1);
+   console.log("input UID", input.UID);
+
+
 
   
   return (
