@@ -1,9 +1,9 @@
 import * as React from "react";
+import { useNavigate } from "react-router";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import ButtonBase from "@mui/material/ButtonBase";
 import Typography from "@mui/material/Typography";
-import { useNavigate } from "react-router";
 
 const images = [
   {
