@@ -109,6 +109,7 @@ function SignUp() {
         city: data.get("city"),
         gender: data.get("gender"),
         password: data.get("password"),
+        Status:"false"
       };
 
       let requestOptions = {
@@ -120,7 +121,7 @@ function SignUp() {
         body: JSON.stringify(regdata),
       };
       let resultdata = await fetch(
-        `http://localhost:4500/add?UID=${regdata.UID}&FName=${regdata.firstName}&LName=${regdata.lastName}&Gender=${regdata.gender}&State=${regdata.state}&City=${regdata.city}&Email=${regdata.email}&Mobile=${regdata.mobile}&Password=${regdata.password}`,
+        `http://localhost:4500/add?UID=${regdata.UID}&FName=${regdata.firstName}&LName=${regdata.lastName}&Gender=${regdata.gender}&State=${regdata.state}&City=${regdata.city}&Email=${regdata.email}&Mobile=${regdata.mobile}&Password=${regdata.password}&Status=false`,
         requestOptions
       );
       let result = await resultdata.json();

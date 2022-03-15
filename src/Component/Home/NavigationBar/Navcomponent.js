@@ -36,7 +36,10 @@ function Navcomponent() {
           <b>Contact</b>
         </Link>
         <Link className="nav-link fs-5" as={Link} to="/feedback">
-          <b>FeedBack</b>
+          <b>Feedback</b>
+        </Link>
+        <Link className="nav-link fs-5" as={Link} to="/userrecipe">
+          <b>User's-Recipe</b>
         </Link>
 
         {isloggedin ? (

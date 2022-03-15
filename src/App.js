@@ -22,6 +22,7 @@ import AllRecipe from './admin/AdminPages/AllRecipe';
 import UserList from './admin/AdminPages/UserList';
 import UserFeedback from './admin/AdminPages/UserFeedback';
 import BlockList from './admin/AdminPages/BlockList';
+import UserRecipe from './Recipes/UserRecipe/UserRecipe';
 
 function App() {
 
@@ -62,6 +63,7 @@ function App() {
           <Route path="/Dinner" element={<Dinner />} />
           <Route path="/Dessert" element={<Dessert />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/userrecipe" element={<UserRecipe />} />
 
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/SignIn" element={<SignIn />} />
