@@ -1,5 +1,5 @@
 import React from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import About1 from "../pics/About1.jpg";
 // import PizzaMuffins1 from "../pics/PizzaMuffins1.png";
 // import ShareIcon from '@mui/icons-material/Share';
@@ -14,9 +14,9 @@ import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+// import FavoriteIcon from "@mui/icons-material/Favorite";
+// import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+// import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 
 import "../style/recipe.css";
 
@@ -51,24 +51,26 @@ function Recipe({key, title, calories, image, ingredients }) {
         />
 
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
+          {/* <IconButton aria-label="add to favorites">
             <FavoriteIcon />
-          </IconButton>
+          </IconButton> */}
           {/* <IconButton aria-label="share">
           <ShareIcon />
         </IconButton> */}
-          <IconButton aria-label="share">
+          {/* <IconButton aria-label="share">
             <ThumbUpIcon />
           </IconButton>
           <IconButton aria-label="share">
             <ThumbDownIcon />
-          </IconButton>
+          </IconButton> */}
+          <label className="fs-6">Show details</label>
           <ExpandMore
             expand={expanded}
             onClick={handleExpandClick}
             aria-expanded={expanded}
             aria-label="show more"
             className="cardPattern"
+            style={{    direction: "rtl"}}
           >
             <ExpandMoreIcon />
           </ExpandMore>
@@ -86,6 +88,9 @@ function Recipe({key, title, calories, image, ingredients }) {
                 ))}
               </ol>
             </div>
+            <Link className="btn-outline-info fs-5 " as={Link} to="/showrecipe">
+          More Info
+          </Link>
           </CardContent>
         </Collapse>
       </Card>

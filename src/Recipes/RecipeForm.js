@@ -122,7 +122,7 @@ function RecipeForm({}) {
       requestOptions
     );
     let result = await resultdata.json();
-    console.log("resultyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy", result);
+    console.log("resultyyyyyyyy", result);
   };
 
 
