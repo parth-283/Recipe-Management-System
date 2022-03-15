@@ -7,6 +7,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import SearchIcon from "@material-ui/icons/Search";
 import Recipe from "./../../Recipes/Recipe";
+
 import category from "../Home/category";
 
 const useStyles = makeStyles((theme) => ({
