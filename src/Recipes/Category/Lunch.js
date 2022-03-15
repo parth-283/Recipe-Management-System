@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 import Recipe from '../Recipe';
-import Category from "./../../Component/Home/Category";
+import category from "./../../Component/Home/category";
 
 
 const Lunch = () => {
@@ -31,7 +31,7 @@ const Lunch = () => {
     <div style={{ backgroundColor: "#4ab1ff" }}>
       <div className="container">
       <div className=" mt-4 text-dark">
-                  <div><Category/></div>
+                  <div><category/></div>
                 </div>
         <div className="card-body">
           <div className="card-text">
