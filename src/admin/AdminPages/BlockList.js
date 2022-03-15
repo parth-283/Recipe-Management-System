@@ -98,7 +98,7 @@ const BlockList = (UID) => {
             </div>
           );
         })}
-
+ 
 
         
       </div>
