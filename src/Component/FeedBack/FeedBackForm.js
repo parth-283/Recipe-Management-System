@@ -16,6 +16,7 @@ import Alert from "@mui/material/Alert";
 import IconButton from "@mui/material/IconButton";
 import Collapse from "@mui/material/Collapse";
 import CloseIcon from "@mui/icons-material/Close";
+import "../../style/globally.css";
 
 const theme = createTheme();
 
@@ -26,11 +27,33 @@ function FeedBackForm() {
     message: "",
     email: "",
   });
+  const [emailVal, setEmailVal] = React.useState(false);
+  const [users, setUsers] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [mobileVal, setMobileVal] = React.useState(false);
+
   const changeHandler = (e) => {
     setVali({ ...vali, [e.target.name]: e.target.value });
   };
   async function handleSubmit(event) {
     event.preventDefault();
+
+    if (vali.email !== "") {
+      if (!/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i.test(vali.email)) {
+        setEmailVal(true);
+      } else {
+        setEmailVal(false);
+      }
+    }
+
+    if (vali.mobile !== "") {
+      debugger;
+      if (vali.mobile.length !== 10) {
+        setMobileVal(true);
+      } else {
+        setMobileVal(false);
+      }
+    }
 
     if (
       vali.name === "" &&
@@ -67,14 +90,14 @@ function FeedBackForm() {
       });
     } else {
       const data = new FormData(event.currentTarget);
+      let max = Math.max(...users.map(({ UID }) => UID));
       let feedbackdata = {
-        UID: users.length + 1,
+        UID: ++max,
         name: data.get("name"),
         mobile: data.get("mobile"),
         email: data.get("email"),
         message: data.get("message"),
       };
-      console.log("feedbackdata", feedbackdata);
 
       let requestOptions = {
         method: "POST",
@@ -85,16 +108,14 @@ function FeedBackForm() {
         body: JSON.stringify(feedbackdata),
       };
       let resultdata = await fetch(
-        `http://localhost:4500/feedback/add?UID=${feedbackdata.UID}&Name=${feedbackdata.name}&Phone=${feedbackdata.mobile}&Email=${feedbackdata.email}&Message=${feedbackdata.message}`,
+        `http://localhost:4500/feedback/add?UID=${feedbackdata.UID}&Name=${feedbackdata.name}&Phone=${feedbackdata.mobile}&Email=${feedbackdata.email}&Message=${feedbackdata.message}&Status=false`,
         requestOptions
       );
       let result = await resultdata.json();
       console.log("result", result);
-
       setOpen(true);
     }
   }
-  const [users, setUsers] = React.useState([]);
 
   const fetchData = () => {
     fetch("http://localhost:4500/feedback/list")
@@ -110,8 +131,6 @@ function FeedBackForm() {
     fetchData();
   }, []);
 
-  const [open, setOpen] = React.useState(false);
-
   return (
     <div className="m-5 ">
       <div className="container border-top border-bottom rounded border-3 border-primary">
@@ -125,7 +144,7 @@ function FeedBackForm() {
                 alignItems: "center",
               }}
             >
-              <Collapse in={open}    style={{width: "717px", marginTop: "7px"}}>
+              <Collapse in={open} style={{ width: "717px", marginTop: "7px" }}>
                 <Alert
                   action={
                     <IconButton
@@ -175,6 +194,7 @@ function FeedBackForm() {
                     <TextField
                       autoComplete="mobile"
                       name="mobile"
+                      type="number"
                       required
                       fullWidth
                       id="mobile"
@@ -182,7 +202,13 @@ function FeedBackForm() {
                       autoFocus
                       onChange={(e) => changeHandler(e)}
                     />
-                    <label style={{ color: "red" }}>{vali.errormobile}</label>
+                    <label style={{ color: "red" }}>
+                      {vali.mobile === ""
+                        ? vali.errormobile
+                        : mobileVal
+                        ? `Mobile is incorrect*`
+                        : ""}
+                    </label>
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
@@ -194,7 +220,14 @@ function FeedBackForm() {
                       autoComplete="email"
                       onChange={(e) => changeHandler(e)}
                     />
-                    <label style={{ color: "red" }}>{vali.erroremail}</label>
+                    {/* <label style={{ color: "red" }}>{vali.erroremail}</label> */}
+                    <label style={{ color: "red" }}>
+                      {vali.email === ""
+                        ? vali.erroremail
+                        : emailVal
+                        ? `Email is incorrect*`
+                        : ""}
+                    </label>
                   </Grid>
                   <Grid item xs={12}>
                     <TextareaAutosize
@@ -216,7 +249,6 @@ function FeedBackForm() {
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
-                  
                 >
                   Submit
                 </Button>

@@ -4,7 +4,6 @@ import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
-// import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -14,20 +13,52 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { FormLabel, Radio, RadioGroup } from "@mui/material";
 import { useNavigate } from "react-router";
-// import signup1 from "../../pics/signup1.jpg"
-
-// import Alert from "@mui/material/Alert";
-// import Stack from "@mui/material/Stack";
+import "../../style/globally.css"
 
 const theme = createTheme();
 
 function SignUp() {
+  const [vali, setVali] = React.useState({
+    firstName: "",
+    lastName: "",
+    mobile: "",
+    email: "",
+    state: "",
+    city: "",
+    gender: "",
+    password: "",
+  });
+  const [users, setUsers] = React.useState([]);
+  const [emailVal, setEmailVal] = React.useState(false);
+  const [mobileVal, setMobileVal] = React.useState(false);
+
+
+  const changeHandler = (e) => {
+    setVali({ ...vali, [e.target.name]: e.target.value });
+  };
   const navigate = useNavigate();
 
   async function handleSubmit(event) {
     event.preventDefault();
 
     // validation................
+  
+    if (vali.email !== "") {
+      if (!/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i.test(vali.email)) {
+        setEmailVal(true)
+      } else {
+        setEmailVal(false)
+      }
+    }
+
+    if (vali.mobile !== "") {
+      debugger
+      if (vali.mobile.length !== 10) {
+        setMobileVal(true)
+      } else {
+        setMobileVal(false)
+      }
+    }
 
     if (
       vali.firstName === "" &&
@@ -69,14 +100,8 @@ function SignUp() {
       setVali({
         ...vali,
         errormobile: "Mobile is required*",
-      });}
-    // }else if(vali.email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i)){
-    //   setVali({
-    //     ...vali,
-    //     erroremail: "Email isincorrect*",
-    //   });
-    // } 
-    else if (vali.state === "") {
+      });
+      } else if (vali.state === "") {
       setVali({
         ...vali,
         errorstate: "State is required*",
@@ -98,9 +123,11 @@ function SignUp() {
       });
     } else {
       const data = new FormData(event.currentTarget);
+      
+   let max  = Math.max(...users.map(({ UID }) => UID))
 
       let regdata = {
-        UID: users.length + 1,
+        UID: ++max,
         firstName: data.get("firstName"),
         lastName: data.get("lastName"),
         mobile: data.get("mobile"),
@@ -109,7 +136,7 @@ function SignUp() {
         city: data.get("city"),
         gender: data.get("gender"),
         password: data.get("password"),
-        Status:"false"
+        Status: "false",
       };
 
       let requestOptions = {
@@ -125,13 +152,12 @@ function SignUp() {
         requestOptions
       );
       let result = await resultdata.json();
-      console.log("resultyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy", result);
+      console.log("API result", result);
       localStorage.setItem("user-info", JSON.stringify([{ regdata }]));
       navigate("/SignIn");
     }
   }
 
-  const [users, setUsers] = React.useState([]);
 
   const fetchData = () => {
     fetch("http://localhost:4500/list")
@@ -147,22 +173,6 @@ function SignUp() {
     fetchData();
   }, []);
 
-  console.log("users.length", users.length + 1);
-
-  const [vali, setVali] = React.useState({
-    firstName: "",
-    lastName: "",
-    mobile: "",
-    email: "",
-    state: "",
-    city: "",
-    gender: "",
-    password: "",
-  });
-  const changeHandler = (e) => {
-    setVali({ ...vali, [e.target.name]: e.target.value });
-  };
-  console.log("vali", vali);
 
   return (
     <div style={{ marginBottom: "60px" }}>
@@ -171,8 +181,9 @@ function SignUp() {
           component="main"
           maxWidth="xs"
           sx={{
-            backgroundImage:"url(https://media.istockphoto.com/photos/healthy-food-background-picture-id525984711?k=20&m=525984711&s=170667a&w=0&h=s0L5ScafXwysr8ynGyloPVM3qCt6NtfyaSoXyWxSrxE=)",
-              
+            backgroundImage:
+              "url(https://media.istockphoto.com/photos/healthy-food-background-picture-id525984711?k=20&m=525984711&s=170667a&w=0&h=s0L5ScafXwysr8ynGyloPVM3qCt6NtfyaSoXyWxSrxE=)",
+
             backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
               t.palette.mode === "light"
@@ -189,9 +200,8 @@ function SignUp() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              paddingTop:8
+              paddingTop: 8,
             }}
-
           >
             <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
               <LockOutlinedIcon />
@@ -215,9 +225,9 @@ function SignUp() {
                     id="firstName"
                     label="First Name"
                     autoFocus
-                    onChange={(e) => changeHandler(e)}
+                    onChange={(e) => changeHandler(e)}e
                   />
-                   <label style={{color:"red"}}>{vali.errorfirstname}</label>
+                  <label style={{ color: "red" }}>{vali.errorfirstname}</label>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
@@ -229,7 +239,7 @@ function SignUp() {
                     autoComplete="family-name"
                     onChange={(e) => changeHandler(e)}
                   />
-                  <label style={{color:"red"}}>{vali.errorlastName}</label>
+                  <label style={{ color: "red" }}>{vali.errorlastName}</label>
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
@@ -242,19 +252,21 @@ function SignUp() {
                     autoComplete="email"
                     onChange={(e) => changeHandler(e)}
                   />
-                  <label style={{color:"red"}}>{vali.erroremail}</label>
+                  <label style={{ color: "red" }}>{vali.email === "" ? vali.erroremail : emailVal ? `Email is incorrect*` : ""}</label>
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
                     required
                     fullWidth
+                    className="ember-view ember-text-field"
                     id="mobile"
                     label="Mobile Number"
                     name="mobile"
                     autoComplete="mobile"
+                    type="number"
                     onChange={(e) => changeHandler(e)}
                   />
-                  <label style={{color:"red"}}>{vali.errormobile}</label>
+                  <label style={{ color: "red" }}>{vali.mobile === "" ? vali.errormobile : mobileVal ? `Mobile is incorrect*` : ""}</label>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
@@ -266,7 +278,7 @@ function SignUp() {
                     autoComplete="state"
                     onChange={(e) => changeHandler(e)}
                   />
-                  <label style={{color:"red"}}>{vali.errorstate}</label>
+                  <label style={{ color: "red" }}>{vali.errorstate}</label>
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
@@ -279,17 +291,21 @@ function SignUp() {
                     autoComplete="city"
                     onChange={(e) => changeHandler(e)}
                   />
-                  <label style={{color:"red"}}>{vali.errorcity}</label>
+                  <label style={{ color: "red" }}>{vali.errorcity}</label>
                 </Grid>
-                <Grid item xs={12} >
+                <Grid item xs={12}>
                   <RadioGroup
                     row
                     aria-labelledby="demo-radio-buttons-group-label"
-                    name="radio-buttons-group"style={{alignItems: "center"}} 
+                    name="radio-buttons-group"
+                    style={{ alignItems: "center" }}
                     className="border border-1 rounded-2 "
                     onChange={(e) => changeHandler(e)}
                   >
-                    <FormLabel id="demo-row-radio-buttons-group-label" className="m-2" >
+                    <FormLabel
+                      id="demo-row-radio-buttons-group-label"
+                      className="m-2"
+                    >
                       Gender
                     </FormLabel>
                     <FormControlLabel
@@ -311,7 +327,9 @@ function SignUp() {
                       label="other"
                     />
                   </RadioGroup>
-                  <label className="" style={{color:"red"}}>{vali.errorgender}</label>
+                  <label className="" style={{ color: "red" }}>
+                    {vali.errorgender}
+                  </label>
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
@@ -324,7 +342,7 @@ function SignUp() {
                     autoComplete="new-password"
                     onChange={(e) => changeHandler(e)}
                   />
-                  <label style={{color:"red"}}>{vali.errorpassword}</label>
+                  <label style={{ color: "red" }}>{vali.errorpassword}</label>
                 </Grid>
               </Grid>
               <Button
@@ -336,8 +354,14 @@ function SignUp() {
                 Sign Up
               </Button>
               <Grid container justifyContent="flex-end">
-                <Grid item style={{backgroundColor:"darkolivegreen", borderRadius: "3px"}} >
-                  <Link href="/SignIn" style={{color:"yellow"}}  >
+                <Grid
+                  item
+                  style={{
+                    backgroundColor: "darkolivegreen",
+                    borderRadius: "3px",
+                  }}
+                >
+                  <Link href="/SignIn" style={{ color: "yellow" }}>
                     Already have an account? Sign in
                   </Link>
                 </Grid>
