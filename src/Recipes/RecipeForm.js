@@ -7,8 +7,14 @@ function RecipeForm({}) {
   const [nutrition, setNutrition] = React.useState("");
 
 
+  let max  = Math.max(...recipe.map(({ UID }) => UID))
+
+console.log("++max",++max);
+console.log("maxxxxxxxxxxxxxxxxxxx",max);
+console.log("max++",max++);
+
   const [input, setInput] = React.useState({
-    UID: recipe.length + 1,
+    UID: ++max,
     nameofrecipe: "",
     shortdescrip: "",
     prep: "",
@@ -140,8 +146,6 @@ function RecipeForm({}) {
   React.useEffect(() => {
     fetchData();
   }, []);
-  console.log("recipe UID",recipe.length + 1);
-   console.log("input UID", input.UID);
 
 
 
