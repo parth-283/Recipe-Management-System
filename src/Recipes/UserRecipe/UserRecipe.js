@@ -29,26 +29,39 @@ function UserRecipe() {
                 className="img-fluid rounded mt-3"
                 alt={recipe.Name}
               />
+              <div className="m-2 ">
+               <button className="btn btn-transperent fs-3"><i class="bi bi-hand-thumbs-up"></i></button>
+               <button className="btn btn-transperent fs-3"><i class="bi bi-hand-thumbs-down"></i></button>
+              </div>
               <h4>ingredient</h4>
               <ul className="scroll card-text" style={{ textAlign: "start" }}>
                 <li>{recipe.ingredients}</li>
-              {console.log("recipeerrrrrrrrrrrrrrrrrrrrrrreeeeeeeeeeeee",recipe)}
+                {console.log("recipe.ingredients", recipe.ingredients)}
               </ul>
             </div>
             <div className="col-md-8">
               <div className="card-body">
-                
-                <h5 className="card-title">
-                  <b>Name : </b>
-                  {recipe.Name}
-                </h5>
-                <hr/>
+                <div className="col d-flex">
+                  <div className="row-6">
+                    <h5 className="card-title">
+                      <b>Name : </b>
+                      {recipe.Name}
+                    </h5>
+                  </div>
+                  <div className="row-6 mx-3">
+                    <h5 className="card-title">
+                      <b>Category : </b>
+                      {recipe.Category}
+                    </h5>
+                  </div>
+                </div>
+                <hr />
                 <h6 className="card-title">
                   <b>Short Description : </b>
                   {recipe.ShortDes}
                 </h6>
                 {/* <p></p> */}
-                <hr/>
+                <hr />
                 <table className="table">
                   <thead>
                     <tr>
@@ -83,37 +96,39 @@ function UserRecipe() {
                     </tr>
                   </tbody>
                 </table>
-                <hr/>
+                <hr />
                 <h6 className="card-title">
                   <b> Description : </b>
                   {recipe.description}
                 </h6>
-               <hr/>
+                <hr />
                 <h6 className="card-title">
                   <b> Directions : </b>
                   {recipe.Directions}
                 </h6>
-                <hr/>
+                <hr />
                 <h6 className="card-title">
                   <b> Chef's Note : </b>
                   {recipe.ChefNote}
                 </h6>
-                <hr/>
+                <hr />
                 <h6 className="card-title">
                   <b> Nutrition Facts : </b>
                   {recipe.Nutrition}
                 </h6>
-               
 
                 <p className="card-text">
                   <small className="text-muted"></small>
                 </p>
                 <button href={recipe.Video} className="btn btn-outline-info">
-             Video Link
-            </button>
-            <button href={recipe.SocialMedia} className="btn btn-outline-info ms-4">
-            SocialMedia Link
-            </button>
+                  Video Link
+                </button>
+                <button
+                  href={recipe.SocialMedia}
+                  className="btn btn-outline-info ms-4"
+                >
+                  SocialMedia Link
+                </button>
               </div>
             </div>
           </div>

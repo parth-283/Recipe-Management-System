@@ -3,6 +3,7 @@ var connection = require("../config/DB");
 var recipe = function (recipe) {
   this.UID = recipe.UID
   this.Name = recipe.Name;
+  this.Category = recipe.Category;
   this.ShortDes = recipe.ShortDes;
   this.Image = recipe.Image;
   this.Video = recipe.Video;
@@ -14,7 +15,7 @@ var recipe = function (recipe) {
   this.Servings = recipe.Servings;
   this.Yield = recipe.Yield;
   this.description = recipe.description;
-  this.ingredients = recipe.ingredients;
+  this.ingredients = [recipe.ingredients];
   this.Directions = recipe.Directions;
   this.ChefNote = recipe.ChefNote;
   this.Nutrition = recipe.Nutrition;
@@ -63,17 +64,26 @@ recipe.findByID = (id, cb) => {
 
 recipe.update = (data,id,cb) => {
   connection.query(
-    "Update userrecipe set FName =? , LName =? , Gender =? , State =? , City =? , Email =? , Mobile =? , Password =? , Status=?  where UID=?",
+    "Update userrecipe set Name =? , Category =? , ShortDes =? , Prep =? , CookMins =? , AdditionalMins =? , TotalTime =? , Servings =? , Yield=? , ingredients=? , description=? , Directions=? , ChefNote=? , Nutrition=? , Image=? , Video=? , SocialMedia=?  where UID=?",
+         
     [
-      data.FName,
-      data.LName,
-      data.Gender,
-      data.State,
-      data.City,
-      data.Email,
-      data.Mobile,
-      data.Password,
-      data.Status,
+      data.Name,
+      data.Category,
+      data.ShortDes,
+      data.Prep,
+      data.CookMins,
+      data.AdditionalMins,
+      data.TotalTime,
+      data.Servings,
+      data.Yield,
+      data.ingredients,
+      data.description,
+      data.Directions,
+      data.ChefNote,
+      data.Nutrition,
+      data.Image,
+      data.Video,
+      data.SocialMedia,
       id,
     ],
     function (error, result, field) {

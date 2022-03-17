@@ -18,7 +18,7 @@ function Footer() {
             src={footer}
             alt="Card image"
             width="auto"
-            height="355x"
+            height="400px"
             style={{ opacity: "0.3" }}
           />
           <Card.ImgOverlay>
