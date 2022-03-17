@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function UserRecipe() {
-
-
-  const [users, setUsers] = React.useState([]);
+  const [recipe, setRecipe] = React.useState([]);
 
   const fetchData = () => {
     fetch("http://localhost:4500/recipe/list")
@@ -11,121 +9,118 @@ function UserRecipe() {
         return response.json();
       })
       .then((getdata) => {
-        setUsers(getdata);
+        setRecipe(getdata);
       });
   };
 
   React.useEffect(() => {
     fetchData();
   }, []);
-console.log("users",users);
-
-
-
+  console.log("recipe", recipe);
 
   return (
     <div>
-      {users.map((users) => (
-    <div className="card my-3 container "  style={{ maxWidth: "800px" }}>
-      <div className="row g-0">
-        <div className="col-md-4">
-          <img src={users.Image} className="img-fluid rounded mt-3" alt={users.Name} />
-          {console.log(users.Image)}
-          <h4>ingredient</h4>
-          <ul className="scroll card-text" style={{textAlign:"start"}}>
-           {/* { users.ingredients.map((ingredient) => (
-              <li>
-                <label>{ingredient}</label>
-              </li>
-            ))} */}
-          </ul>
-        </div>
-        <div className="col-md-8">
-          <div className="card-body">
-            <h5 className="card-title">Name:{users.Name}</h5>
+      {recipe.map((recipe) => (
+        <div className="card my-3 container " style={{ maxWidth: "800px" }}>
+          <div className="row g-0">
+            <div className="col-md-4">
+              <img
+                src={recipe.Image}
+                className="img-fluid rounded mt-3"
+                alt={recipe.Name}
+              />
+              <h4>ingredient</h4>
+              <ul className="scroll card-text" style={{ textAlign: "start" }}>
+                <li>{recipe.ingredients}</li>
+              {console.log("recipeerrrrrrrrrrrrrrrrrrrrrrreeeeeeeeeeeee",recipe)}
+              </ul>
+            </div>
+            <div className="col-md-8">
+              <div className="card-body">
+                
+                <h5 className="card-title">
+                  <b>Name : </b>
+                  {recipe.Name}
+                </h5>
+                <hr/>
+                <h6 className="card-title">
+                  <b>Short Description : </b>
+                  {recipe.ShortDes}
+                </h6>
+                {/* <p></p> */}
+                <hr/>
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Prep</th>
+                      <th scope="col">CoockMins</th>
+                      <th scope="col">AdditionalMins</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{recipe.Prep}</td>
+                      <td>{recipe.CookMins}</td>
+                      <td>{recipe.AdditionalMins}</td>
+                    </tr>
+                    <tr>
+                      <td> </td>
+                    </tr>
+                  </tbody>
 
-            <table className="table">
-              <thead>
-                <tr>
-                  <th scope="col">source</th>
-                  <th scope="col">mealType</th>
-                  <th scope="col">dishType</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{}</td>
-                  <td>{}</td>
-                  <td>{}</td>
-                </tr>
-                <tr>
-                  <td> </td>
-                </tr>
-              </tbody>
+                  <thead>
+                    <tr>
+                      <th scope="col">TotalTime</th>
+                      <th scope="col">Servings</th>
+                      <th scope="col">Yield</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{recipe.TotalTime}</td>
+                      <td>{recipe.Servings}</td>
+                      <td>{recipe.Yield}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <hr/>
+                <h6 className="card-title">
+                  <b> Description : </b>
+                  {recipe.description}
+                </h6>
+               <hr/>
+                <h6 className="card-title">
+                  <b> Directions : </b>
+                  {recipe.Directions}
+                </h6>
+                <hr/>
+                <h6 className="card-title">
+                  <b> Chef's Note : </b>
+                  {recipe.ChefNote}
+                </h6>
+                <hr/>
+                <h6 className="card-title">
+                  <b> Nutrition Facts : </b>
+                  {recipe.Nutrition}
+                </h6>
+               
 
-              <thead>
-                <tr>
-                  <th scope="col">cautions</th>
-                  <th scope="col">cuisineType</th>
-                  <th scope="col">dietLabels</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{}</td>
-                  <td>{}</td>
-                  <td>{}</td>
-                </tr>
-                <tr>
-                  <td> </td>
-                </tr>
-              </tbody>
-
-              <thead>
-                <tr>
-                  <th scope="col">totalTime</th>
-                  <th scope="col">totalWeight</th>
-                  <th scope="col">calories</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{}</td>
-                  <td>{}</td>
-                  <td>{}</td>
-                </tr>
-              </tbody>
-            </table>
-
-            {/* <div className="col-mb-8">
-              <div style={{ width: "200px" }}>
-                <h5>healthLabels</h5>
-                <ol
-                  className="showscroll card-text "
-                  style={{ height: "277px",textAlign:"start" }}
-                >
-                  {healthLabels.map((healthLabel) => (
-                    <li>
-                      <label>{healthLabel}</label>
-                    </li>
-                  ))}
-                </ol>
+                <p className="card-text">
+                  <small className="text-muted"></small>
+                </p>
+                <button href={recipe.Video} className="btn btn-outline-info">
+             Video Link
+            </button>
+            <button href={recipe.SocialMedia} className="btn btn-outline-info ms-4">
+            SocialMedia Link
+            </button>
               </div>
-            </div> */}
-
-            <p className="card-text">
-              <small className="text-muted"></small>
-            </p>
-            {/* <button onClick={handleClick} className="btn btn-outline-info">
-              More Info
-            </button> */}
+            </div>
           </div>
         </div>
-      </div>
+      ))}
     </div>
-    ))}
-  </div>
-  )
+  );
 }
 
-export default UserRecipe
+export default UserRecipe;
