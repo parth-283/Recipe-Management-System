@@ -19,10 +19,10 @@ function Footer() {
             alt="Card image"
             width="auto"
             height="355x"
-            style={{ opacity: "0.3" }}
+            style={{ opacity: "0.1" }}
           />
           <Card.ImgOverlay>
-            <Card.Header>Featured</Card.Header>
+            <Card.Header><h3><>Featured</></h3></Card.Header>
             <Card.Body className="">
               <Card.Title> </Card.Title>
               <div className="container">
@@ -47,7 +47,7 @@ function Footer() {
                       <div className="col">
                         <Navcomponent/>
                       </div>
-                      <div className="col " style={{maxInlineSize:" min-content"}}>
+                      <div className="row " style={{maxInlineSize:" min-content"}}>
                         <NavsocialIcon />
                       </div>
                     </div>
