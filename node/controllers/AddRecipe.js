@@ -53,7 +53,14 @@ var recipelist = (req, res) => {
 
 
 
-
+  var userprofile = (req, res) => {
+    res.json({
+      success:1,
+      profile_url:`http://localhost:4500/recipe/image/${req.file.filename}`
+  })
+    console.log("fileDetailes",req.file);
+      res.json({message:'uploaded'});
+  };
 
 module.exports = {
     addrecipe,
@@ -61,4 +68,5 @@ module.exports = {
     recipeinfo,
     recipeupdate,
     recipeDelete,
+    userprofile,
   };
