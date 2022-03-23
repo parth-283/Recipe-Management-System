@@ -51,16 +51,13 @@ var userDelete = (req, res) => {
   });
 };
 
-var userprofile = (req, res) => {
-  console.log("fileDetailes",req.file);
-    res.json({message:'uploaded'});
-};
+
+
 
 module.exports = {
   adduser,
   userlist,
   userinfo,
   userupdate,
-  userDelete,
-  userprofile
+  userDelete
 };

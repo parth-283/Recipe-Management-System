@@ -1,19 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 function RecipeForm({}) {
   const [recipe, setRecipe] = React.useState([]);
-  const [ingredients, setIngredients] = React.useState("");
+  const [ingredients, setIngredients] = React.useState([]);
   const [directions, setDirections] = React.useState("");
   const [nutrition, setNutrition] = React.useState("");
 
-  let max = Math.max(...recipe.map(({ UID }) => UID));
-  // setInput(max)
-  console.log("++max", ++max);
-  console.log("maxxxxxxxxxxxxxxxxxxx", max);
-  console.log("max++", max++);
+  // let id = ""
+  // useEffect(() => {
+  
+  //   let max = Math.max(...recipe.map(({ UID }) => UID));
+  //   id = max
+  //   setInput({})
+  // }, [])
+  // console.log("++max", ++max);
+  // console.log("maxxxxxxxxxxxxxxxxxxx", max);
+  // console.log("max++", max++);
 
   const [input, setInput] = React.useState({
-    UID: max++,
+    UID: Math.random().toString().substr(4, 4),
     nameofrecipe: "",
     Category: "",
     shortdescrip: "",
@@ -46,6 +51,16 @@ function RecipeForm({}) {
       [e.target.name]: e.target.value,
     });
   };
+
+  const ImageHandler = (e)=>{
+    let reader = new FileReader(e.target.files[0])
+    reader.onloadend = () => {
+      setInput({...input , Image: reader.result })
+    }
+
+     reader.readAsDataURL(e.target.files[0])
+    setInput({...input,Image:e.target.files[0]})
+  }
 
   const addingredients = (props) => {
     if (ingredients !== "") {
@@ -117,7 +132,7 @@ function RecipeForm({}) {
     let requestOptions = {
       method: "POST",
       headers: {
-        Accept: "application/json",
+        "Accept": "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(input),
@@ -147,13 +162,13 @@ function RecipeForm({}) {
   return (
     <div className="container">
       <h1 className="text-center">Add Recipe Form</h1>
-      <form action="/" enctype="multipart/form-data" method="post">
+      <form action="/" encType="multipart/form-data" method="post">
         <div className=" border-top  border-bottom  border-primary  border-3 rounded m-3">
           <div className="row">
             <div className="col-6">
               <div className="title">
                 <label className="form-label">Name Of Recipe*</label>
-              </div>
+              </div> 
               <input
                 type="text"
                 className="form-control"
@@ -198,9 +213,9 @@ function RecipeForm({}) {
                 accept="image/*"
                 id="file-input"
                 name="Image"
-                onChange={handleChange}
+                onChange={(e)=>ImageHandler(e) }
               />{" "}
-              <img src={input.Image} alt="image"></img>
+             {input.Image && <img src={input.Image} alt={input.Image} width ="100px" height="100px"></img>} 
             </div>
 
             {/* <div className="mb-3 ">

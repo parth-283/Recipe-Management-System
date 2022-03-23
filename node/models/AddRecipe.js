@@ -45,7 +45,7 @@ recipe.findall = (cb) => {
     }
     cb(null, result);
   });
-  console.log("data show");
+  console.log("data Show");
 };
 
 recipe.findByID = (id, cb) => {
