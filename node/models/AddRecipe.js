@@ -1,11 +1,11 @@
 var connection = require("../config/DB");
 
 var recipe = function (recipe) {
-  this.UID = recipe.UID
+  this.UID = recipe.UID;
   this.Name = recipe.Name;
   this.Category = recipe.Category;
   this.ShortDes = recipe.ShortDes;
-  this.Image = recipe.Image;
+  this.imageurl = recipe.imageurl;
   this.Video = recipe.Video;
   this.SocialMedia = recipe.SocialMedia;
   this.Prep = recipe.Prep;
@@ -15,14 +15,27 @@ var recipe = function (recipe) {
   this.Servings = recipe.Servings;
   this.Yield = recipe.Yield;
   this.description = recipe.description;
-  this.ingredients = [recipe.ingredients];
-  this.Directions = recipe.Directions;
+  this.ingredients = recipe.ingredients;
+  this.directions = recipe.directions;
   this.ChefNote = recipe.ChefNote;
   this.Nutrition = recipe.Nutrition;
   // this.created_at = new Data();
 };
 
+// recipe.create = (data, cb) => {
+//   console.log("data+++++++++++++++++++++++++++++", data);
+//   let sql = "Insert Into userrecipe set ?";
+//   connection.query(sql, [data], function (error, result, field) {
+//     if (error) {
+//       cb(error);
+//     }
+//     cb(null, { message: "added" });
+//     console.log("Data Added ", result);
+//   });
+// };
+
 recipe.create = (data, cb) => {
+  // console.log("data+++++++++++++++++++++++++++++", data);
   connection.query(
     "Insert Into userrecipe set ?",
     [data],
@@ -37,6 +50,7 @@ recipe.create = (data, cb) => {
 };
 
 
+
 recipe.findall = (cb) => {
   let queryselect = "select * from userrecipe";
   connection.query(queryselect, function (err, result, field) {
@@ -44,7 +58,8 @@ recipe.findall = (cb) => {
       cb(null.err);
     }
     cb(null, result);
-  });
+  // console.log("data",result);
+});
   console.log("data Show");
 };
 
@@ -62,10 +77,10 @@ recipe.findByID = (id, cb) => {
   );
 };
 
-recipe.update = (data,id,cb) => {
+recipe.update = (data, id, cb) => {
   connection.query(
-    "Update userrecipe set Name =? , Category =? , ShortDes =? , Prep =? , CookMins =? , AdditionalMins =? , TotalTime =? , Servings =? , Yield=? , ingredients=? , description=? , Directions=? , ChefNote=? , Nutrition=? , Image=? , Video=? , SocialMedia=?  where UID=?",
-         
+    "Update userrecipe set Name =? , Category =? , ShortDes =? , Prep =? , CookMins =? , AdditionalMins =? , TotalTime =? , Servings =? , Yield=? , ingredients=? , description=? , directions=? , ChefNote=? , Nutrition=? , Image=? , Video=? , SocialMedia=?  where UID=?",
+
     [
       data.Name,
       data.Category,
@@ -78,7 +93,7 @@ recipe.update = (data,id,cb) => {
       data.Yield,
       data.ingredients,
       data.description,
-      data.Directions,
+      data.directions,
       data.ChefNote,
       data.Nutrition,
       data.Image,
@@ -88,9 +103,9 @@ recipe.update = (data,id,cb) => {
     ],
     function (error, result, field) {
       if (error) {
-        cb(null.error); 
+        cb(null.error);
       }
-      cb(null, {message:'updated'});
+      cb(null, { message: "updated" });
       console.log("data show by UID");
     }
   );
@@ -109,9 +124,5 @@ recipe.delete = (id, cb) => {
     }
   );
 };
-
-
-
-
 
 module.exports = recipe;
