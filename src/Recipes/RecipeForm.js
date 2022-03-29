@@ -1,49 +1,36 @@
-import React, { useEffect } from "react";
+import React from "react";
 
-function RecipeForm({}) {
+function RecipeForm() {
   const [recipe, setRecipe] = React.useState([]);
-  const [ingredients, setIngredients] = React.useState([]);
+  const [ingredients, setIngredients] = React.useState("");
   const [directions, setDirections] = React.useState("");
   const [nutrition, setNutrition] = React.useState("");
-
-  // let id = ""
-  // useEffect(() => {
-  
-  //   let max = Math.max(...recipe.map(({ UID }) => UID));
-  //   id = max
-  //   setInput({})
-  // }, [])
-  // console.log("++max", ++max);
-  // console.log("maxxxxxxxxxxxxxxxxxxx", max);
-  // console.log("max++", max++);
-
+  const [simage, setImage] = React.useState("");
+  const [showimage, setShowimage] = React.useState("");
+  const [imageurl, setImageurl] = React.useState("");
+  console.log("imageurl", imageurl);
+  console.log("recipe......................", recipe);
   const [input, setInput] = React.useState({
-    UID: Math.random().toString().substr(4, 4),
-    nameofrecipe: "",
+    UID: 600,
+    // UID: Math.random().toString().substr(4, 4),
+    Name: "",
     Category: "",
-    shortdescrip: "",
-    prep: "",
-    cookmins: "",
-    additionalmins: "",
-    totaltime: "",
-    servings: "",
-    yield: "",
+    imageurl: "",
+    ShortDes: "",
+    Prep: "",
+    CookMins: "",
+    AdditionalMins: "",
+    TotalTime: "",
+    Servings: "",
+    Yield: "",
     ingredients: [],
     description: "",
     directions: [],
-    chefnote: "",
-    nutritionfacts: "",
-    Image: "",
-    videolink: "",
-    socialmedialink: "",
+    ChefNote: "",
+    Nutrition: "",
+    Video: "",
+    SocialMedia: "",
   });
-  console.log("inputtttttttttt", input);
-
-  // console.log("description", description);
-  // console.log("ingredients", ingredients);
-  // console.log("nutrition", nutrition);
-  // console.log("submit", submit);
-  // console.log("dummy", dummy);
 
   const handleChange = (e) => {
     setInput({
@@ -52,15 +39,19 @@ function RecipeForm({}) {
     });
   };
 
-  const ImageHandler = (e)=>{
-    let reader = new FileReader(e.target.files[0])
+  const ImageHandler = async (e) => {
+    setImage(e.target.files[0]);
+    let reader = new FileReader(e.target.files[0]);
     reader.onloadend = () => {
-      setInput({...input , Image: reader.result })
-    }
-
-     reader.readAsDataURL(e.target.files[0])
-    setInput({...input,Image:e.target.files[0]})
-  }
+      setShowimage({ ...showimage, Image: reader.result });
+    };
+    reader.readAsDataURL(e.target.files[0]);
+    setShowimage({ ...showimage, Image: e.target.files[0] });
+    setImageurl(
+      `http://localhost:4500/profile/Recipe-${e.target.files[0].name}`
+    );
+    
+  };
 
   const addingredients = (props) => {
     if (ingredients !== "") {
@@ -104,41 +95,60 @@ function RecipeForm({}) {
 
   const addNutrition = (props) => {
     if (nutrition !== "") {
-      if (input.nutritionfacts.length > 0) {
-        const dummyNutrition = [...input.nutritionfacts];
+      if (input.Nutrition.length > 0) {
+        const dummyNutrition = [...input.Nutrition];
         dummyNutrition.push(nutrition);
         setInput({
           ...input,
-          nutritionfacts: dummyNutrition,
+          Nutrition: dummyNutrition,
         });
         setNutrition("");
       } else {
         setInput({
           ...input,
-          nutritionfacts: [nutrition],
+          Nutrition: [nutrition],
         });
         setNutrition("");
       }
     }
   };
-  const data = JSON.stringify(localStorage.getItem("recipe"));
-  console.log("data", data.input);
+  async function handleimage(params) {
+    //send image to backend.
+    console.log("simage546666666666666666666666666", simage);
+    var formdata = new FormData();
+    formdata.append("profile", simage);
+    const data = await fetch("http://localhost:4500/recipe/image", {
+      method: "post",
+      body: formdata,
+    });
+    const uploadedImage = await data.json();
+    if (uploadedImage) {
+      console.log("Successfully uploaded image");
+    } else {
+      console.log("Error Found");
+    }
 
+
+  console.log("imageurl", imageurl);
+    setInput({
+      ...input,
+      imageurl: imageurl,
+    });
+  }
   async function handleSubmit(event) {
-    localStorage.setItem("recipe", { input });
-    // setSubmit(input);
-    // console.log("input submit",input);
+    console.log("input submit", input);
 
+    //send data to backend.
     let requestOptions = {
       method: "POST",
       headers: {
-        "Accept": "application/json",
+        Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(input),
     };
     let resultdata = await fetch(
-      `http://localhost:4500/recipe/add?UID=${input.UID}&Name=${input.nameofrecipe}&Category=${input.Category}&ShortDes=${input.shortdescrip}&Prep=${input.prep}&CookMins=${input.cookmins}&AdditionalMins=${input.additionalmins}&TotalTime=${input.totaltime}&Servings=${input.servings}&Yield=${input.yield}&ingredients=${input.ingredients}&description=${input.description}&Directions=${input.directions}&ChefNote=${input.chefnote}&Nutrition=${input.nutritionfacts}&Image=${input.Image}&Video=${input.videolink}&SocialMedia=${input.socialmedialink}`,
+      `http://localhost:4500/recipe/add?UID=${input.UID}&Name=${input.Name}&Category=${input.Category}&imageurl=${input.imageurl}&ShortDes=${input.ShortDes}&Prep=${input.Prep}&CookMins=${input.CookMins}&AdditionalMins=${input.AdditionalMins}&TotalTime=${input.TotalTime}&Servings=${input.Servings}&Yield=${input.Yield}&ingredients=${input.ingredients}&description=${input.description}&directions=${input.directions}&ChefNote=${input.ChefNote}&Nutrition=${input.Nutrition}&Video=${input.Video}&SocialMedia=${input.SocialMedia}`,
       requestOptions
     );
     let result = await resultdata.json();
@@ -154,7 +164,6 @@ function RecipeForm({}) {
         setRecipe(getdata);
       });
   };
-
   React.useEffect(() => {
     fetchData();
   }, []);
@@ -162,20 +171,20 @@ function RecipeForm({}) {
   return (
     <div className="container">
       <h1 className="text-center">Add Recipe Form</h1>
-      <form action="/" encType="multipart/form-data" method="post">
+      <form>
         <div className=" border-top  border-bottom  border-primary  border-3 rounded m-3">
           <div className="row">
             <div className="col-6">
               <div className="title">
                 <label className="form-label">Name Of Recipe*</label>
-              </div> 
+              </div>
               <input
                 type="text"
                 className="form-control"
                 id="exampleFormControlInput1"
                 placeholder="Name Of Recipe"
-                name="nameofrecipe"
-                value={input.nameofrecipe}
+                name="Name"
+                value={input.Name}
                 onChange={handleChange}
               />
             </div>
@@ -199,8 +208,8 @@ function RecipeForm({}) {
                 className="form-control"
                 id="exampleFormControlTextarea1"
                 rows="3"
-                name="shortdescrip"
-                value={input.shortdescrip}
+                name="ShortDes"
+                value={input.ShortDes}
                 onChange={handleChange}
               ></textarea>
             </div>
@@ -209,37 +218,42 @@ function RecipeForm({}) {
               <label className="form-label">Image*</label>
               <br />
               <input
-                type="file" 
+                type="file"
                 accept="image/*"
                 id="file-input"
                 name="Image"
-                onChange={(e)=>ImageHandler(e) }
+                // onChange={handleChange}
+                onChange={(e) => ImageHandler(e)}
               />{" "}
-             {input.Image && <img src={input.Image} alt={input.Image} width ="100px" height="100px"></img>} 
+              {showimage.Image && (
+                <img
+                  src={showimage.Image}
+                  alt="hii"
+                  width="100px"
+                  height="100px"
+                ></img>
+              )}
+              {showimage.Image && (
+                <button
+                  type="button"
+                  value="Upload"
+                  className="btn btn-outline-success center mx-2"
+                  onClick={handleimage}
+                >
+                  Add image
+                </button>
+              )}
             </div>
 
-            {/* <div className="mb-3 ">
-              <label className="form-label">Image*</label>
-              <input
-                type="text"
-                className="form-control"
-                id="exampleFormControlInput1"
-                placeholder="Enter food image URL"
-                name="Image"
-                onChange={handleChange}
-              />
-              <img src={input.Image} alt={input.Image} width="200px" height="200"></img>
-            </div> */}
-
-            <div className="mb-3 "> 
+            <div className="mb-3 ">
               <label className="form-label"> Add your reacipe video Link</label>
               <input
                 type="text"
                 className="form-control"
                 id="exampleFormControlInput1"
-                placeholder="videolink"
-                name="videolink"
-                value={input.videolink}
+                placeholder="Video"
+                name="Video"
+                value={input.Video}
                 onChange={handleChange}
               />
             </div>
@@ -252,9 +266,9 @@ function RecipeForm({}) {
                 type="text"
                 className="form-control"
                 id="exampleFormControlInput1"
-                placeholder="socialmedialink"
-                name="socialmedialink"
-                value={input.socialmedialink}
+                placeholder="SocialMedia"
+                name="SocialMedia"
+                value={input.SocialMedia}
                 onChange={handleChange}
               />
             </div>
@@ -267,8 +281,8 @@ function RecipeForm({}) {
                   type="text"
                   aria-label="First name"
                   className="form-control"
-                  name="prep"
-                  value={input.prep}
+                  name="Prep"
+                  value={input.Prep}
                   onChange={handleChange}
                 />
                 <span className="input-group-text"> Cook mins:</span>
@@ -276,8 +290,8 @@ function RecipeForm({}) {
                   type="text"
                   aria-label="Last name"
                   className="form-control"
-                  name="cookmins"
-                  value={input.cookmins}
+                  name="CookMins"
+                  value={input.CookMins}
                   onChange={handleChange}
                 />
                 <span className="input-group-text"> Additional mins: </span>
@@ -285,8 +299,8 @@ function RecipeForm({}) {
                   type="text"
                   aria-label="Last name"
                   className="form-control"
-                  name="additionalmins"
-                  value={input.additionalmins}
+                  name="AdditionalMins"
+                  value={input.AdditionalMins}
                   onChange={handleChange}
                 />
                 <span className="input-group-text"> Total Time:</span>
@@ -294,8 +308,8 @@ function RecipeForm({}) {
                   type="text"
                   aria-label="Last name"
                   className="form-control"
-                  name="totaltime"
-                  value={input.totaltime}
+                  name="TotalTime"
+                  value={input.TotalTime}
                   onChange={handleChange}
                 />
                 <span className="input-group-text"> Servings:</span>
@@ -303,8 +317,8 @@ function RecipeForm({}) {
                   type="text"
                   aria-label="Last name"
                   className="form-control"
-                  name="servings"
-                  value={input.servings}
+                  name="Servings"
+                  value={input.Servings}
                   onChange={handleChange}
                 />
                 <span className="input-group-text"> Yield:</span>
@@ -312,8 +326,8 @@ function RecipeForm({}) {
                   type="text"
                   aria-label="Last name"
                   className="form-control"
-                  name="yield"
-                  value={input.yield}
+                  name="Yield"
+                  value={input.Yield}
                   onChange={handleChange}
                 />
               </div>
@@ -333,7 +347,7 @@ function RecipeForm({}) {
 
             <div className="mb-3">
               <div className="input-group mb-3">
-                <span className="input-group-text">Ingredients*</span>
+                <span className="input-group-text">Ingredients & measurement*</span>
                 <input
                   type="text"
                   className="form-control"
@@ -415,8 +429,8 @@ function RecipeForm({}) {
                 className="form-control"
                 id="exampleFormControlTextarea1"
                 rows="3"
-                name="chefnote"
-                value={input.chefnote}
+                name="ChefNote"
+                value={input.ChefNote}
                 onChange={handleChange}
               ></textarea>
             </div>
@@ -429,7 +443,7 @@ function RecipeForm({}) {
                   type="text"
                   aria-label="First name"
                   className="form-control"
-                  name="nutritionfacts"
+                  name="Nutrition"
                   value={nutrition}
                   onChange={(e) => setNutrition(e.target.value)}
                 />
@@ -443,8 +457,8 @@ function RecipeForm({}) {
                 </button>
               </div>
               <div>
-                {input?.nutritionfacts?.length > 0 &&
-                  input.nutritionfacts.map((item, index) => {
+                {input?.Nutrition?.length > 0 &&
+                  input.Nutrition.map((item, index) => {
                     return (
                       <div key={index}>
                         <div>

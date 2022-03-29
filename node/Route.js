@@ -6,29 +6,31 @@ var recipectrl = require("./controllers/AddRecipe")
 var bodyparser = require("body-parser");
 
 //Add Image
-var multer = require("multer");
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    // console.log("reqqqqqqqq",req.body);
-    cb(null, "pic");
-  },
-  filename: function (req, file, cb) {
-    console.log("file",file);
-    let newname = Date.now()+'-'+file.originalname;
-    cb(null,newname);
-  },
-});
-var upload = multer({storage:storage });
+// var multer = require("multer");
+// var storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     console.log("req",req);
+//     console.log("file",file);
+//     cb(null, "pic");
+//   },
+//   filename: function (req, file, cb) {
+//     // console.log("reqqqqqqqq",req.body);
+//     console.log("file",file);
+//     let newname = Date.now()+'-'+file.originalname;
+//     cb(null,newname);
+//   },
+// });
+// var upload = multer({storage:storage });
 
 
 // parse request of content type:-application/x-www-from-urlencoded
-var urlencoderparser = bodyparser.urlencoded({ extended: false });
+var urlencoderparser = bodyparser.urlencoded({ extended: true });
 
 // parse request of content-Type .application.json
 router.use(bodyparser.json());
 
 // router.get("/", (req, res) => {
-//   res.send("Home Page is called");
+//   res.send("Home Page is called");AddBox
 // });
 
 //register route
@@ -53,7 +55,14 @@ router.put("/recipe/update/:id", urlencoderparser,recipectrl.recipeupdate);
 router.delete("/recipe/delete/:id", recipectrl.recipeDelete);
 // add image route
 // router.post('/profile',upload.array('profile_pic'),userctrl.userprofile)
-router.post("/recipe/image", upload.single("pic"), recipectrl.userprofile);
-
+router.post("/recipe/image", recipectrl.userprofile);
+// function imageurl  (req, res) {
+//   res.json({
+//     success:1,
+//     profile_url:`http://localhost:4500/recipe/image/${req.file.filename}`
+// })
+//   console.log("fileDetailes",req.file);
+//     res.json({message:'uploaded'});
+// }
 
 module.exports = router;

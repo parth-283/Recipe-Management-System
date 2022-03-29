@@ -6,9 +6,12 @@ function UserRecipe() {
   const fetchData = () => {
     fetch("http://localhost:4500/recipe/list")
       .then((response) => {
+        console.log("response", response);
         return response.json();
       })
       .then((getdata) => {
+        console.log("getdata", getdata);
+
         setRecipe(getdata);
       });
   };
@@ -21,22 +24,29 @@ function UserRecipe() {
   return (
     <div>
       {recipe.map((recipe) => (
-        <div className="card my-3 container " style={{ maxWidth: "800px" }}>
+        <div
+          className="card my-3 container "
+          style={{ maxWidth: "800px" }}
+          key={recipe.UID}
+        >
           <div className="row g-0">
             <div className="col-md-4">
               <img
-                src={recipe.Image}
+                src={recipe.imageurl}
                 className="img-fluid rounded mt-3"
                 alt={recipe.Name}
               />
               <div className="m-2 ">
-               <button className="btn btn-transperent fs-3"><i class="bi bi-hand-thumbs-up"></i></button>
-               <button className="btn btn-transperent fs-3"><i class="bi bi-hand-thumbs-down"></i></button>
+                <button className="btn btn-transperent fs-3">
+                  <i className="bi bi-hand-thumbs-up"></i>
+                </button>
+                <button className="btn btn-transperent fs-3">
+                  <i className="bi bi-hand-thumbs-down"></i>
+                </button>
               </div>
               <h4>ingredient</h4>
               <ul className="scroll card-text" style={{ textAlign: "start" }}>
                 <li>{recipe.ingredients}</li>
-                {console.log("recipe.ingredients", recipe.ingredients)}
               </ul>
             </div>
             <div className="col-md-8">
@@ -60,7 +70,7 @@ function UserRecipe() {
                   <b>Short Description : </b>
                   {recipe.ShortDes}
                 </h6>
-                {/* <p></p> */}
+
                 <hr />
                 <table className="table">
                   <thead>
@@ -104,7 +114,7 @@ function UserRecipe() {
                 <hr />
                 <h6 className="card-title">
                   <b> Directions : </b>
-                  {recipe.Directions}
+                  {recipe.directions}
                 </h6>
                 <hr />
                 <h6 className="card-title">
