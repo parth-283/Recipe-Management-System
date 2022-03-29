@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 import Recipe from "../Recipe";
-import category from "./../../Component/Home/category";
+import Category from "./../../Component/Home/Category";
 
 function Breakfast() {
   const App_ID = "76fa7c7c";
@@ -28,7 +28,7 @@ function Breakfast() {
         <div className="container">
           <div className="col mt-4 text-dark">
             <div>
-              <category />
+              <Category />
             </div>
            
           </div>
