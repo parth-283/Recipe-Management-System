@@ -11,8 +11,7 @@ function RecipeForm() {
   console.log("imageurl", imageurl);
   console.log("recipe......................", recipe);
   const [input, setInput] = React.useState({
-    UID: 600,
-    // UID: Math.random().toString().substr(4, 4),
+    UID: Math.random().toString().substr(4, 4),
     Name: "",
     Category: "",
     imageurl: "",
@@ -50,7 +49,6 @@ function RecipeForm() {
     setImageurl(
       `http://localhost:4500/profile/Recipe-${e.target.files[0].name}`
     );
-    
   };
 
   const addingredients = (props) => {
@@ -128,15 +126,34 @@ function RecipeForm() {
       console.log("Error Found");
     }
 
-
-  console.log("imageurl", imageurl);
+    console.log("imageurl", imageurl);
     setInput({
       ...input,
       imageurl: imageurl,
     });
   }
+  console.log("input submit", input);
   async function handleSubmit(event) {
     console.log("input submit", input);
+    console.log(
+      "input submit",
+      input.Name,
+      input.Category,
+      input.imageurl,
+      input.ingredients,
+      input.directions
+    );
+    // if (
+    //   input.Name === "" &&
+    //   input.Category === "" &&
+    //   input.imageurl === "" &&
+    //   input.ingredients.length > 0 &&
+    //   input.directions.length > 0 
+    // ) {
+    //   alert("not ok");
+    // } else {
+    //   alert("ok");
+    // }
 
     //send data to backend.
     let requestOptions = {
@@ -347,7 +364,9 @@ function RecipeForm() {
 
             <div className="mb-3">
               <div className="input-group mb-3">
-                <span className="input-group-text">Ingredients & measurement*</span>
+                <span className="input-group-text">
+                  Ingredients & measurement*
+                </span>
                 <input
                   type="text"
                   className="form-control"

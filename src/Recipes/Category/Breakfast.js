@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 import Recipe from "../Recipe";
-import Category from "./../../Component/Home/Category";
+
+import Category from "../../Component/Home/Category";
+
 
 function Breakfast() {
   const App_ID = "76fa7c7c";
