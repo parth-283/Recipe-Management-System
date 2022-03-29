@@ -11,8 +11,22 @@ function UserRecipe() {
       })
       .then((getdata) => {
         console.log("getdata", getdata);
+        let x = getdata.map((item) => {
+          console.log("++++++++item", item);
+          // data.push(item.ingredients)
+          let ingredientsdata = item.ingredients.split(",");
+          let directionsdata = item.directions.split(".");
+          let Nutritiondata = item.Nutrition.split(",");
+          return {
+            ...item,
+            ingredients: ingredientsdata,
+            directions: directionsdata,
+            Nutrition: Nutritiondata,
+          };
+          // directions
+        });
 
-        setRecipe(getdata);
+        setRecipe(x);
       });
   };
 
@@ -20,6 +34,18 @@ function UserRecipe() {
     fetchData();
   }, []);
   console.log("recipe", recipe);
+
+  const handleclick = (value) => {
+    let url = value.target.value;
+    window.open(url);
+    console.log("url", url);
+  };
+  const handlerror = (value) => {
+    let data = value.target.value;
+    alert(data)
+  }
+  // console.log("recipe.Video",recipe.Video);
+  // const handleClick = value => console.log(value.target.value)
 
   return (
     <div>
@@ -45,9 +71,17 @@ function UserRecipe() {
                 </button>
               </div>
               <h4>ingredient</h4>
-              <ul className="scroll card-text" style={{ textAlign: "start" }}>
-                <li>{recipe.ingredients}</li>
-              </ul>
+
+              <ol
+                className="scroll card-text"
+                style={{ textAlign: "start" }}
+                key={recipe.ingredients[0]}
+              >
+                {recipe &&
+                  recipe.ingredients &&
+                  recipe.ingredients.length > 0 &&
+                  recipe.ingredients.map((item) => <li>{item}</li>)}
+              </ol>
             </div>
             <div className="col-md-8">
               <div className="card-body">
@@ -82,9 +116,13 @@ function UserRecipe() {
                   </thead>
                   <tbody>
                     <tr>
-                      <td>{recipe.Prep}</td>
-                      <td>{recipe.CookMins}</td>
-                      <td>{recipe.AdditionalMins}</td>
+                      <td>{recipe.Prep === 0 ? "-" : recipe.Prep}</td>
+                      <td>{recipe.CookMins === 0 ? "-" : recipe.CookMins}</td>
+                      <td>
+                        {recipe.AdditionalMins === 0
+                          ? "-"
+                          : recipe.AdditionalMins}
+                      </td>
                     </tr>
                     <tr>
                       <td> </td>
@@ -100,9 +138,9 @@ function UserRecipe() {
                   </thead>
                   <tbody>
                     <tr>
-                      <td>{recipe.TotalTime}</td>
-                      <td>{recipe.Servings}</td>
-                      <td>{recipe.Yield}</td>
+                      <td>{recipe.TotalTime === 0 ? "-" : recipe.TotalTime}</td>
+                      <td>{recipe.Servings === 0 ? "-" : recipe.Servings}</td>
+                      <td>{recipe.Yield === 0 ? "-" : recipe.Yield}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -114,7 +152,25 @@ function UserRecipe() {
                 <hr />
                 <h6 className="card-title">
                   <b> Directions : </b>
-                  {recipe.directions}
+                  <ul>
+                    {recipe &&
+                      recipe.directions &&
+                      recipe.directions.length > 0 &&
+                      recipe.directions.map((item, index) => {
+                        return (
+                          <div key={index}>
+                            <div>
+                              &nbsp;
+                              <label className="fs-5 fw-bold">
+                                Step {++index}:{" "}
+                              </label>
+                              <p>{item}</p>
+                            </div>
+                            <br />
+                          </div>
+                        );
+                      })}
+                  </ul>
                 </h6>
                 <hr />
                 <h6 className="card-title">
@@ -124,21 +180,54 @@ function UserRecipe() {
                 <hr />
                 <h6 className="card-title">
                   <b> Nutrition Facts : </b>
-                  {recipe.Nutrition}
+                  <ul>
+                    {recipe &&
+                      recipe.Nutrition &&
+                      recipe.Nutrition.length > 0 &&
+                      recipe.Nutrition.map((item) => <li>{item}</li>)}
+                  </ul>
                 </h6>
 
                 <p className="card-text">
                   <small className="text-muted"></small>
                 </p>
-                <button href={recipe.Video} className="btn btn-outline-info">
-                  Video Link
-                </button>
-                <button
-                  href={recipe.SocialMedia}
-                  className="btn btn-outline-info ms-4"
-                >
-                  SocialMedia Link
-                </button>
+
+                {recipe.Video === "" ? (
+                  <button
+                    value="Video is not found"
+                    onClick={handlerror}
+                    className="  btn btn-outline-info"
+                  >
+                    Video Link
+                  </button>
+                ) : (
+                  <button
+                    value={recipe.Video}
+                    onClick={handleclick}
+                    className="btn btn-outline-info"
+                  >
+                    Video Link
+                  </button>
+                )}
+
+                {recipe.Video === "" ? (
+                  <button
+                  value="SocialMedia Account is not found"
+                    onClick={handlerror}
+                    className=" mx-2 btn btn-outline-info"
+                  >
+                    SocialMedia Link
+                  </button>
+                ) : (
+                  <button
+                    value={recipe.SocialMedia}
+                    onClick={handleclick}
+                    className="mx-2 btn btn-outline-info"
+                  >
+                    SocialMedia Link
+                  </button>
+                )}
+               
               </div>
             </div>
           </div>
