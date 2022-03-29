@@ -8,7 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import SearchIcon from "@material-ui/icons/Search";
 import Recipe from "./../../Recipes/Recipe";
 
-import category from "../Home/category";
+import Category from "../Home/Category";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,7 +67,7 @@ function HeaderBottom() {
           <div className="container">
             <div className="col mt-4 text-dark">
             <div>
-                      <category />
+                      <Category />
                             
                     </div>
             </div>
