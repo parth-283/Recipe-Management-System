@@ -10,8 +10,18 @@ function RecipeForm() {
   const [imageurl, setImageurl] = React.useState("");
   console.log("imageurl", imageurl);
   console.log("recipe......................", recipe);
+  // let max  = Math.max(recipe.map((item) => item.UID))
+  let max = 0;
+  for (let i = 0; i < recipe.length; i++) {
+    const element = recipe[i];
+    if(max < element.UID) {
+      max = element.UID
+    }
+     
+  }
+  console.log("++++++++++max",max);
   const [input, setInput] = React.useState({
-    UID: Math.random().toString().substr(4, 4),
+    UID: max,
     Name: "",
     Category: "",
     imageurl: "",
@@ -29,7 +39,10 @@ function RecipeForm() {
     Nutrition: "",
     Video: "",
     SocialMedia: "",
+    
   });
+
+
 
   const handleChange = (e) => {
     setInput({
@@ -134,14 +147,16 @@ function RecipeForm() {
   }
   console.log("input submit", input);
   async function handleSubmit(event) {
-    console.log("input submit", input);
+    let value  = {...input,UID: ++max}
+    console.log("++++++++++value",value);
+    console.log("input submit", value);
     console.log(
-      "input submit",
-      input.Name,
-      input.Category,
-      input.imageurl,
-      input.ingredients,
-      input.directions
+      "value submit",
+      value.Name,
+      value.Category,
+      value.imageurl,
+      value.ingredients,
+      value.directions
     );
     // if (
     //   input.Name === "" &&
@@ -162,10 +177,10 @@ function RecipeForm() {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(input),
+      body: JSON.stringify(value),
     };
     let resultdata = await fetch(
-      `http://localhost:4500/recipe/add?UID=${input.UID}&Name=${input.Name}&Category=${input.Category}&imageurl=${input.imageurl}&ShortDes=${input.ShortDes}&Prep=${input.Prep}&CookMins=${input.CookMins}&AdditionalMins=${input.AdditionalMins}&TotalTime=${input.TotalTime}&Servings=${input.Servings}&Yield=${input.Yield}&ingredients=${input.ingredients}&description=${input.description}&directions=${input.directions}&ChefNote=${input.ChefNote}&Nutrition=${input.Nutrition}&Video=${input.Video}&SocialMedia=${input.SocialMedia}`,
+      `http://localhost:4500/recipe/add?UID=${value.UID}&Name=${value.Name}&Category=${value.Category}&imageurl=${value.imageurl}&ShortDes=${value.ShortDes}&Prep=${value.Prep}&CookMins=${value.CookMins}&AdditionalMins=${value.AdditionalMins}&TotalTime=${value.TotalTime}&Servings=${value.Servings}&Yield=${value.Yield}&ingredients=${value.ingredients}&description=${value.description}&directions=${value.directions}&ChefNote=${value.ChefNote}&Nutrition=${value.Nutrition}&Video=${value.Video}&SocialMedia=${value.SocialMedia}`,
       requestOptions
     );
     let result = await resultdata.json();
