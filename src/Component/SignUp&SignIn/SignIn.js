@@ -38,8 +38,9 @@ export default function SignIn() {
     let userdata = JSON.parse(user);
     let emailreg = userdata[0].regdata.email;
     let passwordreg = userdata[0].regdata.password;
+    let UIDreg = userdata[0].regdata.UID;
     let usercheck = false;
-
+    console.log("UIDreg",UIDreg);
     for (let i = 0; i < users.length; i++) {
       const element = users[i];
       if (
@@ -48,6 +49,7 @@ export default function SignIn() {
       ) {
         usercheck = true;
         localStorage.setItem("login-user-info", JSON.stringify([{ element }]));
+
         break;
       }
       usercheck = false;

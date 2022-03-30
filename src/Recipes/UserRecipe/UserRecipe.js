@@ -1,4 +1,5 @@
 import React from "react";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 function UserRecipe() {
   const [recipe, setRecipe] = React.useState([]);
@@ -30,6 +31,17 @@ function UserRecipe() {
       });
   };
 
+  // let user = localStorage.getItem("login-user-info");
+  // let userdata = JSON.parse(user);
+  // let FName = userdata[0].element.FName;
+  // let LName = userdata[0].element.LName;
+  // let Email = userdata[0].element.Email;
+
+  // console.log("userdata", userdata);
+  // console.log("FName", FName);
+  // console.log("LName", LName);
+  // console.log("Email", Email);
+
   React.useEffect(() => {
     fetchData();
   }, []);
@@ -42,8 +54,8 @@ function UserRecipe() {
   };
   const handlerror = (value) => {
     let data = value.target.value;
-    alert(data)
-  }
+    alert(data);
+  };
   // console.log("recipe.Video",recipe.Video);
   // const handleClick = value => console.log(value.target.value)
 
@@ -62,13 +74,16 @@ function UserRecipe() {
                 className="img-fluid rounded mt-3"
                 alt={recipe.Name}
               />
+              {/* <div className="border border-dark border-2 my-2">
+                <h4 style={{    textAlignlast:" center"}}>User's Info</h4>
+                Name: <span>{`${FName} ${LName}`}</span><br/>
+                E-Mail: <span>{Email}</span>
+              </div> */}
               <div className="m-2 ">
                 <button className="btn btn-transperent fs-3">
-                  <i className="bi bi-hand-thumbs-up"></i>
+                  <FavoriteIcon/>
                 </button>
-                <button className="btn btn-transperent fs-3">
-                  <i className="bi bi-hand-thumbs-down"></i>
-                </button>
+               
               </div>
               <h4>ingredient</h4>
 
@@ -210,10 +225,9 @@ function UserRecipe() {
                   </button>
                 )}
 
-
                 {recipe.Video === "" ? (
                   <button
-                  value="SocialMedia Account is not found"
+                    value="SocialMedia Account is not found"
                     onClick={handlerror}
                     className=" mx-2 btn btn-outline-info"
                   >
@@ -228,7 +242,6 @@ function UserRecipe() {
                     SocialMedia Link
                   </button>
                 )}
-               
               </div>
             </div>
           </div>
