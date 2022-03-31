@@ -33,7 +33,8 @@ var recipeinfo = (req, res) => {
 
 var recipeupdate = (req, res) => {
   let data = new recipe(req.query);
-  console.log("data", data);
+  // console.log("data", req.data);
+  // console.log("query",req.query);
   recipe.update(data, req.params.id, function (error, result, field) {
     if (error) {
       res.send(error);

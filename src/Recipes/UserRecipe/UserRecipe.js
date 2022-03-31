@@ -1,10 +1,34 @@
 import React from "react";
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+// import IconButton from "@mui/material/IconButton";
+import AddCommentIcon from "@mui/icons-material/AddComment";
 
 function UserRecipe() {
   const [recipe, setRecipe] = React.useState([]);
+  const [likedata, setLikedata] = React.useState([]);
+  const [like, setLike] = React.useState(false);
+  let reg = localStorage.getItem("login-user-info");
+        let regdata = JSON.parse(reg);
+        let UserId = regdata[0].element.UID;
 
-  const fetchData = () => {
+
+
+  console.log("userid", UserId);
+
+  const fetchData =async () => {
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+    let p = await fetch("http://localhost:4500/like/list", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        return result;
+      })
+      .catch((error) => console.log("error", error));
+
+
     fetch("http://localhost:4500/recipe/list")
       .then((response) => {
         console.log("response", response);
@@ -13,16 +37,18 @@ function UserRecipe() {
       .then((getdata) => {
         console.log("getdata", getdata);
         let x = getdata.map((item) => {
-          console.log("++++++++item", item);
-          // data.push(item.ingredients)
           let ingredientsdata = item.ingredients.split(",");
           let directionsdata = item.directions.split(".");
           let Nutritiondata = item.Nutrition.split(",");
+          let likedata = p.find((item2)=>item2.RecipeID == item.UID && item2.UserID == UserId )
+          let likelengthdata = p.filter((item3)=>item3.RecipeID == item.UID && item3.Likes == "true" )
           return {
             ...item,
             ingredients: ingredientsdata,
             directions: directionsdata,
             Nutrition: Nutritiondata,
+            likedata: likedata,
+            likelengthdata: likelengthdata
           };
           // directions
         });
@@ -30,34 +56,148 @@ function UserRecipe() {
         setRecipe(x);
       });
   };
-
-  // let user = localStorage.getItem("login-user-info");
-  // let userdata = JSON.parse(user);
-  // let FName = userdata[0].element.FName;
-  // let LName = userdata[0].element.LName;
-  // let Email = userdata[0].element.Email;
-
-  // console.log("userdata", userdata);
-  // console.log("FName", FName);
-  // console.log("LName", LName);
-  // console.log("Email", Email);
-
+console.log("recipe",recipe);
   React.useEffect(() => {
     fetchData();
-  }, []);
-  console.log("recipe", recipe);
+  }, [like]);
 
   const handleclick = (value) => {
     let url = value.target.value;
     window.open(url);
-    console.log("url", url);
   };
   const handlerror = (value) => {
     let data = value.target.value;
     alert(data);
   };
-  // console.log("recipe.Video",recipe.Video);
-  // const handleClick = value => console.log(value.target.value)
+
+  async function likesdata() {
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+    let x = await fetch("http://localhost:4500/like/list", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        setLikedata(result);
+        return result;
+      })
+      .catch((error) => console.log("error", error));
+    if (x == true) {
+      return x;
+    }
+  }
+  console.log("likesdata", likedata);
+
+  async function handlelike(e) {
+   
+    let max = 0;
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+    let x = await fetch("http://localhost:4500/like/list", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        for (let i = 0; i < result.length; i++) {
+          const element = result[i];
+          if (max < element.UID) {
+            max = element.UID;
+          }
+        }
+        
+
+        
+        addlike(
+          { UserID: UserId, RecipeID: e, Likes: true, UID: ++max },
+          result
+        );
+      })
+      .catch((error) => console.log("error", error));
+    console.log("xxxxxxxxxx", x);
+  }
+  console.log("like++++++++++++++", like);
+
+  
+
+  function handlecomment() {
+    alert("add Comment");
+  }
+
+  const addlike = async (data, value) => {
+    console.log("likeeeeeeeeeeeeeeeeeaddlike", data);
+    console.log("resultttttttttttttttttttt", value);
+    let likefind = value.find(
+      
+      (item) => item.RecipeID == data.RecipeID && item.UserID == data.UserID 
+    );
+    console.log("likefind", likefind);
+    if (likefind != undefined) {
+      if (likefind.Likes == "true") {
+        var requestOptions = {
+          method: "PUT",
+          redirect: "follow",
+        };
+
+        fetch(
+          `http://localhost:4500/like/update/${likefind.UID}?UID=${likefind.UID}&RecipeID=${likefind.RecipeID}&UserID=${likefind.UserID}&Likes=false`,
+          requestOptions
+        )
+          .then((response) => response.text())
+          .then((result) => {
+            if(like==false){
+              setLike(true)
+            }else{
+              setLike(false)
+            }
+          })
+          .catch((error) => console.log("error", error));
+      } else {
+        var requestOptions = {
+          method: "PUT",
+          redirect: "follow",
+        };
+
+        fetch(
+          `http://localhost:4500/like/update/${likefind.UID}?UID=${likefind.UID}&RecipeID=${likefind.RecipeID}&UserID=${likefind.UserID}&Likes=true`,
+          requestOptions
+        )
+          .then((response) => response.text())
+          .then((result) =>  {
+            if(like==false){
+              setLike(true)
+            }else{
+              setLike(false)
+            }
+          })
+          .catch((error) => console.log("error", error));
+      }
+  
+    } else {
+      let requestOptions = {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      };
+      let resultdata = await fetch(
+        `http://localhost:4500/like/add?UID=${data.UID}&RecipeID=${data.RecipeID}&UserID=${data.UserID}&Likes=${data.Likes}`,
+        requestOptions
+      );
+      let result = await resultdata.json();
+      if(result) {
+        if(like==false){
+          setLike(true)
+        }else{
+          setLike(false)
+        }
+      }
+      console.log("resultyyyyyyyy", result);
+    }
+  };
+
+  
 
   return (
     <div>
@@ -74,16 +214,43 @@ function UserRecipe() {
                 className="img-fluid rounded mt-3"
                 alt={recipe.Name}
               />
-              {/* <div className="border border-dark border-2 my-2">
-                <h4 style={{    textAlignlast:" center"}}>User's Info</h4>
-                Name: <span>{`${FName} ${LName}`}</span><br/>
-                E-Mail: <span>{Email}</span>
-              </div> */}
+
               <div className="m-2 ">
-                <button className="btn btn-transperent fs-3">
-                  <FavoriteIcon/>
-                </button>
-               
+                <div className="container">
+                  <div className="row row-cols-3">
+                    <div className="row row-cols-1">
+                      <div className="col ">
+                        <button
+                          aria-label="Like"
+                          onClick={(e) => handlelike(`${recipe.UID}`)}
+                        >
+                          {recipe?.likedata?.Likes == "true" ? (
+                            <FavoriteIcon sx={{ color: "#ba000d" }} />
+                          ) : (
+                            <FavoriteBorderIcon />
+                          )}
+
+                        </button>
+
+                        
+                      </div>
+                      <div className="col text-center">{recipe.likelengthdata.length}</div>
+                    </div>
+                    <div className="row row-cols-1">
+                      <div className="col">
+                        {" "}
+                        <button
+                          aria-label="Comment"
+                          style={{ color: "#64b5f6" }}
+                          onClick={handlecomment}
+                        >
+                          <AddCommentIcon />
+                        </button>
+                      </div>
+                      <div className="col text-center">50</div>
+                    </div>
+                  </div>
+                </div>
               </div>
               <h4>ingredient</h4>
 

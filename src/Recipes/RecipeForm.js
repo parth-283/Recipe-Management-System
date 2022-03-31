@@ -21,7 +21,7 @@ function RecipeForm() {
   }
   console.log("++++++++++max",max);
   const [input, setInput] = React.useState({
-    UID: max,
+    UID: ++max,
     Name: "",
     Category: "",
     imageurl: "",
@@ -158,17 +158,7 @@ function RecipeForm() {
       value.ingredients,
       value.directions
     );
-    // if (
-    //   input.Name === "" &&
-    //   input.Category === "" &&
-    //   input.imageurl === "" &&
-    //   input.ingredients.length > 0 &&
-    //   input.directions.length > 0 
-    // ) {
-    //   alert("not ok");
-    // } else {
-    //   alert("ok");
-    // }
+   
 
     //send data to backend.
     let requestOptions = {
@@ -204,7 +194,7 @@ function RecipeForm() {
     <div className="container">
       <h1 className="text-center">Add Recipe Form</h1>
       <form>
-        <div className=" border-top  border-bottom  border-primary  border-3 rounded m-3">
+        <div className=" border-top  border-bottom  border-primary  border-3 rounded m-3 ">
           <div className="row">
             <div className="col-6">
               <div className="title">
