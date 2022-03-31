@@ -3,6 +3,7 @@ var router = express.Router();
 var userctrl = require("./controllers/UserRegister");
 var feedbackctrl = require("./controllers/UserFeedBack")
 var recipectrl = require("./controllers/AddRecipe")
+var likectrl = require("./controllers/like")
 var bodyparser = require("body-parser");
 
 //Add Image
@@ -46,6 +47,14 @@ router.post("/feedback/add", urlencoderparser, feedbackctrl.addfeedback);
 router.get("/feedback/:id", feedbackctrl.feedbackinfo);
 router.put("/feedback/update/:id", urlencoderparser,feedbackctrl.feedbackupdate);
 router.delete("/feedback/delete/:id", feedbackctrl.feedbackDelete);
+
+//like route
+router.get("/like/list",likectrl.likelist);
+router.post("/like/add", urlencoderparser, likectrl.addlike);
+router.get("/like/:id", likectrl.likeinfo);
+router.put("/like/update/:id", urlencoderparser,likectrl.likeupdate);
+router.delete("/like/delete/:id", likectrl.likeDelete);
+
 
 //Addrecipe route
 router.get("/recipe/list",recipectrl.recipelist);

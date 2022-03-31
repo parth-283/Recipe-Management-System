@@ -11,8 +11,8 @@ var users = function (users) {
   this.Mobile = users.Mobile;
   this.Password = users.Password;
   this.Status = users.Status;
-  this.Like = users.Like;
-  this.Dislike = users.Dislike;
+  this.likes = users.likes;
+ 
   // this.created_at = new Data();
 };
 
@@ -54,9 +54,10 @@ users.findByID = (id, cb) => {
   );
 };
 
+
 users.update = (data,id,cb) => {
   connection.query(
-    "Update userregister set FName =? , LName =? , Gender =? , State =? , City =? , Email =? , Mobile =? , Password =? , Status=? , Like=? , Dislike=?  where UID=?",
+    "Update userregister set FName =? , LName =? , Gender =? , State =? , City =? , Email =? , Mobile =? , Password =? , Status=? , likes=?  where UID=?",
     [
       data.FName,
       data.LName,
@@ -67,12 +68,12 @@ users.update = (data,id,cb) => {
       data.Mobile,
       data.Password,
       data.Status,
-      data.Like,
-      data.Dislike,
+      data.likes,
       id,
     ],
     function (error, result, field) {
       if (error) {
+        console.log("error",error);
         cb(null.error); 
       }
       cb(null, {message:'updated'});
@@ -80,6 +81,9 @@ users.update = (data,id,cb) => {
     }
   );
 };
+
+
+
 
 users.delete = (id, cb) => {
   connection.query(
