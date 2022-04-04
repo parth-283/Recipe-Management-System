@@ -52,7 +52,6 @@ function SignUp() {
     }
 
     if (vali.mobile !== "") {
-      debugger
       if (vali.mobile.length !== 10) {
         setMobileVal(true)
       } else {

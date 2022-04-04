@@ -44,7 +44,7 @@ recipe.create = (data, cb) => {
         cb(error);
       }
       cb(null, { message: "added" });
-      console.log("Data Added ");
+      console.log("recipe Added ");
     }
   );
 };
@@ -60,7 +60,7 @@ recipe.findall = (cb) => {
     cb(null, result);
   // console.log("data",result);
 });
-  console.log("data Show");
+  console.log("recipe Show");
 };
 
 recipe.findByID = (id, cb) => {
@@ -72,7 +72,7 @@ recipe.findByID = (id, cb) => {
         cb(null.error);
       }
       cb(null, result);
-      console.log("data show by UID");
+      console.log("recipe show by UID");
     }
   );
 };
@@ -106,7 +106,7 @@ recipe.update = (data, id, cb) => {
         cb(null.error);
       }
       cb(null, { message: "updated" });
-      console.log("data show by UID");
+      console.log("recipe updated");
     }
   );
 };
@@ -120,7 +120,7 @@ recipe.delete = (id, cb) => {
         cb(null.error);
       }
       cb(null, result);
-      console.log("deleted ");
+      console.log("recipe deleted ");
     }
   );
 };

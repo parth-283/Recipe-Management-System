@@ -3,24 +3,44 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 // import IconButton from "@mui/material/IconButton";
 import AddCommentIcon from "@mui/icons-material/AddComment";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ForwardOutlinedIcon from "@mui/icons-material/ForwardOutlined";
+import "../../style/UserRecipe.css";
 
 function UserRecipe() {
   const [recipe, setRecipe] = React.useState([]);
-  const [likedata, setLikedata] = React.useState([]);
   const [like, setLike] = React.useState(false);
+  const [comment, setComment] = React.useState("");
+  const [commentRecipeID, setCommentRecipeID] = React.useState(0);
+  const [showCommentData, setShowCommentData] = React.useState([])
+  let commentResult = [];
+
+  //user login data get on localstorage
   let reg = localStorage.getItem("login-user-info");
-        let regdata = JSON.parse(reg);
-        let UserId = regdata[0].element.UID;
+  let regdata = JSON.parse(reg);
+  let UserId = regdata[0].element.UID;
+  let UserFName = regdata[0].element.FName;
+  let UserLName = regdata[0].element.LName;
 
+  // console.log("userid", UserId);
 
-
-  console.log("userid", UserId);
-
-  const fetchData =async () => {
+  //like
+  const fetchData = async () => {
     var requestOptions = {
       method: "GET",
       redirect: "follow",
     };
+
+    //get comment data and set in recipe blog
+    let C = await fetch("http://localhost:4500/comment/list", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        return result;
+      })
+      .catch((error) => console.log('"getCommentData",error', error));
+    console.log("C#################", C);
+
+    // get like data and set in recipe blog
     let p = await fetch("http://localhost:4500/like/list", requestOptions)
       .then((response) => response.json())
       .then((result) => {
@@ -28,68 +48,47 @@ function UserRecipe() {
       })
       .catch((error) => console.log("error", error));
 
-
+    // get recipe data and modify
     fetch("http://localhost:4500/recipe/list")
       .then((response) => {
-        console.log("response", response);
+        console.log("Recipe_Response", response);
         return response.json();
       })
       .then((getdata) => {
-        console.log("getdata", getdata);
+        // console.log("RecipeData", getdata);
         let x = getdata.map((item) => {
           let ingredientsdata = item.ingredients.split(",");
           let directionsdata = item.directions.split(".");
           let Nutritiondata = item.Nutrition.split(",");
-          let likedata = p.find((item2)=>item2.RecipeID == item.UID && item2.UserID == UserId )
-          let likelengthdata = p.filter((item3)=>item3.RecipeID == item.UID && item3.Likes == "true" )
+          let likedata = p.find(
+            (item2) => item2.RecipeID == item.UID && item2.UserID == UserId
+          );
+          let likelengthdata = p.filter(
+            (item3) => item3.RecipeID == item.UID && item3.Likes == "true"
+          );
+          let commentdata = C.filter((item4) => item4.RecipeID == item.UID);
           return {
             ...item,
             ingredients: ingredientsdata,
             directions: directionsdata,
             Nutrition: Nutritiondata,
             likedata: likedata,
-            likelengthdata: likelengthdata
+            likelengthdata: likelengthdata,
+            commentdata: commentdata,
           };
-          // directions
         });
-
         setRecipe(x);
       });
   };
-console.log("recipe",recipe);
+
+  console.log("recipe", recipe);
+
   React.useEffect(() => {
     fetchData();
   }, [like]);
 
-  const handleclick = (value) => {
-    let url = value.target.value;
-    window.open(url);
-  };
-  const handlerror = (value) => {
-    let data = value.target.value;
-    alert(data);
-  };
-
-  async function likesdata() {
-    var requestOptions = {
-      method: "GET",
-      redirect: "follow",
-    };
-    let x = await fetch("http://localhost:4500/like/list", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        setLikedata(result);
-        return result;
-      })
-      .catch((error) => console.log("error", error));
-    if (x == true) {
-      return x;
-    }
-  }
-  console.log("likesdata", likedata);
-
   async function handlelike(e) {
-   
+    // get like data and set uid
     let max = 0;
     var requestOptions = {
       method: "GET",
@@ -104,9 +103,6 @@ console.log("recipe",recipe);
             max = element.UID;
           }
         }
-        
-
-        
         addlike(
           { UserID: UserId, RecipeID: e, Likes: true, UID: ++max },
           result
@@ -115,22 +111,14 @@ console.log("recipe",recipe);
       .catch((error) => console.log("error", error));
     console.log("xxxxxxxxxx", x);
   }
-  console.log("like++++++++++++++", like);
 
-  
-
-  function handlecomment() {
-    alert("add Comment");
-  }
-
+  //like
   const addlike = async (data, value) => {
-    console.log("likeeeeeeeeeeeeeeeeeaddlike", data);
-    console.log("resultttttttttttttttttttt", value);
+    //set like
     let likefind = value.find(
-      
-      (item) => item.RecipeID == data.RecipeID && item.UserID == data.UserID 
+      (item) => item.RecipeID == data.RecipeID && item.UserID == data.UserID
     );
-    console.log("likefind", likefind);
+
     if (likefind != undefined) {
       if (likefind.Likes == "true") {
         var requestOptions = {
@@ -142,12 +130,12 @@ console.log("recipe",recipe);
           `http://localhost:4500/like/update/${likefind.UID}?UID=${likefind.UID}&RecipeID=${likefind.RecipeID}&UserID=${likefind.UserID}&Likes=false`,
           requestOptions
         )
-          .then((response) => response.text())
+          .then((response) => response.json())
           .then((result) => {
-            if(like==false){
-              setLike(true)
-            }else{
-              setLike(false)
+            if (like == false) {
+              setLike(true);
+            } else {
+              setLike(false);
             }
           })
           .catch((error) => console.log("error", error));
@@ -161,17 +149,16 @@ console.log("recipe",recipe);
           `http://localhost:4500/like/update/${likefind.UID}?UID=${likefind.UID}&RecipeID=${likefind.RecipeID}&UserID=${likefind.UserID}&Likes=true`,
           requestOptions
         )
-          .then((response) => response.text())
-          .then((result) =>  {
-            if(like==false){
-              setLike(true)
-            }else{
-              setLike(false)
+          .then((response) => response.json())
+          .then((result) => {
+            if (like == false) {
+              setLike(true);
+            } else {
+              setLike(false);
             }
           })
           .catch((error) => console.log("error", error));
       }
-  
     } else {
       let requestOptions = {
         method: "POST",
@@ -186,18 +173,94 @@ console.log("recipe",recipe);
         requestOptions
       );
       let result = await resultdata.json();
-      if(result) {
-        if(like==false){
-          setLike(true)
-        }else{
-          setLike(false)
+      if (result) {
+        if (like == false) {
+          setLike(true);
+        } else {
+          setLike(false);
         }
       }
       console.log("resultyyyyyyyy", result);
     }
   };
 
-  
+  //Comment
+  const handleCommentList = (e,data) => {
+    setCommentRecipeID(e);
+    setShowCommentData(data)
+  };
+
+  function Changecomment(e) {
+    //set comment text value
+    setComment(e.target.value);
+  }
+
+  async function addhandlecommet(e) {
+    // get comment data and set uid
+    console.log("addhandlecommet%%%%%%%e", e);
+    let max = 0;
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+    await fetch("http://localhost:4500/comment/list", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        for (let i = 0; i < result.length; i++) {
+          const element = result[i];
+          if (max < element.CID) {
+            max = element.CID;
+          }
+        }
+        let UserName = UserFName + " " + UserLName;
+        let commentgetdata = {
+          UserID: UserId,
+          UserName: UserName,
+          RecipeID: commentRecipeID,
+          Comments: comment,
+          CID: ++max,
+        };
+        commentResult = result;
+        // console.log("commentResult", commentResult);
+        addcommnet([commentgetdata, result]);
+      })
+      .catch((error) => console.log("error", error));
+  }
+
+  async function addcommnet(data) {
+    console.log("data*****addcommnet**********", data);
+    console.log("comment:", comment);
+
+    var requestOptions = {
+      method: "POST",
+      redirect: "follow",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    fetch(
+      `http://localhost:4500/comment/add?CID=${data[0].CID}&RecipeID=${data[0].RecipeID}&UserID=${data[0].UserID}&UserName=${data[0].UserName}&Comments=${comment}`,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((result) => {console.log("CommentAddResult...///", data)
+    setShowCommentData([...showCommentData,data[0]])})
+      .catch((error) => console.log("error", error));
+    setComment("");
+    fetchData();
+  }
+
+
+  const handleclick = (value) => {
+    let url = value.target.value;
+    window.open(url);
+  };
+  const handlerror = (value) => {
+    let data = value.target.value;
+    alert(data);
+  };
 
   return (
     <div>
@@ -229,25 +292,107 @@ console.log("recipe",recipe);
                           ) : (
                             <FavoriteBorderIcon />
                           )}
-
                         </button>
-
-                        
                       </div>
-                      <div className="col text-center">{recipe.likelengthdata.length}</div>
+                      <div className="col text-center">
+                        {recipe.likelengthdata.length}
+                      </div>
                     </div>
                     <div className="row row-cols-1">
                       <div className="col">
-                        {" "}
+                        {/* <!-- Button trigger modal --> */}
                         <button
                           aria-label="Comment"
                           style={{ color: "#64b5f6" }}
-                          onClick={handlecomment}
+                          data-bs-toggle="modal"
+                          data-bs-target="#staticBackdrop"
+                          onClick={(e) => handleCommentList(`${recipe.UID}`,recipe.commentdata)}
                         >
                           <AddCommentIcon />
                         </button>
+                        {/* <!-- Modal --> */}
+                        <div
+                          className="modal fade"
+                          id="staticBackdrop"
+                          data-bs-backdrop="static"
+                          data-bs-keyboard="false"
+                          tabIndex="-1"
+                          aria-labelledby="staticBackdropLabel"
+                          aria-hidden="true"
+                        >
+                          <div className="modal-dialog">
+                            <div className="modal-content contentsize">
+                              <div className="modal-header">
+                                <h3
+                                  className="modal-title"
+                                  id="staticBackdropLabel"
+                                >
+                                  Comments
+                                </h3>
+                                <button
+                                  type="button"
+                                  className="btn-close"
+                                  data-bs-dismiss="modal"
+                                  aria-label="Close"
+                                ></button>
+                              </div>
+                              <div className="modal-body ">
+                                <div className="form-floating ">
+                                  <textarea
+                                    className="form-control"
+                                    placeholder="Leave a comment here"
+                                    id="floatingTextarea"
+                                    name="commentinput"
+                                    value={comment}
+                                    onChange={(e) => Changecomment(e)}
+                                  ></textarea>
+                                  <label htmlFor="floatingTextarea">
+                                    Comments
+                                  </label>
+                                </div>
+                                <div className="setcontent">
+                                  {showCommentData&&showCommentData.length>0&&showCommentData.reverse().map((item) => (
+                                    <div className="border border-2 border-primary rounded my-2">
+                                      
+                                      <label>
+                                        <AccountCircleIcon />
+                                        {item.UserName}
+                                      </label>
+                                      <br />
+                                      <label>
+                                        <ForwardOutlinedIcon />
+                                        {item.Comments}
+                                      </label>
+                                    </div>
+                                 ))} 
+                                </div>
+                              </div>
+                              <div className="modal-footer">
+                                <button
+                                  type="button"
+                                  className="btn btn-primary"
+                                  onClick={(e) =>
+                                    addhandlecommet(`${recipe.UID}`)
+                                  }
+                                >
+                                  Add Comment
+                                </button>
+                                <button
+                                  type="button"
+                                  className="btn btn-secondary"
+                                  data-bs-dismiss="modal"
+                                >
+                                  Close
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div className="col text-center">50</div>
+
+                      <div className="col text-center">
+                        {recipe.commentdata.length}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -392,7 +537,7 @@ console.log("recipe",recipe);
                   </button>
                 )}
 
-                {recipe.Video === "" ? (
+                {recipe.SocialMedia === "" ? (
                   <button
                     value="SocialMedia Account is not found"
                     onClick={handlerror}

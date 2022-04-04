@@ -1,0 +1,8 @@
+.contentsize{
+    height: 500px;
+}
+.setcontent{
+    margin-top: 30px;
+    overflow-y: scroll;
+    height: 230px;
+}
