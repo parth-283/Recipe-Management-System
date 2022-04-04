@@ -17,7 +17,7 @@ like.create = (data, cb) => {
         cb(error);
       }
       cb(null, { message: "added" });
-      console.log("Data Added ");
+      console.log("like Added ");
     }
   );
 };
@@ -30,7 +30,7 @@ like.findall = (cb) => {
     }
     cb(null, result);
   });
-  console.log("data show");
+  console.log("like show");
 };
 
 like.findByID = (id, cb) => {
@@ -42,7 +42,7 @@ like.findByID = (id, cb) => {
         cb(null.error);
       }
       cb(null, result);
-      console.log("data show by UID");
+      console.log("like show by UID");
     }
   );
 };
@@ -56,7 +56,7 @@ like.update = (data, id, cb) => {
         cb(null.error);
       }
       cb(null, { message: "updated" });
-      console.log("data show by UID");
+      console.log("like updated");
     }
   );
 };
@@ -70,7 +70,7 @@ like.delete = (id, cb) => {
           cb(null.error);
         }
         cb(null, result);
-        console.log("deleted ");
+        console.log("like deleted ");
       }
     );
   };

@@ -19,7 +19,7 @@ feedbacks.create = (data, cb) => {
           cb(error);
         }
         cb(null, { message: "added" });
-        console.log("Data Added ");
+        console.log("feedbacks Added ");
       }
     );
   };
@@ -32,7 +32,7 @@ feedbacks.findall = (cb) => {
       }
       cb(null, result);
     });
-    console.log("data show");
+    console.log("feedbacks show");
   };
 
 
@@ -45,7 +45,7 @@ feedbacks.findall = (cb) => {
           cb(null.error);
         }
         cb(null, result);
-        console.log("data show by UID");
+        console.log("feedbacks show by UID");
       }
     );
   };
@@ -67,7 +67,7 @@ feedbacks.findall = (cb) => {
           cb(null.error); 
         }
         cb(null, {message:'updated'});
-        console.log("data show by UID");
+        console.log("feedbacks updated");
       }
     );
   };
@@ -82,7 +82,7 @@ feedbacks.findall = (cb) => {
           cb(null.error);
         }
         cb(null, result);
-        console.log("deleted ");
+        console.log("feedbacks deleted ");
       }
     );
   };

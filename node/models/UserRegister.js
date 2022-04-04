@@ -25,7 +25,7 @@ users.create = (data, cb) => {
         cb(error);
       }
       cb(null, { message: "added" });
-      console.log("Data Added ");
+      console.log("users Added ");
     }
   );
 };
@@ -37,7 +37,7 @@ users.findall = (cb) => {
     }
     cb(null, result);
   });
-  console.log("data show");
+  console.log("users show");
 };
 
 users.findByID = (id, cb) => {
@@ -49,7 +49,7 @@ users.findByID = (id, cb) => {
         cb(null.error);
       }
       cb(null, result);
-      console.log("data show by UID");
+      console.log("users show by UID");
     }
   );
 };
@@ -77,7 +77,7 @@ users.update = (data,id,cb) => {
         cb(null.error); 
       }
       cb(null, {message:'updated'});
-      console.log("data show by UID");
+      console.log("users updated");
     }
   );
 };
@@ -94,7 +94,7 @@ users.delete = (id, cb) => {
         cb(null.error);
       }
       cb(null, result);
-      console.log("deleted ");
+      console.log("users deleted ");
     }
   );
 };

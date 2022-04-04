@@ -4,6 +4,7 @@ var userctrl = require("./controllers/UserRegister");
 var feedbackctrl = require("./controllers/UserFeedBack")
 var recipectrl = require("./controllers/AddRecipe")
 var likectrl = require("./controllers/like")
+var commentctrl = require("./controllers/comment")
 var bodyparser = require("body-parser");
 
 //Add Image
@@ -55,6 +56,12 @@ router.get("/like/:id", likectrl.likeinfo);
 router.put("/like/update/:id", urlencoderparser,likectrl.likeupdate);
 router.delete("/like/delete/:id", likectrl.likeDelete);
 
+//comment route
+router.get("/comment/list",commentctrl.commentlist);
+router.post("/comment/add", urlencoderparser, commentctrl.addcomment);
+router.get("/comment/:id", commentctrl.commentinfo);
+router.put("/comment/update/:id", urlencoderparser,commentctrl.commentupdate);
+router.delete("/comment/delete/:id", commentctrl.commentDelete);
 
 //Addrecipe route
 router.get("/recipe/list",recipectrl.recipelist);
