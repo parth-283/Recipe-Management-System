@@ -1,4 +1,7 @@
 import React from "react";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+import "../style/veg-nonvegIcon.css";
 
 function RecipeForm() {
   const [recipe, setRecipe] = React.useState([]);
@@ -8,18 +11,19 @@ function RecipeForm() {
   const [simage, setImage] = React.useState("");
   const [showimage, setShowimage] = React.useState("");
   const [imageurl, setImageurl] = React.useState("");
+  const [addAlertBox, setAddAlertBox] = React.useState(false);
+  const [addImageAlertBox, setAddImageAlertBox] = React.useState(false);
+
   console.log("imageurl", imageurl);
   console.log("recipe......................", recipe);
   // let max  = Math.max(recipe.map((item) => item.UID))
   let max = 0;
   for (let i = 0; i < recipe.length; i++) {
     const element = recipe[i];
-    if(max < element.UID) {
-      max = element.UID
+    if (max < element.UID) {
+      max = element.UID;
     }
-     
   }
-  console.log("++++++++++max",max);
   const [input, setInput] = React.useState({
     UID: ++max,
     Name: "",
@@ -39,10 +43,7 @@ function RecipeForm() {
     Nutrition: "",
     Video: "",
     SocialMedia: "",
-    
   });
-
-
 
   const handleChange = (e) => {
     setInput({
@@ -135,6 +136,7 @@ function RecipeForm() {
     const uploadedImage = await data.json();
     if (uploadedImage) {
       console.log("Successfully uploaded image");
+      setAddImageAlertBox(true)
     } else {
       console.log("Error Found");
     }
@@ -145,10 +147,11 @@ function RecipeForm() {
       imageurl: imageurl,
     });
   }
-  console.log("input submit", input);
+  //Recipe Submit
   async function handleSubmit(event) {
-    let value  = {...input,UID: ++max}
-    console.log("++++++++++value",value);
+    let value = { ...input, UID: max };
+    console.log("handleSubmit####input$$$%%", input);
+    console.log("++++++++++value", value);
     console.log("input submit", value);
     console.log(
       "value submit",
@@ -158,7 +161,6 @@ function RecipeForm() {
       value.ingredients,
       value.directions
     );
-   
 
     //send data to backend.
     let requestOptions = {
@@ -174,7 +176,9 @@ function RecipeForm() {
       requestOptions
     );
     let result = await resultdata.json();
-    console.log("resultyyyyyyyy", result);
+    if(result.message === "added"){
+      setAddAlertBox(true);
+    }
   }
 
   const fetchData = () => {
@@ -192,6 +196,7 @@ function RecipeForm() {
 
   return (
     <div className="container">
+      <div></div>
       <h1 className="text-center">Add Recipe Form</h1>
       <form>
         <div className=" border-top  border-bottom  border-primary  border-3 rounded m-3 ">
@@ -223,6 +228,15 @@ function RecipeForm() {
                 value={input.Category}
                 onChange={handleChange}
               />
+              {/* <div className="Categoryborder">
+                {" "}
+                <buttpn className=" rsveg">
+                  <span className="veg" value="veg"></span>
+                </buttpn>
+                <sapn className="rsnonveg">
+                  <span className="nonveg"value="nonveg"></span>
+                </sapn>
+              </div> */}
             </div>
             <div className="mb-3">
               <label className="form-label">Short Descrip*</label>
@@ -263,7 +277,16 @@ function RecipeForm() {
                   onClick={handleimage}
                 >
                   Add image
+                  
                 </button>
+              )}
+              {addImageAlertBox === true ? (
+               <Alert variant="filled" severity="success">
+               <AlertTitle>Success</AlertTitle>
+               Successfully uploaded image
+             </Alert>
+            ) : (
+              <p></p>
               )}
             </div>
 
@@ -504,6 +527,16 @@ function RecipeForm() {
                 Submit your recipe
               </button>
             </div>
+            <div className="my-2">
+            {addAlertBox === true ? (
+               <Alert variant="filled" severity="success">
+               <AlertTitle>Success</AlertTitle>
+               Your Recipe Is Successfully Submitted 
+             </Alert>
+            ) : (
+              <p></p>
+              )}
+              </div>
           </div>
         </div>
       </form>
