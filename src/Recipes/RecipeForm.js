@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
-import "../style/veg-nonvegIcon.css";
+import "../style/RecipeForm.css";
 
 function RecipeForm() {
+  const current = new Date();
+  const date = `${current.getFullYear()}-${
+    current.getMonth() + 1
+  }-${current.getDate()}`;
+  console.log("Date", date);
+  console.log("current", current);
+
+  let reg = localStorage.getItem("login-user-info");
+  let regdata = JSON.parse(reg);
+  let UserFName = regdata[0].element.FName;
+  let UserLName = regdata[0].element.LName;
+  let userName = UserFName + " " + UserLName;
+
   const [recipe, setRecipe] = React.useState([]);
   const [ingredients, setIngredients] = React.useState("");
   const [directions, setDirections] = React.useState("");
@@ -14,9 +27,7 @@ function RecipeForm() {
   const [addAlertBox, setAddAlertBox] = React.useState(false);
   const [addImageAlertBox, setAddImageAlertBox] = React.useState(false);
 
-  console.log("imageurl", imageurl);
-  console.log("recipe......................", recipe);
-  // let max  = Math.max(recipe.map((item) => item.UID))
+
   let max = 0;
   for (let i = 0; i < recipe.length; i++) {
     const element = recipe[i];
@@ -43,7 +54,15 @@ function RecipeForm() {
     Nutrition: "",
     Video: "",
     SocialMedia: "",
+    ChefName: userName,
+    AddDate: date,
+    // preserved:"",
+    preserving:"",
+    preservingMeasure:"",
+    preservin:"",
   });
+
+  console.log("input", input);
 
   const handleChange = (e) => {
     setInput({
@@ -136,7 +155,7 @@ function RecipeForm() {
     const uploadedImage = await data.json();
     if (uploadedImage) {
       console.log("Successfully uploaded image");
-      setAddImageAlertBox(true)
+      setAddImageAlertBox(true);
     } else {
       console.log("Error Found");
     }
@@ -150,17 +169,18 @@ function RecipeForm() {
   //Recipe Submit
   async function handleSubmit(event) {
     let value = { ...input, UID: max };
-    console.log("handleSubmit####input$$$%%", input);
-    console.log("++++++++++value", value);
-    console.log("input submit", value);
-    console.log(
-      "value submit",
-      value.Name,
-      value.Category,
-      value.imageurl,
-      value.ingredients,
-      value.directions
-    );
+    let Preserved =`${input.preserving} ${input.preservingMeasure} in ${input.preservin} `
+    // console.log("handleSubmit####input$$$%%", input);
+    console.log("value####input$$$%%", value);
+    // console.log(Preserved,"Preserved");
+    // console.log(
+    //   "value submit",
+    //   value.Name,
+    //   value.Category,
+    //   value.imageurl,
+    //   value.ingredients,
+    //   value.directions
+    // );
 
     //send data to backend.
     let requestOptions = {
@@ -172,14 +192,14 @@ function RecipeForm() {
       body: JSON.stringify(value),
     };
     let resultdata = await fetch(
-      `http://localhost:4500/recipe/add?UID=${value.UID}&Name=${value.Name}&Category=${value.Category}&imageurl=${value.imageurl}&ShortDes=${value.ShortDes}&Prep=${value.Prep}&CookMins=${value.CookMins}&AdditionalMins=${value.AdditionalMins}&TotalTime=${value.TotalTime}&Servings=${value.Servings}&Yield=${value.Yield}&ingredients=${value.ingredients}&description=${value.description}&directions=${value.directions}&ChefNote=${value.ChefNote}&Nutrition=${value.Nutrition}&Video=${value.Video}&SocialMedia=${value.SocialMedia}`,
+      `http://localhost:4500/recipe/add?UID=${value.UID}&Name=${value.Name}&Category=${value.Category}&imageurl=${value.imageurl}&ShortDes=${value.ShortDes}&Prep=${value.Prep}&CookMins=${value.CookMins}&AdditionalMins=${value.AdditionalMins}&TotalTime=${value.TotalTime}&Servings=${value.Servings}&Yield=${value.Yield}&ingredients=${value.ingredients}&description=${value.description}&directions=${value.directions}&ChefNote=${value.ChefNote}&Nutrition=${value.Nutrition}&Video=${value.Video}&SocialMedia=${value.SocialMedia}&ChefName=${value.ChefName}&AddDate=${value.AddDate}&Preserved=${Preserved}`,
       requestOptions
     );
     let result = await resultdata.json();
-    if(result.message === "added"){
+    if (result.message === "added") {
       setAddAlertBox(true);
+      }
     }
-  }
 
   const fetchData = () => {
     fetch("http://localhost:4500/recipe/list")
@@ -193,6 +213,16 @@ function RecipeForm() {
   React.useEffect(() => {
     fetchData();
   }, []);
+
+
+const preserving = (e) => {
+  setInput({
+    ...input,
+    [e.target.name]: e.target.value,
+  });
+
+}
+
 
   return (
     <div className="container">
@@ -217,9 +247,28 @@ function RecipeForm() {
             </div>
             <div className="col-6">
               <div className="title">
-                <label className="form-label">Category*</label>
+                <label className="form-label ">Category*</label>
               </div>
-              <input
+              <select
+                name="Category"
+                className="Category"
+                onChange={handleChange}
+              >
+                <option value="none" selected hidden>
+                  Select your recipe's Category
+                </option>
+
+                <option className="vegetarian" value="vegetarian">
+                  vegetarian
+                </option>
+                <option className="non-vegetarian" value="non-vegetarian">
+                  non-vegetarian
+                </option>
+                <option className="Eggetarian" value="Eggetarian">
+                  Eggetarian
+                </option>
+              </select>
+              {/* <input
                 type="text"
                 className="form-control"
                 id="exampleFormControlInput1"
@@ -227,7 +276,8 @@ function RecipeForm() {
                 name="Category"
                 value={input.Category}
                 onChange={handleChange}
-              />
+              /> */}
+
               {/* <div className="Categoryborder">
                 {" "}
                 <buttpn className=" rsveg">
@@ -277,16 +327,15 @@ function RecipeForm() {
                   onClick={handleimage}
                 >
                   Add image
-                  
                 </button>
               )}
               {addImageAlertBox === true ? (
-               <Alert variant="filled" severity="success">
-               <AlertTitle>Success</AlertTitle>
-               Successfully uploaded image
-             </Alert>
-            ) : (
-              <p></p>
+                <Alert variant="filled" severity="success">
+                  <AlertTitle>Success</AlertTitle>
+                  Successfully uploaded image
+                </Alert>
+              ) : (
+                <p></p>
               )}
             </div>
 
@@ -375,6 +424,53 @@ function RecipeForm() {
                   value={input.Yield}
                   onChange={handleChange}
                 />
+              </div>
+            </div>
+
+            <div className="mb-3 ">
+              <span className="input-group-text ">
+                time to preserving food *
+              </span>
+              <div className="input-group">
+                <span className="input-group-text ">Timing*</span>
+                <div>
+                  <input
+                    type="number"
+                    aria-label="preserving"
+                    className="form-control"
+                    name="preserving"
+                    // value={input.preserving}
+                    onChange={preserving}
+                  />
+                </div>
+
+                  <select name="preservingMeasure" onChange={preserving} >
+                    <option value="none" selected hidden>
+                      preservingMeasure
+                    </option>
+                    <option className="hours" value="hours">
+                      hours
+                    </option>
+                    <option className="min" value="Min">
+                      Minute
+                    </option>
+                    <option className="days" value="days">
+                      days
+                    </option>
+                  </select>
+                <div>
+                </div>
+                
+                  <select name="preservin" onChange={preserving}>
+                    <option value="none" selected hidden>
+                      preserving in...
+                    </option>
+                    <option value="RoomTemperature">Room Temperature</option>
+                    <option value="refrigerator">refrigerator</option>
+                    <option value="hotcase">hot case</option>
+                  </select>
+                <div>
+                </div>
               </div>
             </div>
 
@@ -528,15 +624,15 @@ function RecipeForm() {
               </button>
             </div>
             <div className="my-2">
-            {addAlertBox === true ? (
-               <Alert variant="filled" severity="success">
-               <AlertTitle>Success</AlertTitle>
-               Your Recipe Is Successfully Submitted 
-             </Alert>
-            ) : (
-              <p></p>
+              {addAlertBox === true ? (
+                <Alert variant="filled" severity="success">
+                  <AlertTitle>Success</AlertTitle>
+                  Your Recipe Is Successfully Submitted
+                </Alert>
+              ) : (
+                <p></p>
               )}
-              </div>
+            </div>
           </div>
         </div>
       </form>
