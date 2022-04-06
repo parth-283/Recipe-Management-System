@@ -12,6 +12,7 @@ var users = function (users) {
   this.Password = users.Password;
   this.Status = users.Status;
   this.likes = users.likes;
+  
  
   // this.created_at = new Data();
 };

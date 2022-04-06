@@ -19,6 +19,10 @@ var recipe = function (recipe) {
   this.directions = recipe.directions;
   this.ChefNote = recipe.ChefNote;
   this.Nutrition = recipe.Nutrition;
+  this.ChefName = recipe.ChefName;
+  this.Adddate = recipe.AddDate;
+  this.Preserved = recipe.Preserved;
+  
   // this.created_at = new Data();
 };
 
@@ -79,8 +83,7 @@ recipe.findByID = (id, cb) => {
 
 recipe.update = (data, id, cb) => {
   connection.query(
-    "Update userrecipe set Name =? , Category =? , ShortDes =? , Prep =? , CookMins =? , AdditionalMins =? , TotalTime =? , Servings =? , Yield=? , ingredients=? , description=? , directions=? , ChefNote=? , Nutrition=? , Image=? , Video=? , SocialMedia=?  where UID=?",
-
+    "Update userrecipe set Name =? , Category =? , ShortDes =? , Prep =? , CookMins =? , AdditionalMins =? , TotalTime =? , Servings =? , Yield=? , ingredients=? , description=? , directions=? , ChefNote=? , Nutrition=? , Image=? , Video=? , SocialMedia=? , ChefName=? , Adddate=? , Preserved=?  where UID=?",
     [
       data.Name,
       data.Category,
@@ -99,6 +102,10 @@ recipe.update = (data, id, cb) => {
       data.Image,
       data.Video,
       data.SocialMedia,
+      data.ChefName,
+      data.Adddate,
+      data.Preserved,
+      
       id,
     ],
     function (error, result, field) {
