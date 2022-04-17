@@ -94,7 +94,7 @@ users.delete = (id, cb) => {
       if (error) {
         cb(null.error);
       }
-      cb(null, result);
+      cb(null, result,{message:'Deleted'});
       console.log("users deleted ");
     }
   );

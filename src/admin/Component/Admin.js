@@ -1,21 +1,16 @@
 import React from "react";
-import AllRecipe from "../AdminPages/AllRecipe";
-import UserFeedback from "../AdminPages/UserFeedback";
-import UserList from "../AdminPages/UserList";
-import AdminHeader from './AdminHeader';
+import AdminHeader from "./AdminHeader";
 import AdminSidebar from "./AdminSidebar";
+import logo from "../../../src/pics/RecipeLogo.png";
+import "../../style/AdminContant.css";
 
 function Admin() {
   return (
+    
     <>
- <AdminHeader />
- <AdminSidebar />
- {/* <AllRecipe />
- <UserList/>
- <UserFeedback /> */}
-   
-  </>
-
+      <AdminSidebar />
+    </>
+    
   );
 }
 

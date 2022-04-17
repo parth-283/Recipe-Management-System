@@ -63,7 +63,7 @@ like.update = (data, id, cb) => {
 
 like.delete = (id, cb) => {
     connection.query(
-      "delete from likerecipe where UID =?",
+      "delete from likerecipe where RecipeID =?",
       [id],
       function (error, result, field) {
         if (error) {

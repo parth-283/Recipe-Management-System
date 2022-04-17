@@ -124,7 +124,7 @@ function NavigationBar() {
                   <div className="col">
                     {!isloggedin ? (
                       <div>
-                        <div className="col  pb-4">
+                        <div className="col  pb-">
                           <Link
                             type="button"
                             className="btn btn-outline-primary me-2 fs-5"
@@ -143,7 +143,7 @@ function NavigationBar() {
                           </Link>
                         </div>
                         <div>
-                          <NavsocialIcon />
+                          {/* <NavsocialIcon /> */}
                         </div>
                       </div>
                     ) : (

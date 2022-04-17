@@ -19,7 +19,7 @@ function PizzaMuffins() {
             <div className="container">
               <div className="row">
                 <div className="col">
-                  <figure class="figure">
+                  <figure className="figure">
                     <img
                       src={PizzaMuffins1}
                       className="figure-img img-fluid rounded"

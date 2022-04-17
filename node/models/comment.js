@@ -64,7 +64,7 @@ comment.create = (data, cb) => {
 
   comment.delete = (id, cb) => {
     connection.query(
-      "delete from comment where UID =?",
+      "delete from comment where RecipeID =?",
       [id],
       function (error, result, field) {
         if (error) {
