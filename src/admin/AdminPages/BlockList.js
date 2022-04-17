@@ -44,9 +44,7 @@ const BlockList = (UID) => {
 
   const fetchData = () => {
     fetch(`http://localhost:4500/feedback/list `)
-      .then((response) => {
-        return response.json();
-      })
+      .then((response) =>response.json())
       .then((data) => {
         console.log("dataa", data);
         setUsers(data);
@@ -57,9 +55,6 @@ const BlockList = (UID) => {
 
   const mulData = users.filter((item) => item.Status === "true");
   console.log("mul dataaa", mulData);
-
-  // setBlock(...block ,mulData);
-  // console.log("blockkkkk", block);
 
   const [value, setValue] = React.useState(0);
 
@@ -78,8 +73,8 @@ const BlockList = (UID) => {
       <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Feedback " {...a11yProps(0)} />
-          <Tab label="UserList" {...a11yProps(1)} />
+          {/* <Tab label="Feedback " {...a11yProps(0)} /> */}
+          {/* <Tab label="UserList" {...a11yProps(1)} /> */}
           <Tab label="Recipe" {...a11yProps(2)} />
         </Tabs>
       </Box>

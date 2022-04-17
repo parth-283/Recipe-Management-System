@@ -1,0 +1,45 @@
+.spinner-border-sm {
+  width: 3rem;
+  height: 3rem;
+  border-width: 4px;
+}
+.spinner-align{
+  text-align: center;
+  padding-top: 26%;
+  padding-bottom: 25%;
+}
+.bg_Image{
+  padding-left: 55%;
+  padding-top: 21%;
+  padding-bottom: 14%;
+}
+.logout_btn{
+  color: white ; 
+
+}
+.logout_btn:hover{
+  color: rgb(0, 0, 0); 
+
+}
+.btn_logout_div:hover{
+  background: white;
+}
+/* .modal-dialog {
+  margin: 1.75rem auto;
+} */
+/* .contantPosition {
+  position: absolute;
+  width: 70%;
+  margin-left: 23%;
+  text-align: center;
+} */
+/* .css-18lrjg1-MuiCircularProgress-root {
+  top: 50%;
+  position: fixed;
+}
+.loader {
+  color: rgb(0, 0, 0) !important;
+  width: 60px !important;
+  height: 60px !important;
+} */
+

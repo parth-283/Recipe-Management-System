@@ -8,8 +8,6 @@ function RecipeForm() {
   const date = `${current.getFullYear()}-${
     current.getMonth() + 1
   }-${current.getDate()}`;
-  console.log("Date", date);
-  console.log("current", current);
 
   let reg = localStorage.getItem("login-user-info");
   let regdata = JSON.parse(reg);
@@ -18,6 +16,7 @@ function RecipeForm() {
   let userName = UserFName + " " + UserLName;
 
   const [recipe, setRecipe] = React.useState([]);
+  
   const [ingredients, setIngredients] = React.useState("");
   const [directions, setDirections] = React.useState("");
   const [nutrition, setNutrition] = React.useState("");
@@ -27,6 +26,8 @@ function RecipeForm() {
   const [addAlertBox, setAddAlertBox] = React.useState(false);
   const [addImageAlertBox, setAddImageAlertBox] = React.useState(false);
 
+
+   
 
   let max = 0;
   for (let i = 0; i < recipe.length; i++) {
@@ -56,13 +57,11 @@ function RecipeForm() {
     SocialMedia: "",
     ChefName: userName,
     AddDate: date,
-    // preserved:"",
     preserving:"",
     preservingMeasure:"",
     preservin:"",
   });
 
-  console.log("input", input);
 
   const handleChange = (e) => {
     setInput({
@@ -145,7 +144,6 @@ function RecipeForm() {
   };
   async function handleimage(params) {
     //send image to backend.
-    console.log("simage546666666666666666666666666", simage);
     var formdata = new FormData();
     formdata.append("profile", simage);
     const data = await fetch("http://localhost:4500/recipe/image", {
@@ -170,17 +168,6 @@ function RecipeForm() {
   async function handleSubmit(event) {
     let value = { ...input, UID: max };
     let Preserved =`${input.preserving} ${input.preservingMeasure} in ${input.preservin} `
-    // console.log("handleSubmit####input$$$%%", input);
-    console.log("value####input$$$%%", value);
-    // console.log(Preserved,"Preserved");
-    // console.log(
-    //   "value submit",
-    //   value.Name,
-    //   value.Category,
-    //   value.imageurl,
-    //   value.ingredients,
-    //   value.directions
-    // );
 
     //send data to backend.
     let requestOptions = {
@@ -201,7 +188,7 @@ function RecipeForm() {
       }
     }
 
-  const fetchData = () => {
+  const recipelist = () => {
     fetch("http://localhost:4500/recipe/list")
       .then((response) => {
         return response.json();
@@ -211,7 +198,7 @@ function RecipeForm() {
       });
   };
   React.useEffect(() => {
-    fetchData();
+    recipelist();
   }, []);
 
 
@@ -254,7 +241,7 @@ const preserving = (e) => {
                 className="Category"
                 onChange={handleChange}
               >
-                <option value="none" selected hidden>
+                <option value="none" selecte hidden>
                   Select your recipe's Category
                 </option>
 

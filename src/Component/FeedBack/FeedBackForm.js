@@ -31,6 +31,7 @@ function FeedBackForm() {
   const [users, setUsers] = React.useState([]);
   const [open, setOpen] = React.useState(false);
   const [mobileVal, setMobileVal] = React.useState(false);
+  const [feedbackdata, setFeedbackdata] = useState({});
 
   const changeHandler = (e) => {
     setVali({ ...vali, [e.target.name]: e.target.value });
@@ -47,7 +48,6 @@ function FeedBackForm() {
     }
 
     if (vali.mobile !== "") {
-      debugger;
       if (vali.mobile.length !== 10) {
         setMobileVal(true);
       } else {
@@ -91,29 +91,31 @@ function FeedBackForm() {
     } else {
       const data = new FormData(event.currentTarget);
       let max = Math.max(...users.map(({ UID }) => UID));
-      let feedbackdata = {
+      let feedbackdata2 = {
         UID: ++max,
         name: data.get("name"),
         mobile: data.get("mobile"),
         email: data.get("email"),
         message: data.get("message"),
       };
+      console.log("data.get(name)", data.get("name"));
 
-      let requestOptions = {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(feedbackdata),
-      };
-      let resultdata = await fetch(
-        `http://localhost:4500/feedback/add?UID=${feedbackdata.UID}&Name=${feedbackdata.name}&Phone=${feedbackdata.mobile}&Email=${feedbackdata.email}&Message=${feedbackdata.message}&Status=false`,
-        requestOptions
-      );
-      let result = await resultdata.json();
-      console.log("result", result);
+      // let requestOptions = {
+      //   method: "POST",
+      //   headers: {
+      //     Accept: "application/json",
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(feedbackdata),
+      // };
+      // let resultdata = await fetch(
+      //   `http://localhost:4500/feedback/add?UID=${feedbackdata.UID}&Name=${feedbackdata.name}&Phone=${feedbackdata.mobile}&Email=${feedbackdata.email}&Message=${feedbackdata.message}&Status=false`,
+      //   requestOptions
+      // );
+      // let result = await resultdata.json();
+      // console.log("result", result);
       setOpen(true);
+      
     }
   }
 

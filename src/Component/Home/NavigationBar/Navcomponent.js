@@ -44,7 +44,7 @@ function Navcomponent() {
 
         {isloggedin ? (
           <Link className="nav-link fs-5" as={Link} to="/recipeform">
-            <b>AddRecipe</b>
+            <b>Add Recipe</b>
           </Link>
         ) : (
           <Link className="nav-link fs-5" as={Link} to="/showrecipe">
