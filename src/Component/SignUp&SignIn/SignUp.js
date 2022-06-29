@@ -13,7 +13,8 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { FormLabel, Radio, RadioGroup } from "@mui/material";
 import { useNavigate } from "react-router";
-import "../../style/globally.css"
+import "../../style/globally.css";
+import registerAPI from "./../APIs/Registration";
 
 const theme = createTheme();
 
@@ -32,7 +33,6 @@ function SignUp() {
   const [emailVal, setEmailVal] = React.useState(false);
   const [mobileVal, setMobileVal] = React.useState(false);
 
-
   const changeHandler = (e) => {
     setVali({ ...vali, [e.target.name]: e.target.value });
   };
@@ -42,20 +42,20 @@ function SignUp() {
     event.preventDefault();
 
     // validation................
-  
+
     if (vali.email !== "") {
       if (!/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i.test(vali.email)) {
-        setEmailVal(true)
+        setEmailVal(true);
       } else {
-        setEmailVal(false)
+        setEmailVal(false);
       }
     }
 
     if (vali.mobile !== "") {
       if (vali.mobile.length !== 10) {
-        setMobileVal(true)
+        setMobileVal(true);
       } else {
-        setMobileVal(false)
+        setMobileVal(false);
       }
     }
 
@@ -100,7 +100,7 @@ function SignUp() {
         ...vali,
         errormobile: "Mobile is required*",
       });
-      } else if (vali.state === "") {
+    } else if (vali.state === "") {
       setVali({
         ...vali,
         errorstate: "State is required*",
@@ -122,8 +122,8 @@ function SignUp() {
       });
     } else {
       const data = new FormData(event.currentTarget);
-      
-   let max  = Math.max(...users.map(({ UID }) => UID))
+
+      let max = Math.max(...users.map(({ UID }) => UID));
 
       let regdata = {
         UID: ++max,
@@ -138,26 +138,12 @@ function SignUp() {
         Status: "false",
         likes: "false",
       };
+      await registerAPI(regdata);
 
-      let requestOptions = {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(regdata),
-      };
-      let resultdata = await fetch(
-        `http://localhost:4500/add?UID=${regdata.UID}&FName=${regdata.firstName}&LName=${regdata.lastName}&Gender=${regdata.gender}&State=${regdata.state}&City=${regdata.city}&Email=${regdata.email}&Mobile=${regdata.mobile}&Password=${regdata.password}&Status=false&likes=false`,
-        requestOptions
-      );
-      let result = await resultdata.json();
-      console.log("API result", result);
       localStorage.setItem("user-info", JSON.stringify([{ regdata }]));
       navigate("/SignIn");
     }
   }
-
 
   const fetchData = () => {
     fetch("http://localhost:4500/list")
@@ -172,7 +158,6 @@ function SignUp() {
   React.useEffect(() => {
     fetchData();
   }, []);
-
 
   return (
     <div style={{ marginBottom: "60px" }}>
@@ -225,7 +210,7 @@ function SignUp() {
                     id="firstName"
                     label="First Name"
                     autoFocus
-                    onChange={(e) => changeHandler(e)}e
+                    onChange={(e) => changeHandler(e)}
                   />
                   <label style={{ color: "red" }}>{vali.errorfirstname}</label>
                 </Grid>
@@ -252,7 +237,13 @@ function SignUp() {
                     autoComplete="email"
                     onChange={(e) => changeHandler(e)}
                   />
-                  <label style={{ color: "red" }}>{vali.email === "" ? vali.erroremail : emailVal ? `Email is incorrect*` : ""}</label>
+                  <label style={{ color: "red" }}>
+                    {vali.email === ""
+                      ? vali.erroremail
+                      : emailVal
+                      ? `Email is incorrect*`
+                      : ""}
+                  </label>
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
@@ -266,7 +257,13 @@ function SignUp() {
                     type="number"
                     onChange={(e) => changeHandler(e)}
                   />
-                  <label style={{ color: "red" }}>{vali.mobile === "" ? vali.errormobile : mobileVal ? `Mobile is incorrect*` : ""}</label>
+                  <label style={{ color: "red" }}>
+                    {vali.mobile === ""
+                      ? vali.errormobile
+                      : mobileVal
+                      ? `Mobile is incorrect*`
+                      : ""}
+                  </label>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
