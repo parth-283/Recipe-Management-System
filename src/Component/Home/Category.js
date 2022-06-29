@@ -4,25 +4,29 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import ButtonBase from "@mui/material/ButtonBase";
 import Typography from "@mui/material/Typography";
+import Breakfast from "../../pics/Breakfast.webp"
+import Lunch from "../../pics/Lunch.webp"
+import Dinner from "../../pics/Dinner.webp"
+import Dessert from "../../pics/Dessert.webp"
 
 const images = [
   {
-    url: "https://www.edamam.com/web-img/b24/b240799c96852042a317293299963392.jpg",
+    url: `${Breakfast}`,
     title: "Breakfast",
     width: "25%",
   },
   {
-    url: "https://www.edamam.com/web-img/be9/be98aafdbc8aa7e3901405890eb46316",
+    url: `${Lunch}`,
     title: "Lunch",
     width: "25%",
   },
   {
-    url: "https://www.edamam.com/web-img/fb3/fb3cd151d676a71fa19d0e18a931bfc4",
+    url: `${Dinner}`,
     title: "Dinner",
     width: "25%",
   },
   {
-    url: "https://www.edamam.com/web-img/2de/2defa523fbf3b13a4598faf087191549.jpg",
+    url: `${Dessert}`,
     title: "Dessert",
     width: "25%",
   },
