@@ -27,6 +27,49 @@ import Error404 from "./Component/Error404/Error404";
 import Forgot from './Component/SignUp&SignIn/Forgot';
 
 function App() {
+ 
+   localStorage.setItem("user-info",JSON.stringify([{regdata:{
+          UID: 0,
+          firstName: "",
+          lastName: "",
+          mobile: "",
+          email: "",
+          state: "",
+          city: "",
+          gender: "",
+          password: "",
+          Status: "false",
+          likes: "false",
+        },
+      },
+    ])
+  );
+  localStorage.setItem("login-info",JSON.stringify([{logindata:{
+          email: "$@.com",
+          password: "********",
+        },
+      },
+    ])
+  );
+  localStorage.setItem(
+    "login-user-info",JSON.stringify([{element:{
+          City: " ",
+          Email: " ",
+          FName: "visitor",
+          Gender: " ",
+          LName: " ",
+          Mobile: 0,
+          Password: "123",
+          State: " ",
+          Status: " ",
+          UID: 0,
+          likes: " ",
+        },
+      },
+    ])
+  );
+
+  
   let reg = localStorage.getItem("user-info");
   let regdata = JSON.parse(reg);
   let emailreg = regdata[0].regdata.email;
