@@ -29,16 +29,28 @@ function Footer() {
                     className="col text-start"
                     style={{ fontFamily: "monospace" }}
                   >
-                    <div className="row-6">
-                      <Card.Text>
-                        Yummy food is scrumptious, delicious, delectable,
-                        luscious, great tasting, much more than tasty, really
-                        appetizing, lip-smacking; the kind of food to have you
-                        licking your lips in anticipation. This is the word
-                        everyone wants to hear when bringing food to the table.
-                        Yummy food is never unpalatable, plain tasting,
-                        distasteful or disgusting.
-                      </Card.Text>
+                    <Card.Text>
+                      Yummy food is scrumptious, delicious, delectable,
+                      luscious, great tasting, much more than tasty, really
+                      appetizing, lip-smacking; the kind of food to have you
+                      licking your lips in anticipation. This is the word
+                      everyone wants to hear when bringing food to the table.
+                      Yummy food is never unpalatable, plain tasting,
+                      distasteful or disgusting.
+                    </Card.Text>
+                  </div>
+                  <div className="col" >
+                    
+                    <div className="row ">
+                      <div className="col">
+                        <Navcomponent/>
+                      </div>
+                      <div className="row " style={{maxInlineSize:" min-content"}}>
+                        <NavsocialIcon />
+                      </div>
+                      
+                      
+                      
                     </div>
                   </div>
                   <div className="col">
