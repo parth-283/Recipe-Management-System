@@ -8,7 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import SearchIcon from "@material-ui/icons/Search";
 import Recipe from "./../../Recipes/Recipe";
 
-import category from "../Home/category";
+import Category from "../Home/Category";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,6 +36,7 @@ function HeaderBottom() {
   const [recipe, setRecipe] = useState([]);
   const [search, setSearch] = useState("");
   const [query, setQuery] = useState("veg");
+  const [showLoderRecipe, setShowLoderRecipe] = useState(false);
 
   useEffect(() => {
     getRecipe();
@@ -47,14 +48,15 @@ function HeaderBottom() {
       `https://api.edamam.com/search?q=${query}&app_id=${App_ID}&app_key=${App_KEY}`
     );
     setRecipe(response.data.hits);
-    console.log("RESPONSE", response);
+    // console.log("RESPONSE", response);
+    if(response){
+      setShowLoderRecipe(true)
+    }
   };
 
   const updatesearch = (e) => {
     setSearch(e.target.value);
-    console.log("search", e.target.value);
   };
-
   const updatequery = (e) => {
     e.preventDefault();
     setQuery(search);
@@ -67,13 +69,18 @@ function HeaderBottom() {
           <div className="container">
             <div className="col mt-4 text-dark">
             <div>
-                      <category />
+                      <Category />
                             
                     </div>
             </div>
-            
-            <div className="card-body">
-              {/* <h5 className="card-title">Search Food Recipe</h5> */}
+            {!showLoderRecipe === true ?(
+               <div className="spinner-align" >
+               <div className="spinner-border spinner-border-sm" role="status">
+                 <span className="visually-hidden">Loading...</span>
+               </div>
+             </div>
+            ):(
+              <div className="card-body">
               <div className="card-text">
                 <div className="input-group ">
                   <div>
@@ -104,6 +111,7 @@ function HeaderBottom() {
                         {recipe.map((recipe) => (
                           <Grid item xs={4}>
                             <Recipe
+                            query={query}
                               key={recipe.recipe.label}
                               title={recipe.recipe.label}
                               calories={recipe.recipe.calories}
@@ -118,6 +126,8 @@ function HeaderBottom() {
                 </div>
               </div>
             </div>
+            )}
+           
           </div>
         </div>
       </div>

@@ -1,10 +1,11 @@
 var connection = require("../config/DB");
 
 var recipe = function (recipe) {
-  this.UID = recipe.UID
+  this.UID = recipe.UID;
   this.Name = recipe.Name;
+  this.Category = recipe.Category;
   this.ShortDes = recipe.ShortDes;
-  this.Image = recipe.Image;
+  this.imageurl = recipe.imageurl;
   this.Video = recipe.Video;
   this.SocialMedia = recipe.SocialMedia;
   this.Prep = recipe.Prep;
@@ -15,13 +16,30 @@ var recipe = function (recipe) {
   this.Yield = recipe.Yield;
   this.description = recipe.description;
   this.ingredients = recipe.ingredients;
-  this.Directions = recipe.Directions;
+  this.directions = recipe.directions;
   this.ChefNote = recipe.ChefNote;
   this.Nutrition = recipe.Nutrition;
+  this.ChefName = recipe.ChefName;
+  this.Adddate = recipe.AddDate;
+  this.Preserved = recipe.Preserved;
+  
   // this.created_at = new Data();
 };
 
+// recipe.create = (data, cb) => {
+//   console.log("data+++++++++++++++++++++++++++++", data);
+//   let sql = "Insert Into userrecipe set ?";
+//   connection.query(sql, [data], function (error, result, field) {
+//     if (error) {
+//       cb(error);
+//     }
+//     cb(null, { message: "added" });
+//     console.log("Data Added ", result);
+//   });
+// };
+
 recipe.create = (data, cb) => {
+  // console.log("data+++++++++++++++++++++++++++++", data);
   connection.query(
     "Insert Into userrecipe set ?",
     [data],
@@ -30,10 +48,11 @@ recipe.create = (data, cb) => {
         cb(error);
       }
       cb(null, { message: "added" });
-      console.log("Data Added ");
+      console.log("recipe Added ");
     }
   );
 };
+
 
 
 recipe.findall = (cb) => {
@@ -43,8 +62,9 @@ recipe.findall = (cb) => {
       cb(null.err);
     }
     cb(null, result);
-  });
-  console.log("data show");
+  // console.log("data",result);
+});
+  console.log("recipe Show");
 };
 
 recipe.findByID = (id, cb) => {
@@ -56,32 +76,44 @@ recipe.findByID = (id, cb) => {
         cb(null.error);
       }
       cb(null, result);
-      console.log("data show by UID");
+      console.log("recipe show by UID");
     }
   );
 };
 
-recipe.update = (data,id,cb) => {
+recipe.update = (data, id, cb) => {
   connection.query(
-    "Update userrecipe set FName =? , LName =? , Gender =? , State =? , City =? , Email =? , Mobile =? , Password =? , Status=?  where UID=?",
+    "Update userrecipe set Name =? , Category =? , ShortDes =? , Prep =? , CookMins =? , AdditionalMins =? , TotalTime =? , Servings =? , Yield=? , ingredients=? , description=? , directions=? , ChefNote=? , Nutrition=? , Image=? , Video=? , SocialMedia=? , ChefName=? , Adddate=? , Preserved=?  where UID=?",
     [
-      data.FName,
-      data.LName,
-      data.Gender,
-      data.State,
-      data.City,
-      data.Email,
-      data.Mobile,
-      data.Password,
-      data.Status,
+      data.Name,
+      data.Category,
+      data.ShortDes,
+      data.Prep,
+      data.CookMins,
+      data.AdditionalMins,
+      data.TotalTime,
+      data.Servings,
+      data.Yield,
+      data.ingredients,
+      data.description,
+      data.directions,
+      data.ChefNote,
+      data.Nutrition,
+      data.Image,
+      data.Video,
+      data.SocialMedia,
+      data.ChefName,
+      data.Adddate,
+      data.Preserved,
+      
       id,
     ],
     function (error, result, field) {
       if (error) {
-        cb(null.error); 
+        cb(null.error);
       }
-      cb(null, {message:'updated'});
-      console.log("data show by UID");
+      cb(null, { message: "updated" });
+      console.log("recipe updated");
     }
   );
 };
@@ -95,13 +127,9 @@ recipe.delete = (id, cb) => {
         cb(null.error);
       }
       cb(null, result);
-      console.log("deleted ");
+      console.log("recipe deleted ");
     }
   );
 };
-
-
-
-
 
 module.exports = recipe;

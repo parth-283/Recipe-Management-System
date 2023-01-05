@@ -47,7 +47,22 @@ function NavigationBar() {
       email: "$@.com",
       password: "********",
     };
+    const element = {
+      City: " ",
+      Email: " ",
+      FName: "visitor",
+      Gender: " ",
+      LName: " ",
+      Mobile: 0,
+      Password: "123",
+      State: " ",
+      Status: " ",
+      UID: 0,
+      likes: " ",
+    };
+
     localStorage.setItem("login-info", JSON.stringify([{ logindata }]));
+    localStorage.setItem("login-user-info", JSON.stringify([{ element }]));
     navigate("/home");
   };
 
@@ -109,7 +124,7 @@ function NavigationBar() {
                   <div className="col">
                     {!isloggedin ? (
                       <div>
-                        <div className="col  pb-4">
+                        <div className="col  pb-">
                           <Link
                             type="button"
                             className="btn btn-outline-primary me-2 fs-5"
@@ -128,7 +143,7 @@ function NavigationBar() {
                           </Link>
                         </div>
                         <div>
-                          <NavsocialIcon />
+                          {/* <NavsocialIcon /> */}
                         </div>
                       </div>
                     ) : (

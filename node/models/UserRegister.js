@@ -11,6 +11,9 @@ var users = function (users) {
   this.Mobile = users.Mobile;
   this.Password = users.Password;
   this.Status = users.Status;
+  this.likes = users.likes;
+  
+ 
   // this.created_at = new Data();
 };
 
@@ -23,7 +26,7 @@ users.create = (data, cb) => {
         cb(error);
       }
       cb(null, { message: "added" });
-      console.log("Data Added ");
+      console.log("users Added ");
     }
   );
 };
@@ -35,7 +38,7 @@ users.findall = (cb) => {
     }
     cb(null, result);
   });
-  console.log("data show");
+  console.log("users show");
 };
 
 users.findByID = (id, cb) => {
@@ -47,14 +50,15 @@ users.findByID = (id, cb) => {
         cb(null.error);
       }
       cb(null, result);
-      console.log("data show by UID");
+      console.log("users show by UID");
     }
   );
 };
 
+
 users.update = (data,id,cb) => {
   connection.query(
-    "Update userregister set FName =? , LName =? , Gender =? , State =? , City =? , Email =? , Mobile =? , Password =? , Status=?  where UID=?",
+    "Update userregister set FName =? , LName =? , Gender =? , State =? , City =? , Email =? , Mobile =? , Password =? , Status=? , likes=?  where UID=?",
     [
       data.FName,
       data.LName,
@@ -65,17 +69,22 @@ users.update = (data,id,cb) => {
       data.Mobile,
       data.Password,
       data.Status,
+      data.likes,
       id,
     ],
     function (error, result, field) {
       if (error) {
+        console.log("error",error);
         cb(null.error); 
       }
       cb(null, {message:'updated'});
-      console.log("data show by UID");
+      console.log("users updated");
     }
   );
 };
+
+
+
 
 users.delete = (id, cb) => {
   connection.query(
@@ -85,8 +94,8 @@ users.delete = (id, cb) => {
       if (error) {
         cb(null.error);
       }
-      cb(null, result);
-      console.log("deleted ");
+      cb(null, result,{message:'Deleted'});
+      console.log("users deleted ");
     }
   );
 };

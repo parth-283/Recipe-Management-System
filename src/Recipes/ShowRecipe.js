@@ -7,6 +7,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import SearchIcon from "@material-ui/icons/Search";
 import ShowRecipeAPI from "./ShowRecipeAPI";
+import { useLocation } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,9 +32,13 @@ function ShowRecipe() {
   const App_ID = "76fa7c7c";
   const App_KEY = "f4dc5ebea60537e16e961e692f1ad339";
 
+  const location = useLocation()
   const [recipe, setRecipe] = useState([]);
   const [search, setSearch] = useState("");
-  const [query, setQuery] = useState("veg");
+  const [query, setQuery] = useState(location.state);
+  const [showLoderRecipe, setShowLoderRecipe] = useState(false);
+
+  console.log("location",location.state);
 
   useEffect(() => {
     getRecipe();
@@ -44,7 +49,9 @@ function ShowRecipe() {
       `https://api.edamam.com/search?q=${query}&app_id=${App_ID}&app_key=${App_KEY}`
     );
     setRecipe(response.data.hits);
-    console.log("RESPONSE", response);
+    if(response){
+      setShowLoderRecipe(true)
+    }
   };
 
   const updatesearch = (e) => {
@@ -60,7 +67,14 @@ function ShowRecipe() {
 
   return (
     <div>
-      <div className="card text-center">
+      {!showLoderRecipe === true? (
+ <div className="spinner-align" >
+ <div className="spinner-border spinner-border-sm" role="status">
+   <span className="visually-hidden">Loading...</span>
+ </div>
+</div>
+      ):(
+        <div className="card text-center">
         <div style={{ backgroundColor: "#4ab1ff" }}>
           <div className="container">
             <div
@@ -127,6 +141,8 @@ function ShowRecipe() {
           </div>
         </div>
       </div>
+      )}
+     
     </div>
   );
 }

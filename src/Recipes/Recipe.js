@@ -14,6 +14,7 @@ import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import {useNavigate} from "react-router-dom"
 // import FavoriteIcon from "@mui/icons-material/Favorite";
 // import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 // import ThumbDownIcon from "@mui/icons-material/ThumbDown";
@@ -31,13 +32,18 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-function Recipe({key, title, calories, image, ingredients }) {
+function Recipe({key, title, calories, image, ingredients , query }) {
   const [expanded, setExpanded] = React.useState(false);
+  let navigate = useNavigate();
+  
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  const handleDetilesRecipe = () => {
+    navigate('/showrecipe', { state: query})
+  }
   return (
     <div style={{ height: "400px !important" }} className="cardMain">
       <Card sx={{ margin: "15px 15px" }}>
@@ -51,18 +57,7 @@ function Recipe({key, title, calories, image, ingredients }) {
         />
 
         <CardActions disableSpacing>
-          {/* <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
-          </IconButton> */}
-          {/* <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton> */}
-          {/* <IconButton aria-label="share">
-            <ThumbUpIcon />
-          </IconButton>
-          <IconButton aria-label="share">
-            <ThumbDownIcon />
-          </IconButton> */}
+      
           <label className="fs-6">Show details</label>
           <ExpandMore
             expand={expanded}
@@ -88,22 +83,14 @@ function Recipe({key, title, calories, image, ingredients }) {
                 ))}
               </ol>
             </div>
-            <Link className="btn-outline-info fs-5 " as={Link} to="/showrecipe">
+            <button className="btn-outline-info fs-5 "  onClick={handleDetilesRecipe}>
           More Info
-          </Link>
+          </button>
           </CardContent>
         </Collapse>
       </Card>
 
-      {/* 
-                <p>Title: {title}</p>
-            <p>Calories: {calories}</p>
-            <img src={image} alt="..." />
-            <ol>
-              {ingredients.map((ingredient) => (
-                <li>{ingredient.text}</li>
-              ))}
-            </ol> */}
+     
     </div>
   );
 }

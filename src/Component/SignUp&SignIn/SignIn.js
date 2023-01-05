@@ -38,8 +38,9 @@ export default function SignIn() {
     let userdata = JSON.parse(user);
     let emailreg = userdata[0].regdata.email;
     let passwordreg = userdata[0].regdata.password;
+    let UIDreg = userdata[0].regdata.UID;
     let usercheck = false;
-
+    console.log("UIDreg",UIDreg);
     for (let i = 0; i < users.length; i++) {
       const element = users[i];
       if (
@@ -48,6 +49,7 @@ export default function SignIn() {
       ) {
         usercheck = true;
         localStorage.setItem("login-user-info", JSON.stringify([{ element }]));
+
         break;
       }
       usercheck = false;
@@ -57,7 +59,7 @@ console.log("userchek",usercheck);
     if (usercheck) {
       navigate("/home");
       console.log("user is authenticate");
-    }else if (logindata.email == "admin" && logindata.password == "admin") {
+    }else if (logindata.email == "parthkathiriya@gmail.com" && logindata.password == "kathiriya") {
       navigate("/admin")
     } else if (emailreg !== logindata.email) {
       alert("Your Email Is Incorrect");
@@ -158,10 +160,7 @@ console.log("userssssssssssssssss",users);
                 id="password"
                 autoComplete="current-password"
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
+              
               <Button
                 type="submit"
                 fullWidth
@@ -171,11 +170,11 @@ console.log("userssssssssssssssss",users);
                 Sign In
               </Button>
               <Grid container>
-                {/* <Grid item xs>
-                  <Link href="#" variant="body2">
+                <Grid item xs>
+                  <Link href="/forgot" variant="body2">
                     Forgot password?
                   </Link>
-                </Grid> */}
+                </Grid>
                 <Grid item>
                   <Link href="/SignUp" variant="body2">
                     {"Don't have an account? Sign Up"}

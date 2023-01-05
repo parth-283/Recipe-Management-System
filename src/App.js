@@ -1,4 +1,4 @@
-import { Route, Routes} from "react-router";
+import { Route, Routes } from "react-router";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Home from "./Component/Home/Home";
@@ -18,15 +18,58 @@ import RecipeForm from "./Recipes/RecipeForm";
 import ShowRecipe from "./Recipes/ShowRecipe";
 
 import Admin from "./admin/Component/Admin";
-import AllRecipe from './admin/AdminPages/AllRecipe';
-import UserList from './admin/AdminPages/UserList';
-import UserFeedback from './admin/AdminPages/UserFeedback';
-import BlockList from './admin/AdminPages/BlockList';
-import UserRecipe from './Recipes/UserRecipe/UserRecipe';
+import AllRecipe from "./admin/AdminPages/AllRecipe";
+import UserList from "./admin/AdminPages/UserList";
+import UserFeedback from "./admin/AdminPages/UserFeedback";
+import BlockList from "./admin/AdminPages/BlockList";
+import UserRecipe from "./Recipes/UserRecipe/UserRecipe";
+import Error404 from "./Component/Error404/Error404";
+import Forgot from './Component/SignUp&SignIn/Forgot';
 
 function App() {
+ 
+   localStorage.setItem("user-info",JSON.stringify([{regdata:{
+          UID: 0,
+          firstName: "",
+          lastName: "",
+          mobile: "",
+          email: "",
+          state: "",
+          city: "",
+          gender: "",
+          password: "",
+          Status: "false",
+          likes: "false",
+        },
+      },
+    ])
+  );
+  localStorage.setItem("login-info",JSON.stringify([{logindata:{
+          email: "$@.com",
+          password: "********",
+        },
+      },
+    ])
+  );
+  localStorage.setItem(
+    "login-user-info",JSON.stringify([{element:{
+          City: " ",
+          Email: " ",
+          FName: "visitor",
+          Gender: " ",
+          LName: " ",
+          Mobile: 0,
+          Password: "123",
+          State: " ",
+          Status: " ",
+          UID: 0,
+          likes: " ",
+        },
+      },
+    ])
+  );
 
-
+  
   let reg = localStorage.getItem("user-info");
   let regdata = JSON.parse(reg);
   let emailreg = regdata[0].regdata.email;
@@ -46,8 +89,6 @@ function App() {
   } else {
     isloggedin = false;
   }
- 
-
 
   return (
     <div style={{ backgroundColor: "#bddaf2" }}>
@@ -67,6 +108,7 @@ function App() {
 
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/SignIn" element={<SignIn />} />
+          <Route path="/forgot" element={<Forgot />} />
           {!isloggedin ? (
             <Route path="/showrecipe" element={<ShowRecipe />} />
           ) : (
@@ -80,18 +122,14 @@ function App() {
         </Route>
 
         <Route path="/admin" element={<Admin />}>
-             <Route path="/admin/home" element={<Home />} />
           <Route path="/admin/allrecipe" element={<AllRecipe />} />
-          <Route path="/admin/userlist" element={<UserList />} />
+          <Route path="/admin/UserList" element={<UserList />} />
           <Route path="/admin/userfeedback" element={<UserFeedback />} />
-          <Route path="/admin/blocklist" element={<BlockList />} />
+          {/* <Route path="/admin/blocklist" element={<BlockList />} /> */}
         </Route>
+          {/* <Route path="*" element={<Error404 />} /> */}
       </Routes>
 
-       {/* {location.pathname !== "/admin" &&
-      location.pathname !== "/admin/allrecipe" &&
-      location.pathname !== "/admin/userlist" &&
-      location.pathname !== "/admin/userfeedback" && location.pathname !== "*" && <Footer />} */}
     </div>
   );
 }
